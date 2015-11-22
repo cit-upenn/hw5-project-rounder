@@ -125,7 +125,7 @@ public class Number {
 	 * @return true if it's 25 - 36
 	 */
 	public boolean isThirdThird() {
-		return num >= 13 && num <= 24;
+		return num >= 25 && num <= 36;
 	}
 	
 }
