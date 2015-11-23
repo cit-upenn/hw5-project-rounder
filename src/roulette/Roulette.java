@@ -85,6 +85,57 @@ public class Roulette {
 		return roundNumber;
 	}
 
+	/**
+	 * checks if this bet hits
+	 * 
+	 * @param n
+	 *            player's single bet number
+	 * @return true if hit
+	 */
+	public boolean hitSingle(Number n) {
+		return roundNumber.getNum() == n.getNum();
+	}
+
+	/**
+	 * checks if this bet hits
+	 * 
+	 * @param b
+	 *            player's group bet
+	 * @return true if hit
+	 */
+	public boolean hitGroup(Bet b) {
+
+		switch (b) {
+		case Black:
+			return roundNumber.isBlack();
+		case Red:
+			return roundNumber.isRed();
+		case Even:
+			return roundNumber.isEven();
+		case Odd:
+			return roundNumber.isOdd();
+		case FirstHalf:
+			return roundNumber.isFirstHalf();
+		case SecondHalf:
+			return roundNumber.isSecondHalf();
+		case FirstDozen:
+			return roundNumber.isFirstDozen();
+		case SecondDozen:
+			return roundNumber.isSecondDozen();
+		case ThirdDozen:
+			return roundNumber.isThirdDozen();
+		case FirstColumn:
+			return roundNumber.isFirstColumn();
+		case SecondColumn:
+			return roundNumber.isSecondColumn();
+		case ThirdColumn:
+			return roundNumber.isThirdColumn();
+		default:
+			return false;
+		}
+
+	}
+
 	public static void main(String[] args) {
 		Roulette r = new Roulette();
 		r.spin();

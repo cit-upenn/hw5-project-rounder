@@ -1,7 +1,8 @@
 package roulette;
 
 /**
- * This class represents one single Roulette number. Range: [0, 36] 
+ * This class represents one single Roulette number. 
+ * Range: [0, 36] 
  * Color: 
  * 1. Green - 0 
  * 2. Red - 1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36 
@@ -120,7 +121,7 @@ public class Number {
 	 * 
 	 * @return true if it's 1 - 12
 	 */
-	public boolean isFirstThird() {
+	public boolean isFirstDozen() {
 		return num >= 1 && num <= 12;
 	}
 
@@ -129,7 +130,7 @@ public class Number {
 	 * 
 	 * @return true if it's 13 - 24
 	 */
-	public boolean isSecondThird() {
+	public boolean isSecondDozen() {
 		return num >= 13 && num <= 24;
 	}
 
@@ -138,10 +139,37 @@ public class Number {
 	 * 
 	 * @return true if it's 25 - 36
 	 */
-	public boolean isThirdThird() {
+	public boolean isThirdDozen() {
 		return num >= 25 && num <= 36;
 	}
 
+	/**
+	 * checks if it's first column
+	 * 
+	 * @return true if so
+	 */
+	public boolean isFirstColumn() {
+		return num % 3 == 1;
+	}
+
+	/**
+	 * checks if it's second column
+	 * 
+	 * @return true if so
+	 */
+	public boolean isSecondColumn() {
+		return num% 3 == 2;
+	}
+
+	/**
+	 * checks if it's third column
+	 * 
+	 * @return true if so
+	 */
+	public boolean isThirdColumn() {
+		return num % 3 == 0;
+	}
+	
 	@Override
 	public String toString() {
 		return "(" + num + ", " + color + ")";
