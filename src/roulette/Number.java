@@ -15,7 +15,7 @@ public class Number {
 
 	// instance variables
 	private final int num;
-	private final Color color;
+	private final OwnColor color;
 
 	/**
 	 * constructor
@@ -25,7 +25,7 @@ public class Number {
 	 * @param color
 	 *            number color
 	 */
-	public Number(int num, Color color) {
+	public Number(int num, OwnColor color) {
 		this.num = num;
 		this.color = color;
 	}
@@ -40,7 +40,7 @@ public class Number {
 	/**
 	 * @return the color
 	 */
-	public Color getColor() {
+	public OwnColor getColor() {
 		return color;
 	}
 
@@ -77,7 +77,7 @@ public class Number {
 	 * @return true if it's Red
 	 */
 	public boolean isRed() {
-		return color == Color.Red;
+		return color == OwnColor.Red;
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class Number {
 	 * @return true if it's Black
 	 */
 	public boolean isBlack() {
-		return color == Color.Black;
+		return color == OwnColor.Black;
 	}
 
 	/**
@@ -95,7 +95,7 @@ public class Number {
 	 * @return true if it's Green
 	 */
 	public boolean isGreen() {
-		return color == Color.Green;
+		return color == OwnColor.Green;
 	}
 
 	/**
@@ -176,7 +176,7 @@ public class Number {
 	}
 
 	public static void main(String[] args) {
-		Number n = new Number(1, Color.Red);
+		Number n = new Number(1, OwnColor.Red);
 		System.out.println(n);
 	}
 

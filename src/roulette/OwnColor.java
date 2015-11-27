@@ -6,6 +6,6 @@ package roulette;
  * @author SHANG
  *
  */
-public enum Color {
+public enum OwnColor {
 	Red, Black, Green
 }

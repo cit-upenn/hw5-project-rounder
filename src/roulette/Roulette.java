@@ -29,41 +29,41 @@ public class Roulette {
 	 * adds 0 - 36 numbers into the roulette
 	 */
 	private void setUp() {
-		roulette.add(new Number(0, Color.Green));
+		roulette.add(new Number(0, OwnColor.Green));
 
 		// add 1 - 10
 		for (int i = 1; i <= 10; i++) {
 			if (i % 2 == 1) {
-				roulette.add(new Number(i, Color.Red));
+				roulette.add(new Number(i, OwnColor.Red));
 			} else {
-				roulette.add(new Number(i, Color.Black));
+				roulette.add(new Number(i, OwnColor.Black));
 			}
 		}
 
 		// add 11 - 18
 		for (int i = 11; i <= 18; i++) {
 			if (i % 2 == 0) {
-				roulette.add(new Number(i, Color.Red));
+				roulette.add(new Number(i, OwnColor.Red));
 			} else {
-				roulette.add(new Number(i, Color.Black));
+				roulette.add(new Number(i, OwnColor.Black));
 			}
 		}
 
 		// add 19 - 28
 		for (int i = 19; i <= 28; i++) {
 			if (i % 2 == 1) {
-				roulette.add(new Number(i, Color.Red));
+				roulette.add(new Number(i, OwnColor.Red));
 			} else {
-				roulette.add(new Number(i, Color.Black));
+				roulette.add(new Number(i, OwnColor.Black));
 			}
 		}
 
 		// add 29 - 36
 		for (int i = 19; i <= 28; i++) {
 			if (i % 2 == 0) {
-				roulette.add(new Number(i, Color.Red));
+				roulette.add(new Number(i, OwnColor.Red));
 			} else {
-				roulette.add(new Number(i, Color.Black));
+				roulette.add(new Number(i, OwnColor.Black));
 			}
 		}
 
