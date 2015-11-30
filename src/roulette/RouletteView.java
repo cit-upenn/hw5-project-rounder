@@ -24,8 +24,8 @@ public class RouletteView extends JFrame {
 	private JButton b1stColumn, b2ndColumn, b3rdColumn, b1stDozen, b2ndDozen, b3rdDozen, b1stHalf, b2ndHalf, bOdd,
 			bEven, bRed, bBlack;
 	private static final Border WHITE_BORDER = new LineBorder(Color.WHITE, 2);
-	private static final Color darkGreen = new Color(0,100,0);
-	private static final Color forestGreen = new Color(34,139,34);
+	private static final Color darkGreen = new Color(0, 100, 0);
+	private static final Color forestGreen = new Color(34, 139, 34);
 
 	/**
 	 * constructor
@@ -33,7 +33,7 @@ public class RouletteView extends JFrame {
 	public RouletteView() {
 		roulette = new Roulette();
 		display();
-		
+
 	}
 
 	/**
@@ -43,8 +43,8 @@ public class RouletteView extends JFrame {
 		setTitle("Roulette");
 		layOutComponents();
 		attachListenersToComponents();
-		setSize(1200, 400);
-		setName("Roulette");
+		setPreferredSize(new Dimension(1200, 400));
+		pack();
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
@@ -68,7 +68,7 @@ public class RouletteView extends JFrame {
 		center = new JPanel();
 		right = new JPanel();
 		bottom = new JPanel();
-		
+
 		add(top, BorderLayout.NORTH);
 		add(left, BorderLayout.WEST);
 		add(center, BorderLayout.CENTER);
@@ -87,15 +87,15 @@ public class RouletteView extends JFrame {
 		subCenter = new JPanel();
 		subRight = new JPanel();
 		subBottom = new JPanel();
-		
-		//set background color
+
+		// set background color
 		subTop.setBackground(darkGreen);
 		subLeft.setBackground(darkGreen);
 		subCenter.setBackground(darkGreen);
 		subRight.setBackground(darkGreen);
 		subBottom.setBackground(darkGreen);
-		
-		//add to center panel
+
+		// add to center panel
 		center.add(subTop, BorderLayout.NORTH);
 		center.add(subLeft, BorderLayout.WEST);
 		center.add(subCenter, BorderLayout.CENTER);
@@ -111,6 +111,12 @@ public class RouletteView extends JFrame {
 		// set button "0"
 		subLeft.setLayout(new GridLayout(1, 1));
 		b0 = new JButton("0");
+		b0.setPreferredSize(new Dimension(70, 30));
+		b0.setForeground(Color.white);
+		b0.setBackground(forestGreen);
+		b0.setOpaque(true);
+		b0.setBorderPainted(true);
+		b0.setBorder(WHITE_BORDER);
 
 		// set button "1" to "36"
 		subCenter.setLayout(new GridLayout(3, 12));
@@ -369,53 +375,97 @@ public class RouletteView extends JFrame {
 		// add 1st-3rd column buttons
 		subRight.setLayout(new GridLayout(3, 1));
 		b1stColumn = new JButton("2 to 1");
-//		b1stColumn.setPreferredSize(new Dimension(40, 40));
-//		b1stColumn.setForeground(Color.white);
-//		b1stColumn.setBackground(forestGreen);
-//		b1stColumn.setOpaque(true);
-//		b1stColumn.setBorderPainted(true);
-//		b1stColumn.setBorder(WHITE_BORDER);
-		
+		b1stColumn.setPreferredSize(new Dimension(80, 40));
+		b1stColumn.setForeground(Color.white);
+		b1stColumn.setBackground(forestGreen);
+		b1stColumn.setOpaque(true);
+		b1stColumn.setBorderPainted(true);
+		b1stColumn.setBorder(WHITE_BORDER);
+
 		b2ndColumn = new JButton("2 to 1");
-//		b2ndColumn.setPreferredSize(new Dimension(40, 40));
-//		b2ndColumn.setForeground(Color.white);
-//		b2ndColumn.setBackground(forestGreen);
-//		b2ndColumn.setOpaque(true);
-//		b2ndColumn.setBorderPainted(true);
-//		b2ndColumn.setBorder(WHITE_BORDER);
-		
+		b2ndColumn.setPreferredSize(new Dimension(80, 40));
+		b2ndColumn.setForeground(Color.white);
+		b2ndColumn.setBackground(forestGreen);
+		b2ndColumn.setOpaque(true);
+		b2ndColumn.setBorderPainted(true);
+		b2ndColumn.setBorder(WHITE_BORDER);
+
 		b3rdColumn = new JButton("2 to 1");
-//		b3rdColumn.setPreferredSize(new Dimension(40, 40));
-//		b3rdColumn.setForeground(Color.white);
-//		b3rdColumn.setBackground(forestGreen);
-//		b3rdColumn.setOpaque(true);
-//		b3rdColumn.setBorderPainted(true);
-//		b3rdColumn.setBorder(WHITE_BORDER);
+		b3rdColumn.setPreferredSize(new Dimension(80, 40));
+		b3rdColumn.setForeground(Color.white);
+		b3rdColumn.setBackground(forestGreen);
+		b3rdColumn.setOpaque(true);
+		b3rdColumn.setBorderPainted(true);
+		b3rdColumn.setBorder(WHITE_BORDER);
 
 		// add 1st-3rd dozen buttons
 		subBottom.setLayout(new GridLayout(2, 3));
 		b1stDozen = new JButton("1st 12");
+		b1stDozen.setForeground(Color.white);
+		b1stDozen.setBackground(forestGreen);
+		b1stDozen.setOpaque(true);
+		b1stDozen.setBorderPainted(true);
+		b1stDozen.setBorder(WHITE_BORDER);
+
 		b2ndDozen = new JButton("2nd 12");
+		b2ndDozen = new JButton("1st 12");
+		b2ndDozen.setForeground(Color.white);
+		b2ndDozen.setBackground(forestGreen);
+		b2ndDozen.setOpaque(true);
+		b2ndDozen.setBorderPainted(true);
+		b2ndDozen.setBorder(WHITE_BORDER);
+
 		b3rdDozen = new JButton("3rd 12");
+		b3rdDozen = new JButton("1st 12");
+		b3rdDozen.setForeground(Color.white);
+		b3rdDozen.setBackground(forestGreen);
+		b3rdDozen.setOpaque(true);
+		b3rdDozen.setBorderPainted(true);
+		b3rdDozen.setBorder(WHITE_BORDER);
 
 		// add sub-bottom buttons
 		// 1-18/19-36, RED/BLACK, ODD/EVEN
 		subBottom1 = new JPanel();
 		subBottom2 = new JPanel();
 		subBottom3 = new JPanel();
-		
+
 		subBottom1.setBackground(darkGreen);
 		subBottom2.setBackground(darkGreen);
 		subBottom3.setBackground(darkGreen);
-		
+
 		subBottom1.setLayout(new GridLayout(1, 2));
 		subBottom2.setLayout(new GridLayout(1, 2));
 		subBottom3.setLayout(new GridLayout(1, 2));
 
 		bOdd = new JButton("ODD");
+		// bOdd.setPreferredSize(new Dimension(40, 20));
+		bOdd.setForeground(Color.white);
+		bOdd.setBackground(forestGreen);
+		bOdd.setOpaque(true);
+		bOdd.setBorderPainted(true);
+		bOdd.setBorder(WHITE_BORDER);
+
 		bEven = new JButton("EVEN");
+		bEven.setForeground(Color.white);
+		bEven.setBackground(forestGreen);
+		bEven.setOpaque(true);
+		bEven.setBorderPainted(true);
+		bEven.setBorder(WHITE_BORDER);
+
 		b1stHalf = new JButton("1 to 18");
+		b1stHalf.setForeground(Color.white);
+		b1stHalf.setBackground(forestGreen);
+		b1stHalf.setOpaque(true);
+		b1stHalf.setBorderPainted(true);
+		b1stHalf.setBorder(WHITE_BORDER);
+
 		b2ndHalf = new JButton("19 to 36");
+		b2ndHalf.setForeground(Color.white);
+		b2ndHalf.setBackground(forestGreen);
+		b2ndHalf.setOpaque(true);
+		b2ndHalf.setBorderPainted(true);
+		b2ndHalf.setBorder(WHITE_BORDER);
+
 		bRed = new JButton("RED");
 		bBlack = new JButton("BLACK");
 		bRed.setForeground(Color.white);
