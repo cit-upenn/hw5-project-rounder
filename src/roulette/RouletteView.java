@@ -5,9 +5,9 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 /**
- * This class draws the roulette table and allows players to place bets on it.
+ * This class will show a roulette table for the player to play
  * 
- * @author SHANG
+ * @author zhiyuanli
  *
  */
 public class RouletteView extends JFrame {
@@ -24,6 +24,8 @@ public class RouletteView extends JFrame {
 	private JButton b1stColumn, b2ndColumn, b3rdColumn, b1stDozen, b2ndDozen, b3rdDozen, b1stHalf, b2ndHalf, bOdd,
 			bEven, bRed, bBlack;
 	private static final Border WHITE_BORDER = new LineBorder(Color.WHITE, 2);
+	private static final Color darkGreen = new Color(0,100,0);
+	private static final Color forestGreen = new Color(34,139,34);
 
 	/**
 	 * constructor
@@ -31,15 +33,18 @@ public class RouletteView extends JFrame {
 	public RouletteView() {
 		roulette = new Roulette();
 		display();
+		
 	}
 
 	/**
 	 * helper method to construct the roulette table
 	 */
 	private void display() {
+		setTitle("Roulette");
 		layOutComponents();
 		attachListenersToComponents();
 		setSize(1200, 400);
+		setName("Roulette");
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
@@ -63,7 +68,7 @@ public class RouletteView extends JFrame {
 		center = new JPanel();
 		right = new JPanel();
 		bottom = new JPanel();
-
+		
 		add(top, BorderLayout.NORTH);
 		add(left, BorderLayout.WEST);
 		add(center, BorderLayout.CENTER);
@@ -82,7 +87,15 @@ public class RouletteView extends JFrame {
 		subCenter = new JPanel();
 		subRight = new JPanel();
 		subBottom = new JPanel();
-
+		
+		//set background color
+		subTop.setBackground(darkGreen);
+		subLeft.setBackground(darkGreen);
+		subCenter.setBackground(darkGreen);
+		subRight.setBackground(darkGreen);
+		subBottom.setBackground(darkGreen);
+		
+		//add to center panel
 		center.add(subTop, BorderLayout.NORTH);
 		center.add(subLeft, BorderLayout.WEST);
 		center.add(subCenter, BorderLayout.CENTER);
@@ -356,8 +369,28 @@ public class RouletteView extends JFrame {
 		// add 1st-3rd column buttons
 		subRight.setLayout(new GridLayout(3, 1));
 		b1stColumn = new JButton("2 to 1");
+//		b1stColumn.setPreferredSize(new Dimension(40, 40));
+//		b1stColumn.setForeground(Color.white);
+//		b1stColumn.setBackground(forestGreen);
+//		b1stColumn.setOpaque(true);
+//		b1stColumn.setBorderPainted(true);
+//		b1stColumn.setBorder(WHITE_BORDER);
+		
 		b2ndColumn = new JButton("2 to 1");
+//		b2ndColumn.setPreferredSize(new Dimension(40, 40));
+//		b2ndColumn.setForeground(Color.white);
+//		b2ndColumn.setBackground(forestGreen);
+//		b2ndColumn.setOpaque(true);
+//		b2ndColumn.setBorderPainted(true);
+//		b2ndColumn.setBorder(WHITE_BORDER);
+		
 		b3rdColumn = new JButton("2 to 1");
+//		b3rdColumn.setPreferredSize(new Dimension(40, 40));
+//		b3rdColumn.setForeground(Color.white);
+//		b3rdColumn.setBackground(forestGreen);
+//		b3rdColumn.setOpaque(true);
+//		b3rdColumn.setBorderPainted(true);
+//		b3rdColumn.setBorder(WHITE_BORDER);
 
 		// add 1st-3rd dozen buttons
 		subBottom.setLayout(new GridLayout(2, 3));
@@ -370,6 +403,11 @@ public class RouletteView extends JFrame {
 		subBottom1 = new JPanel();
 		subBottom2 = new JPanel();
 		subBottom3 = new JPanel();
+		
+		subBottom1.setBackground(darkGreen);
+		subBottom2.setBackground(darkGreen);
+		subBottom3.setBackground(darkGreen);
+		
 		subBottom1.setLayout(new GridLayout(1, 2));
 		subBottom2.setLayout(new GridLayout(1, 2));
 		subBottom3.setLayout(new GridLayout(1, 2));
