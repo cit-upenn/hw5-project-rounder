@@ -3,21 +3,13 @@ package roulette;
 //Import packages
 import javax.swing.*;
 
-import org.omg.CORBA.VersionSpecHelper;
-
 import java.awt.*;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
+import javax.swing.border.*;
 
 //Main class
 public class UI {
 	// Declare variables
 	static JFrame frame;
-	static Container pane;
-	static JButton btnConnect, btnDisconnect;
-	static JLabel lblServer, lblUsername, lblPassword, lblPort;
-	static JTextField txtServer, txtUsername, txtPassword, txtPort;
-	static Insets insets;
 
 	public static void main(String args[]) {
 		// Create the frame
@@ -49,7 +41,6 @@ public class UI {
 		Panel center_right = new Panel();
 		Panel center_center = new Panel();
 		Panel center_bottom = new Panel();
-		Panel center_bottom2 = new Panel();
 
 		center.add(center_left, BorderLayout.WEST);
 		center.add(center_center, BorderLayout.CENTER);
