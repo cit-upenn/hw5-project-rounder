@@ -19,8 +19,7 @@ public class RouletteView extends JFrame {
 	private JPanel top, left, right, bottom, center;
 	private JPanel subTop, subLeft, subRight, subBottom, subCenter;
 	private JPanel subBottom1, subBottom2, subBottom3;
-	private JButton b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17, b18, b19, b20, b21,
-			b22, b23, b24, b25, b26, b27, b28, b29, b30, b31, b32, b33, b34, b35, b36;
+	private JButton[] buttons;
 	private JButton b1stColumn, b2ndColumn, b3rdColumn, b1stDozen, b2ndDozen, b3rdDozen, b1stHalf, b2ndHalf, bOdd,
 			bEven, bRed, bBlack;
 	private static final Border WHITE_BORDER = new LineBorder(Color.WHITE, 2);
@@ -108,269 +107,79 @@ public class RouletteView extends JFrame {
 	 */
 	private void addButtons() {
 
+		buttons = new JButton[37];
+		for (int i = 0; i < buttons.length; i++) {
+			buttons[i] = new JButton("" + i);
+		}
+
 		// set button "0"
 		subLeft.setLayout(new GridLayout(1, 1));
-		b0 = new JButton("0");
-		b0.setPreferredSize(new Dimension(70, 30));
-		b0.setForeground(Color.white);
-		b0.setBackground(FOREST_GREEN);
-		b0.setOpaque(true);
-		b0.setBorderPainted(true);
-		b0.setBorder(WHITE_BORDER);
+
+		buttons[0].setPreferredSize(new Dimension(70, 30));
+		buttons[0].setForeground(Color.white);
+		buttons[0].setBackground(FOREST_GREEN);
+		buttons[0].setOpaque(true);
+		buttons[0].setBorderPainted(true);
+		buttons[0].setBorder(WHITE_BORDER);
 
 		// set button "1" to "36"
 		subCenter.setLayout(new GridLayout(3, 12));
-		b1 = new JButton("1");
-		b1.setForeground(Color.white);
-		b1.setBackground(Color.red);
-		b1.setOpaque(true);
-		b1.setBorderPainted(true);
-		b1.setBorder(WHITE_BORDER);
+		// set button 1 to 10
+		for (int i = 1; i <= 10; i++) {
 
-		b2 = new JButton("2");
-		b2.setForeground(Color.white);
-		b2.setBackground(Color.black);
-		b2.setOpaque(true);
-		b2.setBorderPainted(true);
-		b2.setBorder(WHITE_BORDER);
+			if (i % 2 == 1) {
+				buttons[i].setBackground(Color.red);
+			} else {
 
-		b3 = new JButton("3");
-		b3.setForeground(Color.white);
-		b3.setBackground(Color.red);
-		b3.setOpaque(true);
-		b3.setBorderPainted(true);
-		b3.setBorder(WHITE_BORDER);
+				buttons[i].setBackground(Color.black);
+			}
+			buttons[i].setForeground(Color.white);
+			buttons[i].setOpaque(true);
+			buttons[i].setBorderPainted(true);
+			buttons[i].setBorder(WHITE_BORDER);
+		}
 
-		b4 = new JButton("4");
-		b4.setForeground(Color.white);
-		b4.setBackground(Color.black);
-		b4.setOpaque(true);
-		b4.setBorderPainted(true);
-		b4.setBorder(WHITE_BORDER);
+		for (int i = 11; i <= 18; i++) {
 
-		b5 = new JButton("5");
-		b5.setForeground(Color.white);
-		b5.setBackground(Color.red);
-		b5.setOpaque(true);
-		b5.setBorderPainted(true);
-		b5.setBorder(WHITE_BORDER);
+			if (i % 2 == 0) {
+				buttons[i].setBackground(Color.red);
+			} else {
 
-		b6 = new JButton("6");
-		b6.setForeground(Color.white);
-		b6.setBackground(Color.black);
-		b6.setOpaque(true);
-		b6.setBorderPainted(true);
-		b6.setBorder(WHITE_BORDER);
+				buttons[i].setBackground(Color.black);
+			}
+			buttons[i].setForeground(Color.white);
+			buttons[i].setOpaque(true);
+			buttons[i].setBorderPainted(true);
+			buttons[i].setBorder(WHITE_BORDER);
+		}
 
-		b7 = new JButton("7");
-		b7.setForeground(Color.white);
-		b7.setBackground(Color.red);
-		b7.setOpaque(true);
-		b7.setBorderPainted(true);
-		b7.setBorder(WHITE_BORDER);
+		for (int i = 19; i <= 28; i++) {
 
-		b8 = new JButton("8");
-		b8.setForeground(Color.white);
-		b8.setBackground(Color.black);
-		b8.setOpaque(true);
-		b8.setBorderPainted(true);
-		b8.setBorder(WHITE_BORDER);
+			if (i % 2 == 1) {
+				buttons[i].setBackground(Color.red);
+			} else {
 
-		b9 = new JButton("9");
-		b9.setForeground(Color.white);
-		b9.setBackground(Color.red);
-		b9.setOpaque(true);
-		b9.setBorderPainted(true);
-		b9.setBorder(WHITE_BORDER);
+				buttons[i].setBackground(Color.black);
+			}
+			buttons[i].setForeground(Color.white);
+			buttons[i].setOpaque(true);
+			buttons[i].setBorderPainted(true);
+			buttons[i].setBorder(WHITE_BORDER);
+		}
 
-		b10 = new JButton("10");
-		b10.setForeground(Color.white);
-		b10.setBackground(Color.black);
-		b10.setOpaque(true);
-		b10.setBorderPainted(true);
-		b10.setBorder(WHITE_BORDER);
+		for (int i = 29; i <= 36; i++) {
 
-		b11 = new JButton("11");
-		b11.setForeground(Color.white);
-		b11.setBackground(Color.black);
-		b11.setOpaque(true);
-		b11.setBorderPainted(true);
-		b11.setBorder(WHITE_BORDER);
+			if (i % 2 == 0) {
+				buttons[i].setBackground(Color.red);
+			} else {
 
-		b12 = new JButton("12");
-		b12.setForeground(Color.white);
-		b12.setBackground(Color.red);
-		b12.setOpaque(true);
-		b12.setBorderPainted(true);
-		b12.setBorder(WHITE_BORDER);
-
-		b13 = new JButton("13");
-		b13.setForeground(Color.white);
-		b13.setBackground(Color.black);
-		b13.setOpaque(true);
-		b13.setBorderPainted(true);
-		b13.setBorder(WHITE_BORDER);
-
-		b14 = new JButton("14");
-		b14.setForeground(Color.white);
-		b14.setBackground(Color.red);
-		b14.setOpaque(true);
-		b14.setBorderPainted(true);
-		b14.setBorder(WHITE_BORDER);
-
-		b15 = new JButton("15");
-		b15.setForeground(Color.white);
-		b15.setBackground(Color.black);
-		b15.setOpaque(true);
-		b15.setBorderPainted(true);
-		b15.setBorder(WHITE_BORDER);
-
-		b16 = new JButton("16");
-		b16.setForeground(Color.white);
-		b16.setBackground(Color.red);
-		b16.setOpaque(true);
-		b16.setBorderPainted(true);
-		b16.setBorder(WHITE_BORDER);
-
-		b17 = new JButton("17");
-		b17.setForeground(Color.white);
-		b17.setBackground(Color.black);
-		b17.setOpaque(true);
-		b17.setBorderPainted(true);
-		b17.setBorder(WHITE_BORDER);
-
-		b18 = new JButton("18");
-		b18.setForeground(Color.white);
-		b18.setBackground(Color.red);
-		b18.setOpaque(true);
-		b18.setBorderPainted(true);
-		b18.setBorder(WHITE_BORDER);
-
-		b19 = new JButton("19");
-		b19.setForeground(Color.white);
-		b19.setBackground(Color.red);
-		b19.setOpaque(true);
-		b19.setBorderPainted(true);
-		b19.setBorder(WHITE_BORDER);
-
-		b20 = new JButton("20");
-		b20.setForeground(Color.white);
-		b20.setBackground(Color.black);
-		b20.setOpaque(true);
-		b20.setBorderPainted(true);
-		b20.setBorder(WHITE_BORDER);
-
-		b21 = new JButton("21");
-		b21.setForeground(Color.white);
-		b21.setBackground(Color.red);
-		b21.setOpaque(true);
-		b21.setBorderPainted(true);
-		b21.setBorder(WHITE_BORDER);
-
-		b22 = new JButton("22");
-		b22.setForeground(Color.white);
-		b22.setBackground(Color.black);
-		b22.setOpaque(true);
-		b22.setBorderPainted(true);
-		b22.setBorder(WHITE_BORDER);
-
-		b23 = new JButton("23");
-		b23.setForeground(Color.white);
-		b23.setBackground(Color.red);
-		b23.setOpaque(true);
-		b23.setBorderPainted(true);
-		b23.setBorder(WHITE_BORDER);
-
-		b24 = new JButton("24");
-		b24.setForeground(Color.white);
-		b24.setBackground(Color.black);
-		b24.setOpaque(true);
-		b24.setBorderPainted(true);
-		b24.setBorder(WHITE_BORDER);
-
-		b25 = new JButton("25");
-		b25.setForeground(Color.white);
-		b25.setBackground(Color.red);
-		b25.setOpaque(true);
-		b25.setBorderPainted(true);
-		b25.setBorder(WHITE_BORDER);
-
-		b26 = new JButton("26");
-		b26.setForeground(Color.white);
-		b26.setBackground(Color.black);
-		b26.setOpaque(true);
-		b26.setBorderPainted(true);
-		b26.setBorder(WHITE_BORDER);
-
-		b27 = new JButton("27");
-		b27.setForeground(Color.white);
-		b27.setBackground(Color.red);
-		b27.setOpaque(true);
-		b27.setBorderPainted(true);
-		b27.setBorder(WHITE_BORDER);
-
-		b28 = new JButton("28");
-		b28.setForeground(Color.white);
-		b28.setBackground(Color.black);
-		b28.setOpaque(true);
-		b28.setBorderPainted(true);
-		b28.setBorder(WHITE_BORDER);
-
-		b29 = new JButton("29");
-		b29.setForeground(Color.white);
-		b29.setBackground(Color.black);
-		b29.setOpaque(true);
-		b29.setBorderPainted(true);
-		b29.setBorder(WHITE_BORDER);
-
-		b30 = new JButton("30");
-		b30.setForeground(Color.white);
-		b30.setBackground(Color.red);
-		b30.setOpaque(true);
-		b30.setBorderPainted(true);
-		b30.setBorder(WHITE_BORDER);
-
-		b31 = new JButton("31");
-		b31.setForeground(Color.white);
-		b31.setBackground(Color.black);
-		b31.setOpaque(true);
-		b31.setBorderPainted(true);
-		b31.setBorder(WHITE_BORDER);
-
-		b32 = new JButton("32");
-		b32.setForeground(Color.white);
-		b32.setBackground(Color.red);
-		b32.setOpaque(true);
-		b32.setBorderPainted(true);
-		b32.setBorder(WHITE_BORDER);
-
-		b33 = new JButton("33");
-		b33.setForeground(Color.white);
-		b33.setBackground(Color.black);
-		b33.setOpaque(true);
-		b33.setBorderPainted(true);
-		b33.setBorder(WHITE_BORDER);
-
-		b34 = new JButton("34");
-		b34.setForeground(Color.white);
-		b34.setBackground(Color.red);
-		b34.setOpaque(true);
-		b34.setBorderPainted(true);
-		b34.setBorder(WHITE_BORDER);
-
-		b35 = new JButton("35");
-		b35.setForeground(Color.white);
-		b35.setBackground(Color.black);
-		b35.setOpaque(true);
-		b35.setBorderPainted(true);
-		b35.setBorder(WHITE_BORDER);
-
-		b36 = new JButton("36");
-		b36.setForeground(Color.white);
-		b36.setBackground(Color.red);
-		b36.setOpaque(true);
-		b36.setBorderPainted(true);
-		b36.setBorder(WHITE_BORDER);
+				buttons[i].setBackground(Color.black);
+			}
+			buttons[i].setForeground(Color.white);
+			buttons[i].setOpaque(true);
+			buttons[i].setBorderPainted(true);
+			buttons[i].setBorder(WHITE_BORDER);
+		}
 
 		// add 1st-3rd column buttons
 		subRight.setLayout(new GridLayout(3, 1));
@@ -488,44 +297,44 @@ public class RouletteView extends JFrame {
 	private void addButtonToPanel() {
 
 		// add buttons in certain order
-		subLeft.add(b0);
+		subLeft.add(buttons[0]);
 
-		subCenter.add(b3);
-		subCenter.add(b6);
-		subCenter.add(b9);
-		subCenter.add(b12);
-		subCenter.add(b15);
-		subCenter.add(b18);
-		subCenter.add(b21);
-		subCenter.add(b24);
-		subCenter.add(b27);
-		subCenter.add(b30);
-		subCenter.add(b33);
-		subCenter.add(b36);
-		subCenter.add(b2);
-		subCenter.add(b5);
-		subCenter.add(b8);
-		subCenter.add(b11);
-		subCenter.add(b14);
-		subCenter.add(b17);
-		subCenter.add(b20);
-		subCenter.add(b23);
-		subCenter.add(b26);
-		subCenter.add(b29);
-		subCenter.add(b32);
-		subCenter.add(b35);
-		subCenter.add(b1);
-		subCenter.add(b4);
-		subCenter.add(b7);
-		subCenter.add(b10);
-		subCenter.add(b13);
-		subCenter.add(b16);
-		subCenter.add(b19);
-		subCenter.add(b22);
-		subCenter.add(b25);
-		subCenter.add(b28);
-		subCenter.add(b31);
-		subCenter.add(b34);
+		subCenter.add(buttons[3]);
+		subCenter.add(buttons[6]);
+		subCenter.add(buttons[9]);
+		subCenter.add(buttons[12]);
+		subCenter.add(buttons[15]);
+		subCenter.add(buttons[18]);
+		subCenter.add(buttons[21]);
+		subCenter.add(buttons[24]);
+		subCenter.add(buttons[27]);
+		subCenter.add(buttons[30]);
+		subCenter.add(buttons[33]);
+		subCenter.add(buttons[36]);
+		subCenter.add(buttons[2]);
+		subCenter.add(buttons[5]);
+		subCenter.add(buttons[8]);
+		subCenter.add(buttons[11]);
+		subCenter.add(buttons[14]);
+		subCenter.add(buttons[17]);
+		subCenter.add(buttons[20]);
+		subCenter.add(buttons[23]);
+		subCenter.add(buttons[26]);
+		subCenter.add(buttons[29]);
+		subCenter.add(buttons[32]);
+		subCenter.add(buttons[35]);
+		subCenter.add(buttons[1]);
+		subCenter.add(buttons[4]);
+		subCenter.add(buttons[7]);
+		subCenter.add(buttons[10]);
+		subCenter.add(buttons[13]);
+		subCenter.add(buttons[16]);
+		subCenter.add(buttons[19]);
+		subCenter.add(buttons[22]);
+		subCenter.add(buttons[25]);
+		subCenter.add(buttons[28]);
+		subCenter.add(buttons[31]);
+		subCenter.add(buttons[34]);
 
 		subRight.add(b3rdColumn);
 		subRight.add(b2ndColumn);

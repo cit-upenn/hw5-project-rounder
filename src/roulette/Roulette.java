@@ -59,7 +59,7 @@ public class Roulette {
 		}
 
 		// add 29 - 36
-		for (int i = 19; i <= 28; i++) {
+		for (int i = 29; i <= 36; i++) {
 			if (i % 2 == 0) {
 				roulette.add(new Number(i, OwnColor.Red));
 			} else {
