@@ -128,8 +128,9 @@ public class RouletteView extends JFrame {
 		buttons[0].setPreferredSize(new Dimension(70, 30));
 		buttons[0].setBackground(FOREST_GREEN);
 
-		// set button "1" to "36"
+		// set layout for button "1" to "36"
 		subCenter.setLayout(new GridLayout(3, 12));
+		
 		// set button 1 to 10
 		for (int i = 1; i <= 10; i++) {
 
@@ -141,7 +142,8 @@ public class RouletteView extends JFrame {
 			}
 
 		}
-
+		
+		// set button 11 to 18
 		for (int i = 11; i <= 18; i++) {
 
 			if (i % 2 == 0) {
@@ -153,6 +155,7 @@ public class RouletteView extends JFrame {
 
 		}
 
+		// set button 19 to 28
 		for (int i = 19; i <= 28; i++) {
 
 			if (i % 2 == 1) {
@@ -164,6 +167,7 @@ public class RouletteView extends JFrame {
 
 		}
 
+		// set button 29 to 36
 		for (int i = 29; i <= 36; i++) {
 
 			if (i % 2 == 0) {
@@ -394,8 +398,8 @@ public class RouletteView extends JFrame {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String text = "" + i + "\n" + "[$" + clicked + "]";
 			clicked++;
+			String text = "" + i + "\n" + "[$" + clicked + "]";
 			buttons[i].setText("<html>" + text.replaceAll("\\n", "<br>") + "</html>");
 		}
 		
