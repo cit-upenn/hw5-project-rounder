@@ -301,33 +301,33 @@ public class RouletteView extends JFrame {
 	 */
 	private String buttonIndexToString(int index) {
 		switch (index) {
-		case 37:
-			return "2 to 1";// 1stRow(bottom 1st)
-		case 38:
-			return "2 to 1";// 2ndRow
-		case 39:
-			return "2 to 1";// 3rdRow
-		case 40:
-			return "1st 12";
-		case 41:
-			return "2nd 12";
-		case 42:
-			return "3rd 12";
-		case 43:
-			return "1 - 18";
-		case 44:
-			return "EVEN";
-		case 45:
-			return "RED";
-		case 46:
-			return "BLACK";
-		case 47:
-			return "ODD";
-		case 48:
-			return "19 - 36";
-		default:
-			return "" + index;
-		}
+			case 37:
+				return "2 to 1";// 1stRow(bottom 1st)
+			case 38:
+				return "2 to 1";// 2ndRow
+			case 39:
+				return "2 to 1";// 3rdRow
+			case 40:
+				return "1st 12";
+			case 41:
+				return "2nd 12";
+			case 42:
+				return "3rd 12";
+			case 43:
+				return "1 - 18";
+			case 44:
+				return "EVEN";
+			case 45:
+				return "RED";
+			case 46:
+				return "BLACK";
+			case 47:
+				return "ODD";
+			case 48:
+				return "19 - 36";
+			default:
+				return "" + index;
+			}
 	}
 
 	/**
@@ -363,8 +363,14 @@ public class RouletteView extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			String text = "";
+			
 			clicked++;
-			String text = "" + i + "\n" + "[$" + clicked + "]";
+			if (i < 37) {
+				text += i + "\n" + "[$" + clicked + "]";
+			} else {
+				text += buttonIndexToString(i) + " [$" + clicked + "]";
+			}
 			buttons[i].setText("<html>" + text.replaceAll("\\n", "<br>") + "</html>");
 		}
 
