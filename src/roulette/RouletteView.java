@@ -128,7 +128,7 @@ public class RouletteView extends JFrame {
 
 		// set layout for button "1" to "36"
 		subCenter.setLayout(new GridLayout(3, 12));
-		
+
 		// set button 1 to 10
 		for (int i = 1; i <= 10; i++) {
 
@@ -140,7 +140,7 @@ public class RouletteView extends JFrame {
 			}
 
 		}
-		
+
 		// set button 11 to 18
 		for (int i = 11; i <= 18; i++) {
 
@@ -176,16 +176,7 @@ public class RouletteView extends JFrame {
 			}
 
 		}
-		for (int i = 29; i <= 36; i++) {
 
-			if (i % 2 == 0) {
-				buttons[i].setBackground(Color.red);
-			} else {
-
-				buttons[i].setBackground(Color.black);
-			}
-
-		}
 		// add 1st-3rd column buttons
 		subRight.setLayout(new GridLayout(3, 1));
 		for (int i = 37; i <= 39; i++) {
@@ -196,9 +187,6 @@ public class RouletteView extends JFrame {
 		// add 1st-3rd dozen buttons
 		subBottom.setLayout(new GridLayout(2, 3));
 		subBottom.setPreferredSize(new Dimension(1200, 80));
-		// for(int i = 40; i <=42;i++){
-		// buttons[i].setBackground(FOREST_GREEN);
-		// }
 
 		// add sub-bottom buttons
 		// 1-18/19-36, RED/BLACK, ODD/EVEN
@@ -214,15 +202,15 @@ public class RouletteView extends JFrame {
 		subBottom2.setLayout(new GridLayout(1, 2));
 		subBottom3.setLayout(new GridLayout(1, 2));
 
+		// set background color for bottom sections
 		for (int i = 40; i <= 48; i++) {
 			if (i != 45 && i != 46) {
 				buttons[i].setBackground(FOREST_GREEN);
 			}
-
 		}
 
+		// set background color for RED and BLACK
 		buttons[45].setBackground(Color.red);
-
 		buttons[46].setBackground(Color.black);
 
 		addButtonToPanel();
@@ -301,33 +289,33 @@ public class RouletteView extends JFrame {
 	 */
 	private String buttonIndexToString(int index) {
 		switch (index) {
-			case 37:
-				return "2 to 1";// 1stRow(bottom 1st)
-			case 38:
-				return "2 to 1";// 2ndRow
-			case 39:
-				return "2 to 1";// 3rdRow
-			case 40:
-				return "1st 12";
-			case 41:
-				return "2nd 12";
-			case 42:
-				return "3rd 12";
-			case 43:
-				return "1 - 18";
-			case 44:
-				return "EVEN";
-			case 45:
-				return "RED";
-			case 46:
-				return "BLACK";
-			case 47:
-				return "ODD";
-			case 48:
-				return "19 - 36";
-			default:
-				return "" + index;
-			}
+		case 37:
+			return "2 to 1";// 1stRow(bottom 1st)
+		case 38:
+			return "2 to 1";// 2ndRow
+		case 39:
+			return "2 to 1";// 3rdRow
+		case 40:
+			return "1st 12";
+		case 41:
+			return "2nd 12";
+		case 42:
+			return "3rd 12";
+		case 43:
+			return "1 - 18";
+		case 44:
+			return "EVEN";
+		case 45:
+			return "RED";
+		case 46:
+			return "BLACK";
+		case 47:
+			return "ODD";
+		case 48:
+			return "19 - 36";
+		default:
+			return "" + index;
+		}
 	}
 
 	/**
@@ -335,6 +323,7 @@ public class RouletteView extends JFrame {
 	 */
 	private void attachListenersToComponents() {
 
+		// add listeners for each button
 		for (int i = 0; i < buttons.length; i++) {
 			buttons[i].addActionListener(new ButtonEvent(i));
 		}
@@ -342,7 +331,7 @@ public class RouletteView extends JFrame {
 	}
 
 	/**
-	 * inner class for single number betting
+	 * inner class for button click event
 	 */
 	private class ButtonEvent implements ActionListener {
 
@@ -364,13 +353,15 @@ public class RouletteView extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String text = "";
-			
+
 			clicked++;
+
 			if (i < 37) {
 				text += i + "\n" + "[$" + clicked + "]";
 			} else {
 				text += buttonIndexToString(i) + " [$" + clicked + "]";
 			}
+
 			buttons[i].setText("<html>" + text.replaceAll("\\n", "<br>") + "</html>");
 		}
 
