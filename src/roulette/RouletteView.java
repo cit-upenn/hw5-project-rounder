@@ -107,20 +107,23 @@ public class RouletteView extends JFrame {
 	 */
 	private void addButtons() {
 
+		// initializing
 		buttons = new JButton[37];
+		
+		// set up every button color and font
 		for (int i = 0; i < buttons.length; i++) {
 			buttons[i] = new JButton("" + i);
+			buttons[i].setForeground(Color.white);
+			buttons[i].setOpaque(true);
+			buttons[i].setBorderPainted(true);
+			buttons[i].setBorder(WHITE_BORDER);
+			buttons[i].setFont(new Font("Arial", Font.PLAIN, 40));
 		}
 
 		// set button "0"
 		subLeft.setLayout(new GridLayout(1, 1));
-
 		buttons[0].setPreferredSize(new Dimension(70, 30));
-		buttons[0].setForeground(Color.white);
 		buttons[0].setBackground(FOREST_GREEN);
-		buttons[0].setOpaque(true);
-		buttons[0].setBorderPainted(true);
-		buttons[0].setBorder(WHITE_BORDER);
 
 		// set button "1" to "36"
 		subCenter.setLayout(new GridLayout(3, 12));
@@ -133,10 +136,7 @@ public class RouletteView extends JFrame {
 
 				buttons[i].setBackground(Color.black);
 			}
-			buttons[i].setForeground(Color.white);
-			buttons[i].setOpaque(true);
-			buttons[i].setBorderPainted(true);
-			buttons[i].setBorder(WHITE_BORDER);
+
 		}
 
 		for (int i = 11; i <= 18; i++) {
@@ -147,10 +147,7 @@ public class RouletteView extends JFrame {
 
 				buttons[i].setBackground(Color.black);
 			}
-			buttons[i].setForeground(Color.white);
-			buttons[i].setOpaque(true);
-			buttons[i].setBorderPainted(true);
-			buttons[i].setBorder(WHITE_BORDER);
+
 		}
 
 		for (int i = 19; i <= 28; i++) {
@@ -161,10 +158,7 @@ public class RouletteView extends JFrame {
 
 				buttons[i].setBackground(Color.black);
 			}
-			buttons[i].setForeground(Color.white);
-			buttons[i].setOpaque(true);
-			buttons[i].setBorderPainted(true);
-			buttons[i].setBorder(WHITE_BORDER);
+
 		}
 
 		for (int i = 29; i <= 36; i++) {
@@ -175,10 +169,7 @@ public class RouletteView extends JFrame {
 
 				buttons[i].setBackground(Color.black);
 			}
-			buttons[i].setForeground(Color.white);
-			buttons[i].setOpaque(true);
-			buttons[i].setBorderPainted(true);
-			buttons[i].setBorder(WHITE_BORDER);
+			
 		}
 
 		// add 1st-3rd column buttons
@@ -190,7 +181,8 @@ public class RouletteView extends JFrame {
 		b1stColumn.setOpaque(true);
 		b1stColumn.setBorderPainted(true);
 		b1stColumn.setBorder(WHITE_BORDER);
-
+		b1stColumn.setFont(new Font("Arial", Font.PLAIN, 25));
+		
 		b2ndColumn = new JButton("2 to 1");
 		b2ndColumn.setPreferredSize(new Dimension(80, 40));
 		b2ndColumn.setForeground(Color.white);
@@ -198,7 +190,8 @@ public class RouletteView extends JFrame {
 		b2ndColumn.setOpaque(true);
 		b2ndColumn.setBorderPainted(true);
 		b2ndColumn.setBorder(WHITE_BORDER);
-
+		b2ndColumn.setFont(new Font("Arial", Font.PLAIN, 25));
+		
 		b3rdColumn = new JButton("2 to 1");
 		b3rdColumn.setPreferredSize(new Dimension(80, 40));
 		b3rdColumn.setForeground(Color.white);
@@ -206,6 +199,7 @@ public class RouletteView extends JFrame {
 		b3rdColumn.setOpaque(true);
 		b3rdColumn.setBorderPainted(true);
 		b3rdColumn.setBorder(WHITE_BORDER);
+		b3rdColumn.setFont(new Font("Arial", Font.PLAIN, 25));
 
 		// add 1st-3rd dozen buttons
 		subBottom.setLayout(new GridLayout(2, 3));
@@ -216,21 +210,24 @@ public class RouletteView extends JFrame {
 		b1stDozen.setOpaque(true);
 		b1stDozen.setBorderPainted(true);
 		b1stDozen.setBorder(WHITE_BORDER);
-
+		b1stDozen.setFont(new Font("Arial", Font.PLAIN, 25));
+		
 		b2ndDozen = new JButton("2nd 12");
 		b2ndDozen.setForeground(Color.white);
 		b2ndDozen.setBackground(FOREST_GREEN);
 		b2ndDozen.setOpaque(true);
 		b2ndDozen.setBorderPainted(true);
 		b2ndDozen.setBorder(WHITE_BORDER);
-
+		b2ndDozen.setFont(new Font("Arial", Font.PLAIN, 25));
+		
 		b3rdDozen = new JButton("3rd 12");
 		b3rdDozen.setForeground(Color.white);
 		b3rdDozen.setBackground(FOREST_GREEN);
 		b3rdDozen.setOpaque(true);
 		b3rdDozen.setBorderPainted(true);
 		b3rdDozen.setBorder(WHITE_BORDER);
-
+		b3rdDozen.setFont(new Font("Arial", Font.PLAIN, 25));
+		
 		// add sub-bottom buttons
 		// 1-18/19-36, RED/BLACK, ODD/EVEN
 		subBottom1 = new JPanel();
@@ -252,6 +249,7 @@ public class RouletteView extends JFrame {
 		bOdd.setOpaque(true);
 		bOdd.setBorderPainted(true);
 		bOdd.setBorder(WHITE_BORDER);
+		bOdd.setFont(new Font("Arial", Font.PLAIN, 25));
 
 		bEven = new JButton("EVEN");
 		bEven.setForeground(Color.white);
@@ -259,34 +257,41 @@ public class RouletteView extends JFrame {
 		bEven.setOpaque(true);
 		bEven.setBorderPainted(true);
 		bEven.setBorder(WHITE_BORDER);
-
+		bEven.setFont(new Font("Arial", Font.PLAIN, 25));
+		
 		b1stHalf = new JButton("1 to 18");
 		b1stHalf.setForeground(Color.white);
 		b1stHalf.setBackground(FOREST_GREEN);
 		b1stHalf.setOpaque(true);
 		b1stHalf.setBorderPainted(true);
 		b1stHalf.setBorder(WHITE_BORDER);
-
+		b1stHalf.setFont(new Font("Arial", Font.PLAIN, 25));
+		
 		b2ndHalf = new JButton("19 to 36");
 		b2ndHalf.setForeground(Color.white);
 		b2ndHalf.setBackground(FOREST_GREEN);
 		b2ndHalf.setOpaque(true);
 		b2ndHalf.setBorderPainted(true);
 		b2ndHalf.setBorder(WHITE_BORDER);
-
+		b2ndHalf.setFont(new Font("Arial", Font.PLAIN, 25));
+		
 		bRed = new JButton("RED");
 		bBlack = new JButton("BLACK");
+		
 		bRed.setForeground(Color.white);
 		bRed.setBackground(Color.red);
 		bRed.setOpaque(true);
 		bRed.setBorderPainted(true);
 		bRed.setBorder(WHITE_BORDER);
+		bRed.setFont(new Font("Arial", Font.PLAIN, 25));
+		
 		bBlack.setForeground(Color.white);
 		bBlack.setBackground(Color.black);
 		bBlack.setOpaque(true);
 		bBlack.setBorderPainted(true);
 		bBlack.setBorder(WHITE_BORDER);
-
+		bBlack.setFont(new Font("Arial", Font.PLAIN, 25));
+		
 		addButtonToPanel();
 	}
 
