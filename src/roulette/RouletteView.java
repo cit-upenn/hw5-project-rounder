@@ -209,6 +209,7 @@ public class RouletteView extends JFrame {
 
 		// add 1st-3rd dozen buttons
 		subBottom.setLayout(new GridLayout(2, 3));
+		subBottom.setPreferredSize(new Dimension(1200, 80));
 		b1stDozen = new JButton("1st 12");
 		b1stDozen.setForeground(Color.white);
 		b1stDozen.setBackground(FOREST_GREEN);
@@ -217,7 +218,6 @@ public class RouletteView extends JFrame {
 		b1stDozen.setBorder(WHITE_BORDER);
 
 		b2ndDozen = new JButton("2nd 12");
-		b2ndDozen = new JButton("1st 12");
 		b2ndDozen.setForeground(Color.white);
 		b2ndDozen.setBackground(FOREST_GREEN);
 		b2ndDozen.setOpaque(true);
@@ -225,7 +225,6 @@ public class RouletteView extends JFrame {
 		b2ndDozen.setBorder(WHITE_BORDER);
 
 		b3rdDozen = new JButton("3rd 12");
-		b3rdDozen = new JButton("1st 12");
 		b3rdDozen.setForeground(Color.white);
 		b3rdDozen.setBackground(FOREST_GREEN);
 		b3rdDozen.setOpaque(true);
