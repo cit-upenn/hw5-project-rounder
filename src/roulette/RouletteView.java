@@ -1,6 +1,9 @@
 package roulette;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -117,7 +120,7 @@ public class RouletteView extends JFrame {
 			buttons[i].setOpaque(true);
 			buttons[i].setBorderPainted(true);
 			buttons[i].setBorder(WHITE_BORDER);
-			buttons[i].setFont(new Font("Arial", Font.PLAIN, 40));
+			buttons[i].setFont(new Font("Arial", Font.PLAIN, 25));
 		}
 
 		// set button "0"
@@ -364,7 +367,38 @@ public class RouletteView extends JFrame {
 	 * attach action listeners to buttons
 	 */
 	private void attachListenersToComponents() {
-		// TODO
+		
+		for (int i = 0; i < buttons.length; i++) {
+			buttons[i].addActionListener(new ButtonEvent(i));
+		}
+		
+	}
+	
+	/**
+	 * inner class for single number betting
+	 */
+	private class ButtonEvent implements ActionListener {
+		
+		// instance variables
+		private int i;
+		private int clicked;
+		
+		/**
+		 * constructor
+		 * @param i button number
+		 */
+		public ButtonEvent(int i) {
+			this.i = i;
+			clicked = 0;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String text = "" + i + "\n" + "[$" + clicked + "]";
+			clicked++;
+			buttons[i].setText("<html>" + text.replaceAll("\\n", "<br>") + "</html>");
+		}
+		
 	}
 
 	/**
