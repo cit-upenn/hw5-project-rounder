@@ -16,7 +16,6 @@ public class Roulette {
 	private Random rand;
 	private Number roundNumber;
 	private int payout;
-	private static final int MAX_NUMBER = 36;
 
 	/**
 	 * constructor
@@ -181,11 +180,14 @@ public class Roulette {
 	 * 
 	 * @return the payout
 	 */
-	public double getPayout(int[] userBets) {
-		for (int i = 0; i < userBets.length; i++) {
+	public int getPayout(int[] userBets) {
+		for (int i = 0; i < 37; i++) {
 			if (hitSingle(roulette.get(i))) {
 				payout += userBets[i] * 36;
 			}
+		}
+
+		for (int i = 37; i < 49; i++) {
 			if (hitGroup(buttonIndexToBet(i))) {
 				payout += userBets[i] * (buttonIndexToBet(i).getRatio());
 			}

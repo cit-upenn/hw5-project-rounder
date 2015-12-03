@@ -27,9 +27,10 @@ public class RouletteView extends JFrame {
 	private static final Border WHITE_BORDER = new LineBorder(Color.WHITE, 2);
 	private static final Color DARK_GREEN = new Color(0, 100, 0);
 	private static final Color FOREST_GREEN = new Color(34, 139, 34);
-	
+
 	// array to store results
 	private int[] userBets;
+	private int finalPayout;
 
 	/**
 	 * constructor
@@ -37,7 +38,7 @@ public class RouletteView extends JFrame {
 	public RouletteView() {
 		roulette = new Roulette();
 		display();
-		
+
 		// initialize results, all equal to 0
 		userBets = new int[49];
 		for (int i = 0; i < userBets.length; i++) {
@@ -86,7 +87,6 @@ public class RouletteView extends JFrame {
 		add(bottom, BorderLayout.SOUTH);
 	}
 
-
 	/**
 	 * helper method to add 5 sub-panels within the center panel
 	 */
@@ -112,9 +112,9 @@ public class RouletteView extends JFrame {
 		center.add(subCenter, BorderLayout.CENTER);
 		center.add(subRight, BorderLayout.EAST);
 		center.add(subBottom, BorderLayout.SOUTH);
-		
+
 		bottom.setLayout(new GridLayout(1, 3));
-		
+
 		// add "Spin" button
 		bottom.add(new JLabel());
 		spin = new JButton("Spin");
@@ -126,7 +126,7 @@ public class RouletteView extends JFrame {
 	 * helper method to add buttons
 	 */
 	private void addButtons() {
-		
+
 		// initializing
 		buttons = new JButton[49];
 
@@ -299,12 +299,12 @@ public class RouletteView extends JFrame {
 		subBottom3.add(buttons[47]);
 		subBottom3.add(buttons[48]);
 	}
-	
+
 	/**
 	 * helper method to add image to the view
 	 */
 	private void addImage() {
-		
+
 		// adjust image size and add to view
 		ImageIcon image = new ImageIcon(getClass().getResource("static-wheel.jpg"));
 		Image img = image.getImage();
@@ -359,7 +359,7 @@ public class RouletteView extends JFrame {
 		for (int i = 0; i < buttons.length; i++) {
 			buttons[i].addActionListener(new ButtonEvent(i));
 		}
-		
+
 		// add listener to spin
 		spin.addActionListener(new SpinEvent());
 
@@ -402,7 +402,7 @@ public class RouletteView extends JFrame {
 		}
 
 	}
-	
+
 	/**
 	 * inner class for spinning the roulette
 	 */
@@ -411,9 +411,19 @@ public class RouletteView extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			roulette.spin();
-			
+			finalPayout = roulette.getPayout(userBets);
+			clearUserBets();
 		}
-		
+
+	}
+
+	/**
+	 * helper method to clear all previous user bets
+	 */
+	private void clearUserBets() {
+		for (int i = 0; i < userBets.length; i++) {
+			userBets[i] = 0;
+		}
 	}
 
 	/**
