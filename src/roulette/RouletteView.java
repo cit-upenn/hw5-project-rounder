@@ -24,6 +24,7 @@ public class RouletteView extends JFrame {
 	private JPanel subBottom1, subBottom2, subBottom3;
 	private JButton[] buttons;
 	private JButton spin;
+	private JLabel rouletteImage;
 	private static final Border WHITE_BORDER = new LineBorder(Color.WHITE, 2);
 	private static final Color DARK_GREEN = new Color(0, 100, 0);
 	private static final Color FOREST_GREEN = new Color(34, 139, 34);
@@ -310,7 +311,8 @@ public class RouletteView extends JFrame {
 		Image img = image.getImage();
 		Image newImg = img.getScaledInstance(360, 360, java.awt.Image.SCALE_SMOOTH);
 		ImageIcon newImage = new ImageIcon(newImg);
-		left.add(new JLabel(newImage));
+		rouletteImage = new JLabel(newImage);
+		left.add(rouletteImage);
 	}
 
 	/**
@@ -410,13 +412,41 @@ public class RouletteView extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			changeImage();
 			roulette.spin();
 			finalPayout = roulette.getPayout(userBets);
 			clearUserBets();
+//			restoreImage();
 		}
 
 	}
 
+	/**
+	 * helper method to change displayed image when roulette spins
+	 */
+	private void changeImage() {
+
+		// adjust image size and add to view
+		ImageIcon image = new ImageIcon(getClass().getResource("spin-wheel.jpg"));
+		Image img = image.getImage();
+		Image newImg = img.getScaledInstance(360, 360, java.awt.Image.SCALE_SMOOTH);
+		ImageIcon newImage = new ImageIcon(newImg);
+		rouletteImage.setIcon(newImage);	
+	}
+	
+	/**
+	 * helper method to change displayed image when roulette stops spinning
+	 */
+	private void restoreImage() {
+
+		// adjust image size and add to view
+		ImageIcon image = new ImageIcon(getClass().getResource("static-wheel.jpg"));
+		Image img = image.getImage();
+		Image newImg = img.getScaledInstance(360, 360, java.awt.Image.SCALE_SMOOTH);
+		ImageIcon newImage = new ImageIcon(newImg);
+		rouletteImage.setIcon(newImage);	
+	}
+	
 	/**
 	 * helper method to clear all previous user bets
 	 */
