@@ -461,29 +461,26 @@ public class RouletteView extends JFrame {
 	 * helper method to clear all previous user bets
 	 */
 	private void clearUserBets() {
-		
-		// clear userBets array
+
+		// clear userBets array and roulette table
 		for (int i = 0; i < userBets.length; i++) {
 			userBets[i] = 0;
-		}
-		
-		// clear roulette table
-		for (int i = 0; i < buttons.length; i++) {
 			buttons[i].setText(buttonIndexToString(i));
 		}
 	}
 
 	/**
 	 * return total bets from the user
+	 * 
 	 * @return total bets
 	 */
 	public int getTotalBets() {
 		int totalBets = 0;
-		
+
 		for (int i = 0; i < userBets.length; i++) {
 			totalBets += userBets[i];
 		}
-		
+
 		return totalBets;
 	}
 
