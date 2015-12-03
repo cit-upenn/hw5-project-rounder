@@ -6,21 +6,22 @@ import java.util.Random;
 /**
  * This class represents a roulette
  * 
- * @author SHANG
+ * @author Zhiyuan Li
+ * @author Yi Shang
  *
  */
 public class Roulette {
 
 	// instance variables
-	private ArrayList<Number> roulette;
+	private ArrayList<RouletteNumber> roulette;
 	private Random rand;
-	private Number roundNumber;
+	private RouletteNumber roundNumber;
 
 	/**
 	 * constructor
 	 */
 	public Roulette() {
-		roulette = new ArrayList<Number>();
+		roulette = new ArrayList<RouletteNumber>();
 		rand = new Random();
 		setUp();
 	}
@@ -29,41 +30,41 @@ public class Roulette {
 	 * adds 0 - 36 numbers into the roulette
 	 */
 	private void setUp() {
-		roulette.add(new Number(0, OwnColor.Green));
+		roulette.add(new RouletteNumber(0, RouletteColor.Green));
 
 		// add 1 - 10
 		for (int i = 1; i <= 10; i++) {
 			if (i % 2 == 1) {
-				roulette.add(new Number(i, OwnColor.Red));
+				roulette.add(new RouletteNumber(i, RouletteColor.Red));
 			} else {
-				roulette.add(new Number(i, OwnColor.Black));
+				roulette.add(new RouletteNumber(i, RouletteColor.Black));
 			}
 		}
 
 		// add 11 - 18
 		for (int i = 11; i <= 18; i++) {
 			if (i % 2 == 0) {
-				roulette.add(new Number(i, OwnColor.Red));
+				roulette.add(new RouletteNumber(i, RouletteColor.Red));
 			} else {
-				roulette.add(new Number(i, OwnColor.Black));
+				roulette.add(new RouletteNumber(i, RouletteColor.Black));
 			}
 		}
 
 		// add 19 - 28
 		for (int i = 19; i <= 28; i++) {
 			if (i % 2 == 1) {
-				roulette.add(new Number(i, OwnColor.Red));
+				roulette.add(new RouletteNumber(i, RouletteColor.Red));
 			} else {
-				roulette.add(new Number(i, OwnColor.Black));
+				roulette.add(new RouletteNumber(i, RouletteColor.Black));
 			}
 		}
 
 		// add 29 - 36
 		for (int i = 29; i <= 36; i++) {
 			if (i % 2 == 0) {
-				roulette.add(new Number(i, OwnColor.Red));
+				roulette.add(new RouletteNumber(i, RouletteColor.Red));
 			} else {
-				roulette.add(new Number(i, OwnColor.Black));
+				roulette.add(new RouletteNumber(i, RouletteColor.Black));
 			}
 		}
 
@@ -81,7 +82,7 @@ public class Roulette {
 	 * 
 	 * @return the result
 	 */
-	public Number getRoundNumber() {
+	public RouletteNumber getRoundNumber() {
 		return roundNumber;
 	}
 
@@ -92,7 +93,7 @@ public class Roulette {
 	 *            player's single bet number
 	 * @return true if hit
 	 */
-	public boolean hitSingle(Number n) {
+	public boolean hitSingle(RouletteNumber n) {
 		return roundNumber.getNum() == n.getNum();
 	}
 
@@ -103,7 +104,7 @@ public class Roulette {
 	 *            player's group bet
 	 * @return true if hit
 	 */
-	public boolean hitGroup(Bet b) {
+	public boolean hitGroup(RouletteBet b) {
 
 		switch (b) {
 		case Black:
@@ -142,32 +143,32 @@ public class Roulette {
 	 * @param index
 	 * @return
 	 */
-	private static Bet buttonIndexToBet(int index) {
+	private static RouletteBet buttonIndexToBet(int index) {
 		switch (index) {
 		case 37:
-			return Bet.FirstColumn;// 1stRow(bottom 1st)
+			return RouletteBet.FirstColumn;// 1stRow(bottom 1st)
 		case 38:
-			return Bet.SecondColumn;// 2ndRow
+			return RouletteBet.SecondColumn;// 2ndRow
 		case 39:
-			return Bet.ThirdColumn;// 3rdRow
+			return RouletteBet.ThirdColumn;// 3rdRow
 		case 40:
-			return Bet.FirstDozen;
+			return RouletteBet.FirstDozen;
 		case 41:
-			return Bet.SecondDozen;
+			return RouletteBet.SecondDozen;
 		case 42:
-			return Bet.ThirdDozen;
+			return RouletteBet.ThirdDozen;
 		case 43:
-			return Bet.FirstHalf;
+			return RouletteBet.FirstHalf;
 		case 44:
-			return Bet.Even;
+			return RouletteBet.Even;
 		case 45:
-			return Bet.Red;
+			return RouletteBet.Red;
 		case 46:
-			return Bet.Black;
+			return RouletteBet.Black;
 		case 47:
-			return Bet.Odd;
+			return RouletteBet.Odd;
 		case 48:
-			return Bet.SecondHalf;
+			return RouletteBet.SecondHalf;
 		default:
 			return null;
 		}
@@ -196,12 +197,6 @@ public class Roulette {
 		}
 
 		return payout;
-	}
-
-	public static void main(String[] args) {
-		Roulette r = new Roulette();
-		r.spin();
-		System.out.println(r.getRoundNumber());
 	}
 
 }

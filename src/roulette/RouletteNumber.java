@@ -8,14 +8,15 @@ package roulette;
  * 2. Red - 1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36 
  * 3. Black - 2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35
  * 
- * @author SHANG
+ * @author Zhiyuan Li
+ * @author Yi Shang
  *
  */
-public class Number {
+public class RouletteNumber {
 
 	// instance variables
 	private final int num;
-	private final OwnColor color;
+	private final RouletteColor color;
 
 	/**
 	 * constructor
@@ -25,7 +26,7 @@ public class Number {
 	 * @param color
 	 *            number color
 	 */
-	public Number(int num, OwnColor color) {
+	public RouletteNumber(int num, RouletteColor color) {
 		this.num = num;
 		this.color = color;
 	}
@@ -40,7 +41,7 @@ public class Number {
 	/**
 	 * @return the color
 	 */
-	public OwnColor getColor() {
+	public RouletteColor getColor() {
 		return color;
 	}
 
@@ -77,7 +78,7 @@ public class Number {
 	 * @return true if it's Red
 	 */
 	public boolean isRed() {
-		return color == OwnColor.Red;
+		return color == RouletteColor.Red;
 	}
 
 	/**
@@ -86,7 +87,7 @@ public class Number {
 	 * @return true if it's Black
 	 */
 	public boolean isBlack() {
-		return color == OwnColor.Black;
+		return color == RouletteColor.Black;
 	}
 
 	/**
@@ -95,7 +96,7 @@ public class Number {
 	 * @return true if it's Green
 	 */
 	public boolean isGreen() {
-		return color == OwnColor.Green;
+		return color == RouletteColor.Green;
 	}
 
 	/**
@@ -173,11 +174,6 @@ public class Number {
 	@Override
 	public String toString() {
 		return "(" + num + ", " + color + ")";
-	}
-
-	public static void main(String[] args) {
-		Number n = new Number(1, OwnColor.Red);
-		System.out.println(n);
 	}
 
 }

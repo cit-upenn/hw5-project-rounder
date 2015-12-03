@@ -3,9 +3,10 @@ package roulette;
 /**
  * This enum class represents the color in Roulette
  * 
- * @author SHANG
+ * @author Zhiyuan Li
+ * @author Yi Shang
  *
  */
-public enum OwnColor {
+public enum RouletteColor {
 	Red, Black, Green
 }
