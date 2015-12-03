@@ -398,19 +398,17 @@ public class RouletteView extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String text = "";
-
-			clicked++;
 			userBets[i]++;
 
 			if (i < 37) {
-				text += i + "\n" + "[$" + clicked + "]";
+				text += i + "\n" + "[$" + userBets[i] + "]";
 			} else {
-				text += buttonIndexToString(i) + " [$" + clicked + "]";
+				text += buttonIndexToString(i) + " [$" + userBets[i] + "]";
 			}
 
 			buttons[i].setText("<html>" + text.replaceAll("\\n", "<br>") + "</html>");
 		}
-
+			
 	}
 
 	/**
@@ -424,9 +422,9 @@ public class RouletteView extends JFrame {
 			roulette.spin();
 			finalPayout = roulette.getPayout(userBets);
 			JOptionPane.showMessageDialog(getParent(),
-					"The number is " + roulette.getRoundNumber().getNum() + ".\n" + "You get $" + finalPayout);
+					"The number is " + roulette.getRoundNumber().getNum() + "\n" + "You get $" + finalPayout);
 			clearUserBets();
-//			restoreImage();
+			restoreImage();
 		}
 
 	}

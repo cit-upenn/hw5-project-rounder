@@ -15,7 +15,6 @@ public class Roulette {
 	private ArrayList<Number> roulette;
 	private Random rand;
 	private Number roundNumber;
-	private int payout;
 
 	/**
 	 * constructor
@@ -24,7 +23,6 @@ public class Roulette {
 		roulette = new ArrayList<Number>();
 		rand = new Random();
 		setUp();
-		payout = 0;
 	}
 
 	/**
@@ -181,12 +179,16 @@ public class Roulette {
 	 * @return the payout
 	 */
 	public int getPayout(int[] userBets) {
+		int payout = 0;
+		
+		// calculate all single number payout
 		for (int i = 0; i < 37; i++) {
 			if (hitSingle(roulette.get(i))) {
 				payout += userBets[i] * 36;
 			}
 		}
 
+		// calculate all bets payout
 		for (int i = 37; i < 49; i++) {
 			if (hitGroup(buttonIndexToBet(i))) {
 				payout += userBets[i] * (buttonIndexToBet(i).getRatio());
