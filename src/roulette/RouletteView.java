@@ -408,7 +408,7 @@ public class RouletteView extends JFrame {
 
 			buttons[i].setText("<html>" + text.replaceAll("\\n", "<br>") + "</html>");
 		}
-			
+
 	}
 
 	/**
@@ -422,7 +422,8 @@ public class RouletteView extends JFrame {
 			roulette.spin();
 			finalPayout = roulette.getPayout(userBets);
 			JOptionPane.showMessageDialog(getParent(),
-					"The number is " + roulette.getRoundNumber().getNum() + "\n" + "You get $" + finalPayout);
+					"The number is " + roulette.getRoundNumber().getNum() + "\n" + "You bet $" + getTotalBets() + "\n"
+							+ "You get $" + finalPayout + "\n" + "You earn $" + (finalPayout - getTotalBets()));
 			clearUserBets();
 			restoreImage();
 		}
@@ -439,9 +440,9 @@ public class RouletteView extends JFrame {
 		Image img = image.getImage();
 		Image newImg = img.getScaledInstance(360, 360, java.awt.Image.SCALE_SMOOTH);
 		ImageIcon newImage = new ImageIcon(newImg);
-		rouletteImage.setIcon(newImage);	
+		rouletteImage.setIcon(newImage);
 	}
-	
+
 	/**
 	 * helper method to change displayed image when roulette stops spinning
 	 */
@@ -452,9 +453,9 @@ public class RouletteView extends JFrame {
 		Image img = image.getImage();
 		Image newImg = img.getScaledInstance(360, 360, java.awt.Image.SCALE_SMOOTH);
 		ImageIcon newImage = new ImageIcon(newImg);
-		rouletteImage.setIcon(newImage);	
+		rouletteImage.setIcon(newImage);
 	}
-	
+
 	/**
 	 * helper method to clear all previous user bets
 	 */
@@ -467,6 +468,14 @@ public class RouletteView extends JFrame {
 		for (int i = 0; i < buttons.length; i++) {
 			buttons[i].setText(buttonIndexToString(i));
 		}
+	}
+
+	public int getTotalBets() {
+		int totalBets = 0;
+		for (int i = 0; i < userBets.length; i++) {
+			totalBets += userBets[i];
+		}
+		return totalBets;
 	}
 
 	/**
