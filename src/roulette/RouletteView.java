@@ -26,6 +26,9 @@ public class RouletteView extends JFrame {
 	private static final Border WHITE_BORDER = new LineBorder(Color.WHITE, 2);
 	private static final Color DARK_GREEN = new Color(0, 100, 0);
 	private static final Color FOREST_GREEN = new Color(34, 139, 34);
+	
+	// array to store results
+	private int[] userBets;
 
 	/**
 	 * constructor
@@ -33,7 +36,12 @@ public class RouletteView extends JFrame {
 	public RouletteView() {
 		roulette = new Roulette();
 		display();
-
+		
+		// initialize results, all equal to 0
+		userBets = new int[49];
+		for (int i = 0; i < userBets.length; i++) {
+			userBets[i] = 0;
+		}
 	}
 
 	/**
@@ -57,6 +65,7 @@ public class RouletteView extends JFrame {
 		addPanels();
 		addSubPanels();
 		addButtons();
+		addImage();
 	}
 
 	/**
@@ -280,6 +289,19 @@ public class RouletteView extends JFrame {
 		subBottom3.add(buttons[47]);
 		subBottom3.add(buttons[48]);
 	}
+	
+	/**
+	 * helper method to add image to the view
+	 */
+	private void addImage() {
+		
+		// adjust image size and add to view
+		ImageIcon image = new ImageIcon(getClass().getResource("static-wheel.jpg"));
+		Image img = image.getImage();
+		Image newImg = img.getScaledInstance(360, 360, java.awt.Image.SCALE_SMOOTH);
+		ImageIcon newImage = new ImageIcon(newImg);
+		left.add(new JLabel(newImage));
+	}
 
 	/**
 	 * Transfer button index to string
@@ -355,6 +377,7 @@ public class RouletteView extends JFrame {
 			String text = "";
 
 			clicked++;
+			userBets[i]++;
 
 			if (i < 37) {
 				text += i + "\n" + "[$" + clicked + "]";
