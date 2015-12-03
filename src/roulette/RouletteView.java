@@ -23,6 +23,7 @@ public class RouletteView extends JFrame {
 	private JPanel subTop, subLeft, subRight, subBottom, subCenter;
 	private JPanel subBottom1, subBottom2, subBottom3;
 	private JButton[] buttons;
+	private JButton spin;
 	private static final Border WHITE_BORDER = new LineBorder(Color.WHITE, 2);
 	private static final Color DARK_GREEN = new Color(0, 100, 0);
 	private static final Color FOREST_GREEN = new Color(34, 139, 34);
@@ -110,13 +111,21 @@ public class RouletteView extends JFrame {
 		center.add(subCenter, BorderLayout.CENTER);
 		center.add(subRight, BorderLayout.EAST);
 		center.add(subBottom, BorderLayout.SOUTH);
+		
+		bottom.setLayout(new GridLayout(1, 3));
+		
+		// add "Spin" button
+		bottom.add(new JLabel());
+		spin = new JButton("Spin");
+		bottom.add(spin);
+		bottom.add(new JLabel());
 	}
 
 	/**
 	 * helper method to add buttons
 	 */
 	private void addButtons() {
-
+		
 		// initializing
 		buttons = new JButton[49];
 
@@ -349,6 +358,9 @@ public class RouletteView extends JFrame {
 		for (int i = 0; i < buttons.length; i++) {
 			buttons[i].addActionListener(new ButtonEvent(i));
 		}
+		
+		// add listener to spin
+		spin.addActionListener(new SpinEvent());
 
 	}
 
@@ -388,6 +400,19 @@ public class RouletteView extends JFrame {
 			buttons[i].setText("<html>" + text.replaceAll("\\n", "<br>") + "</html>");
 		}
 
+	}
+	
+	/**
+	 * inner class for spinning the roulette
+	 */
+	private class SpinEvent implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			roulette.spin();
+			
+		}
+		
 	}
 
 	/**
