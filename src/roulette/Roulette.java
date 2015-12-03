@@ -15,6 +15,8 @@ public class Roulette {
 	private ArrayList<Number> roulette;
 	private Random rand;
 	private Number roundNumber;
+	private int payout;
+	private static final int MAX_NUMBER = 36;
 
 	/**
 	 * constructor
@@ -23,6 +25,7 @@ public class Roulette {
 		roulette = new ArrayList<Number>();
 		rand = new Random();
 		setUp();
+		payout = 0;
 	}
 
 	/**
@@ -134,6 +137,61 @@ public class Roulette {
 			return false;
 		}
 
+	}
+
+	/**
+	 * Transfer button index to Bet
+	 * 
+	 * @param index
+	 * @return
+	 */
+	private static Bet buttonIndexToBet(int index) {
+		switch (index) {
+		case 37:
+			return Bet.FirstColumn;// 1stRow(bottom 1st)
+		case 38:
+			return Bet.SecondColumn;// 2ndRow
+		case 39:
+			return Bet.ThirdColumn;// 3rdRow
+		case 40:
+			return Bet.FirstDozen;
+		case 41:
+			return Bet.SecondDozen;
+		case 42:
+			return Bet.ThirdDozen;
+		case 43:
+			return Bet.FirstHalf;
+		case 44:
+			return Bet.Even;
+		case 45:
+			return Bet.Red;
+		case 46:
+			return Bet.Black;
+		case 47:
+			return Bet.Odd;
+		case 48:
+			return Bet.SecondHalf;
+		default:
+			return null;
+		}
+	}
+
+	/**
+	 * Get payout based on input array
+	 * 
+	 * @return the payout
+	 */
+	public double getPayout(int[] userBets) {
+		for (int i = 0; i < userBets.length; i++) {
+			if (hitSingle(roulette.get(i))) {
+				payout += userBets[i] * 36;
+			}
+			if (hitGroup(buttonIndexToBet(i))) {
+				payout += userBets[i] * (buttonIndexToBet(i).getRatio());
+			}
+		}
+
+		return payout;
 	}
 
 	public static void main(String[] args) {

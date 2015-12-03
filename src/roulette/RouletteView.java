@@ -86,6 +86,7 @@ public class RouletteView extends JFrame {
 		add(bottom, BorderLayout.SOUTH);
 	}
 
+
 	/**
 	 * helper method to add 5 sub-panels within the center panel
 	 */
