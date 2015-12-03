@@ -54,9 +54,17 @@ public class RouletteView extends JFrame {
 		layOutComponents();
 		attachListenersToComponents();
 		setPreferredSize(new Dimension(1200, 400));
+		setLocation();
 		pack();
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+
+	private void setLocation() {
+		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+		int x = (int) ((dimension.getWidth() / 2 - this.getWidth()) / 2);
+		int y = (int) ((dimension.getHeight() / 2 - this.getHeight()) / 2);
+		setLocation(x, y);
 	}
 
 	/**
@@ -412,6 +420,8 @@ public class RouletteView extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			roulette.spin();
 			finalPayout = roulette.getPayout(userBets);
+			JOptionPane.showMessageDialog(getParent(),
+					"The number is " + roulette.getRoundNumber().getNum() + ".\n" + "You get $" + finalPayout);
 			clearUserBets();
 		}
 
@@ -421,8 +431,13 @@ public class RouletteView extends JFrame {
 	 * helper method to clear all previous user bets
 	 */
 	private void clearUserBets() {
+		// clear userBets array
 		for (int i = 0; i < userBets.length; i++) {
 			userBets[i] = 0;
+		}
+		// clear roulette table
+		for (int i = 0; i < buttons.length; i++) {
+			buttons[i].setText(buttonIndexToString(i));
 		}
 	}
 
