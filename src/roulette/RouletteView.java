@@ -16,6 +16,8 @@ import javax.swing.border.*;
  */
 public class RouletteView extends JFrame {
 
+	private static final long serialVersionUID = 1227969985674089474L;
+
 	// instance variables
 	private Roulette roulette;
 
@@ -383,7 +385,6 @@ public class RouletteView extends JFrame {
 
 		// instance variables
 		private int i;
-		private int clicked;
 
 		/**
 		 * constructor
@@ -393,7 +394,6 @@ public class RouletteView extends JFrame {
 		 */
 		public ButtonEvent(int i) {
 			this.i = i;
-			clicked = 0;
 		}
 
 		@Override
