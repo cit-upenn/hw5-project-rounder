@@ -64,6 +64,9 @@ public class RouletteView extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
+	/**
+	 * set the location of roulette window
+	 */
 	private void setLocation() {
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 		int x = (int) ((dimension.getWidth() / 2 - this.getWidth()) / 2);
@@ -166,7 +169,6 @@ public class RouletteView extends JFrame {
 			if (i % 2 == 1) {
 				buttons[i].setBackground(Color.red);
 			} else {
-
 				buttons[i].setBackground(Color.black);
 			}
 
@@ -178,7 +180,6 @@ public class RouletteView extends JFrame {
 			if (i % 2 == 0) {
 				buttons[i].setBackground(Color.red);
 			} else {
-
 				buttons[i].setBackground(Color.black);
 			}
 
@@ -190,7 +191,6 @@ public class RouletteView extends JFrame {
 			if (i % 2 == 1) {
 				buttons[i].setBackground(Color.red);
 			} else {
-
 				buttons[i].setBackground(Color.black);
 			}
 
@@ -202,7 +202,6 @@ public class RouletteView extends JFrame {
 			if (i % 2 == 0) {
 				buttons[i].setBackground(Color.red);
 			} else {
-
 				buttons[i].setBackground(Color.black);
 			}
 
