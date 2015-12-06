@@ -30,20 +30,21 @@ public class Keno {
 			allNumbers.add(i);
 		}
 
-		// shuffle all numbers
-		Collections.shuffle(allNumbers);
-
 	}
 
 	/**
 	 * draws 20 numbers out of 80
 	 */
 	public void drawLuckyNumbers() {
+		
+		// shuffle all numbers
+		Collections.shuffle(allNumbers);
+		
 		luckyNumbers.clear();
 		hits = 0;
 
 		for (int i = 0; i < 20; i++) {
-			luckyNumbers.add(allNumbers.remove(0));
+			luckyNumbers.add(allNumbers.get(i));
 		}
 	}
 
@@ -71,6 +72,13 @@ public class Keno {
 		}
 
 		return hits;
+	}
+
+	/**
+	 * @return the luckyNumbers
+	 */
+	public HashSet<Integer> getLuckyNumbers() {
+		return luckyNumbers;
 	}
 
 	/**
