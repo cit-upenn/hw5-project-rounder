@@ -15,7 +15,7 @@ public class SlotMachine {
 	private SlotReel[] reels;
 	private SlotSymbol[] symbols;
 	private int credits;
-	private final static int BASE_RATIO = 5;
+	private final static int BASE_RATIO = 2;
 
 	/**
 	 * constructor to set up a slot machine with input number of reels and
@@ -56,9 +56,16 @@ public class SlotMachine {
 	 * 
 	 * @param amount
 	 *            the amount to be deducted
+	 * @return true if credits avaiable is more than the money to be deducted,
+	 *         otherwise false
 	 */
-	private void deductCredits(int amount) {
-		credits -= amount;
+	public boolean deductCredits(int amount) {
+		if (credits - amount >= 0) {
+			credits -= amount;
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -69,15 +76,16 @@ public class SlotMachine {
 	 * @return the payout
 	 */
 	public int getPayout(int userBet) {
-		deductCredits(userBet);
 		int payout = 0;
 		Set<SlotSymbol> symbolsWithoutDuplicates = new HashSet<SlotSymbol>();
 		int duplicates = 0;
+
 		for (SlotSymbol s : symbols) {
 			if (symbolsWithoutDuplicates.add(s) == false) {
 				duplicates++;
 			}
 		}
+
 		payout = userBet * duplicates * BASE_RATIO;
 		credits += payout;
 		return payout;
@@ -91,20 +99,25 @@ public class SlotMachine {
 	}
 
 	/**
-	 * simple test for the slot machine, will be deleted 
+	 * simple test for the slot machine, will be deleted
 	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		SlotMachine sm = new SlotMachine(3, 100);
 		for (int i = 0; i < 10; i++) {
-			sm.spin();
-			for (SlotSymbol s : sm.symbols) {
-				System.out.println(s);
-			}
+			if (sm.deductCredits(50)) {
+				sm.spin();
+				for (SlotSymbol s : sm.symbols) {
+					System.out.println(s);
+				}
 
-			System.out.println(sm.getPayout(1));
+				System.out.println(sm.getPayout(50));
+			} else {
+				System.out.println("no enough credits!");
+			}
 			System.out.println(sm.getCredits());
+
 		}
 	}
 
