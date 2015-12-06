@@ -63,7 +63,7 @@ public class Keno {
 	 *            input numbers
 	 * @return number of hits
 	 */
-	public int numOfHits(ArrayList<Integer> nums) {
+	public int numOfHits(HashSet<Integer> nums) {
 		for (Integer i : nums) {
 			if (hit(i)) {
 				hits++;
@@ -78,7 +78,7 @@ public class Keno {
 	 * 
 	 * @return the payout
 	 */
-	public int payout(ArrayList<Integer> nums) {
+	public int payout(HashSet<Integer> nums) {
 
 		// the payout depends on how many numbers player picks
 		int numOfPicks = nums.size();

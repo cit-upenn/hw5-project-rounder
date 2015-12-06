@@ -41,13 +41,15 @@ public class RouletteView extends JFrame {
 	 */
 	public RouletteView() {
 		roulette = new Roulette();
-		display();
+		finalPayout = 0;
 
 		// initialize results, all equal to 0
 		userBets = new int[49];
 		for (int i = 0; i < userBets.length; i++) {
 			userBets[i] = 0;
 		}
+		
+		display();
 	}
 
 	/**
