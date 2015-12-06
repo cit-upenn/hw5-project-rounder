@@ -6,9 +6,14 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashSet;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -29,13 +34,21 @@ public class KenoView extends JFrame {
 	// GUI variables
 	private JPanel top, left, right, bottom, center;
 	private JButton[] buttons;
+	private JButton draw;
 	private static final Border WHITE_BORDER = new LineBorder(Color.WHITE, 2);
+
+	// store results
+	private HashSet<Integer> userBets;
+	private int finalPayout;
 
 	/**
 	 * constructor
 	 */
 	public KenoView() {
 		keno = new Keno();
+		userBets = new HashSet<Integer>();
+		finalPayout = 0;
+
 		display();
 	}
 
@@ -45,7 +58,7 @@ public class KenoView extends JFrame {
 	private void display() {
 		setTitle("Roulette");
 		layOutComponents();
-		// attachListenersToComponents();
+		attachListenersToComponents();
 		setPreferredSize(new Dimension(1200, 400));
 		setLocation();
 		pack();
@@ -69,6 +82,7 @@ public class KenoView extends JFrame {
 	private void layOutComponents() {
 		setLayout(new BorderLayout());
 		addPanels();
+		addSubPanels();
 		addButtons();
 	}
 
@@ -87,6 +101,22 @@ public class KenoView extends JFrame {
 		add(center, BorderLayout.CENTER);
 		add(right, BorderLayout.EAST);
 		add(bottom, BorderLayout.SOUTH);
+
+	}
+
+	/**
+	 * helper method to add sub-panels within the center panel
+	 */
+	private void addSubPanels() {
+
+		bottom.setLayout(new GridLayout(1, 3));
+
+		// add "Draw" button
+		bottom.add(new JLabel());
+		draw = new JButton("Draw");
+		bottom.add(draw);
+		bottom.add(new JLabel());
+
 	}
 
 	/**
@@ -115,10 +145,82 @@ public class KenoView extends JFrame {
 	}
 
 	/**
-	 * test the class
+	 * attach action listeners to buttons
 	 */
-	public static void main(String[] args) {
-		KenoView kv = new KenoView();
+	private void attachListenersToComponents() {
+
+		// add listeners for each button
+		for (int i = 0; i < buttons.length; i++) {
+			buttons[i].addActionListener(new ButtonEvent(i));
+		}
+
+		draw.addActionListener(new DrawEvent());
+	}
+
+	/**
+	 * inner class for button click event
+	 */
+	private class ButtonEvent implements ActionListener {
+
+		// instance variables
+		private int i;
+		private boolean picked;
+
+		/**
+		 * constructor
+		 * 
+		 * @param i
+		 *            button number
+		 */
+		public ButtonEvent(int i) {
+			this.i = i;
+			picked = false;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			picked = !picked;
+
+			// change color when click and unclick
+			if (picked) {
+				buttons[i].setBackground(Color.red);
+				userBets.add(i + 1);
+			} else {
+				buttons[i].setBackground(Color.blue);
+				userBets.remove(i + 1);
+			}
+
+		}
+
+	}
+
+	/**
+	 * inner class for drawing lucky numbers
+	 */
+	private class DrawEvent implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			keno.drawLuckyNumbers();
+			finalPayout = keno.payout(userBets);
+			JOptionPane.showMessageDialog(getParent(), "You hit " + keno.numOfHits(userBets) + " out of "
+					+ userBets.size() + "\n" + "You get $" + finalPayout);
+			clearUserPicks();
+		}
+
+	}
+
+	/**
+	 * helper method to clear all previous user picks
+	 */
+	private void clearUserPicks() {
+
+		// clear user picks
+		userBets.clear();
+		for (int i = 0; i < buttons.length; i++) {
+			buttons[i].setBackground(Color.blue);
+		}
+
 	}
 
 }
