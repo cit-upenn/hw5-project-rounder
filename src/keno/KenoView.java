@@ -193,7 +193,7 @@ public class KenoView extends JFrame {
 		magenta.setHorizontalAlignment(SwingConstants.CENTER);
 		orange.setHorizontalAlignment(SwingConstants.CENTER);
 
-		blue.setForeground(Color.blue);
+		blue.setForeground(ROYAL_BLUE);
 		red.setForeground(Color.red);
 		magenta.setForeground(Color.magenta);
 		orange.setForeground(Color.orange);
@@ -263,7 +263,7 @@ public class KenoView extends JFrame {
 					userBets.add(i + 1);
 				}
 			} else {
-				buttons[i].setBackground(Color.blue);
+				buttons[i].setBackground(ROYAL_BLUE);
 				userBets.remove(i + 1);
 			}
 
@@ -317,7 +317,7 @@ public class KenoView extends JFrame {
 		// clear user picks
 		userBets.clear();
 		for (int i = 0; i < buttons.length; i++) {
-			buttons[i].setBackground(Color.blue);
+			buttons[i].setBackground(ROYAL_BLUE);
 		}
 
 	}
