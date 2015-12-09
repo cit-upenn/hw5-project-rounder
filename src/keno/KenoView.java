@@ -33,6 +33,7 @@ public class KenoView extends JFrame {
 
 	// instance variables
 	private Keno keno;
+	private boolean[] picked;
 
 	// GUI variables
 	private JPanel top, left, right, bottom, center;
@@ -51,6 +52,11 @@ public class KenoView extends JFrame {
 		keno = new Keno();
 		userBets = new HashSet<Integer>();
 		finalPayout = 0;
+		picked = new boolean[80];
+		
+		for (int i = 0; i < picked.length; i++) {
+			picked[i] = false;
+		}
 
 		display();
 	}
@@ -210,7 +216,6 @@ public class KenoView extends JFrame {
 
 		// instance variables
 		private int i;
-		private boolean picked;
 
 		/**
 		 * constructor
@@ -220,15 +225,14 @@ public class KenoView extends JFrame {
 		 */
 		public ButtonEvent(int i) {
 			this.i = i;
-			picked = false;
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-				picked = !picked;
+				picked[i] = !picked[i];
 	
 				// change color when click and unclick
-				if (picked) {
+				if (picked[i]) {
 					// only allow up to 10 picks
 					if (userBets.size() < 10) {
 						buttons[i].setBackground(Color.red);
@@ -264,6 +268,8 @@ public class KenoView extends JFrame {
 	 * helper method to reveal all drawn lucky numbers
 	 */
 	private void showLuckyNumbers() {
+		
+		// set background color
 		for (Integer num : keno.getLuckyNumbers()) {
 			if (userBets.contains(num)) {
 				buttons[num - 1].setBackground(Color.magenta);	
@@ -271,6 +277,12 @@ public class KenoView extends JFrame {
 				buttons[num - 1].setBackground(Color.orange);				
 			}
 		}
+		
+		// set every grid unpicked
+		for (int i = 0; i < picked.length; i++) {
+			picked[i] = false;
+		}
+		
 	}
 
 	/**

@@ -8,7 +8,6 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -28,9 +27,6 @@ import lobby.*;
  */
 public class SlotView extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 3448807048334175081L;
 
 	// instance variables
@@ -289,19 +285,6 @@ public class SlotView extends JFrame {
 	}
 
 	/**
-	 * helper method to change displayed image when reel spins
-	 */
-	private void spinReelImage(int i, int order) {
-		// for (int i = 0; i < SlotSymbol.values().length + order; i++) {
-
-		// reel.setIcon(images.get(i%SlotSymbol.values().length));
-		// }
-		spinner[i] = new Timer(100, new SpinnerEvent(i));
-		spinner[i].start();
-		// reels[i].setIcon(images.get(order));
-	}
-
-	/**
 	 * inner class to represent a spinner event
 	 */
 	private class SpinnerEvent implements ActionListener {
@@ -321,8 +304,10 @@ public class SlotView extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+
 			reels[i].setIcon(images.get(counter % 7));
 			counter++;
+
 		}
 
 	}
