@@ -314,7 +314,7 @@ public class SlotView extends JFrame {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			reels[i].setIcon(images.get(new Random().nextInt(7)));		
+			reels[i].setIcon(images.get(new Random().nextInt(7)));
 		}
 		
 	}
