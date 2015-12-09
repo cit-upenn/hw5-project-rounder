@@ -41,7 +41,7 @@ public class KenoView extends JFrame {
 	private JButton draw, back, empty;
 	private static final Border WHITE_BORDER = new LineBorder(Color.WHITE, 2);
 	private static final Color ROYAL_BLUE = new Color(65, 105, 225);
-	private static final Color SANDY_BROWN = new Color(244, 164, 96);
+	private static final Color DARK_GREY = new Color(169, 169, 169);
 
 	// store results
 	private HashSet<Integer> userBets;
@@ -110,12 +110,12 @@ public class KenoView extends JFrame {
 
 		add(top, BorderLayout.NORTH);
 		add(left, BorderLayout.WEST);
-		left.setBackground(SANDY_BROWN);
+		left.setBackground(DARK_GREY);
 		add(center, BorderLayout.CENTER);
-		center.setBackground(SANDY_BROWN);
+		center.setBackground(DARK_GREY);
 		add(right, BorderLayout.EAST);
 		add(bottom, BorderLayout.SOUTH);
-		bottom.setBackground(SANDY_BROWN);
+		bottom.setBackground(DARK_GREY);
 
 	}
 
@@ -146,7 +146,7 @@ public class KenoView extends JFrame {
 	 */
 	private void setButton(JButton button) {
 		button.setForeground(Color.white);
-		button.setBackground(SANDY_BROWN);
+		button.setBackground(DARK_GREY);
 		button.setOpaque(true);
 		button.setBorderPainted(true);
 		button.setBorder(WHITE_BORDER);
@@ -193,7 +193,7 @@ public class KenoView extends JFrame {
 		magenta.setHorizontalAlignment(SwingConstants.CENTER);
 		orange.setHorizontalAlignment(SwingConstants.CENTER);
 
-		blue.setForeground(ROYAL_BLUE);
+		blue.setForeground(Color.blue);
 		red.setForeground(Color.red);
 		magenta.setForeground(Color.magenta);
 		orange.setForeground(Color.orange);
