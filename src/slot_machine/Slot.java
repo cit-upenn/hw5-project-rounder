@@ -9,12 +9,11 @@ import java.util.Set;
  * @author zhiyuanli
  *
  */
-public class SlotMachine {
+public class Slot {
 
 	// instance variable
 	private SlotReel[] reels;
 	private SlotSymbol[] symbols;
-	private int credits;
 	private final static int BASE_RATIO = 2;
 
 	/**
@@ -23,14 +22,12 @@ public class SlotMachine {
 	 * 
 	 * @param numOfReels
 	 *            number of reels
-	 * @param initialCredits
-	 *            initial credits the player owns
+	 * 
 	 */
-	public SlotMachine(int numOfReels, int initialCredits) {
+	public Slot(int numOfReels) {
 		reels = new SlotReel[numOfReels];
 		setUpReels();
 		symbols = new SlotSymbol[numOfReels];
-		credits = initialCredits;
 	}
 
 	/**
@@ -48,23 +45,6 @@ public class SlotMachine {
 	public void spin() {
 		for (int i = 0; i < reels.length; i++) {
 			symbols[i] = reels[i].getRandomSymbol();
-		}
-	}
-
-	/**
-	 * helper function to deduct the credits
-	 * 
-	 * @param amount
-	 *            the amount to be deducted
-	 * @return true if credits avaiable is more than the money to be deducted,
-	 *         otherwise false
-	 */
-	public boolean deductCredits(int amount) {
-		if (credits - amount >= 0) {
-			credits -= amount;
-			return true;
-		} else {
-			return false;
 		}
 	}
 
@@ -87,38 +67,16 @@ public class SlotMachine {
 		}
 
 		payout = userBet * duplicates * BASE_RATIO;
-		credits += payout;
 		return payout;
 	}
 
 	/**
-	 * @return the credits
-	 */
-	public int getCredits() {
-		return credits;
-	}
-
-	/**
-	 * simple test for the slot machine, will be deleted
+	 * accessor to the symbols
 	 * 
-	 * @param args
+	 * @return the symbols
 	 */
-	public static void main(String[] args) {
-		SlotMachine sm = new SlotMachine(3, 100);
-		for (int i = 0; i < 10; i++) {
-			if (sm.deductCredits(50)) {
-				sm.spin();
-				for (SlotSymbol s : sm.symbols) {
-					System.out.println(s);
-				}
-
-				System.out.println(sm.getPayout(50));
-			} else {
-				System.out.println("no enough credits!");
-			}
-			System.out.println(sm.getCredits());
-
-		}
+	public SlotSymbol[] getSymbols() {
+		return symbols;
 	}
 
 }
