@@ -57,7 +57,7 @@ public class KenoView extends JFrame {
 	 * helper method to construct the keno ticket
 	 */
 	private void display() {
-		setTitle("Roulette");
+		setTitle("Keno");
 		layOutComponents();
 		attachListenersToComponents();
 		setPreferredSize(new Dimension(1200, 400));
@@ -107,7 +107,7 @@ public class KenoView extends JFrame {
 	}
 
 	/**
-	 * helper method to add sub-panels within the center panel
+	 * helper method to add sub-panels within the bottom panel
 	 */
 	private void addSubPanels() {
 

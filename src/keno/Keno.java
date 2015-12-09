@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 
+import javax.print.attribute.standard.NumberUpSupported;
+
 /**
  * This class represents a full Keno table, from 1 - 80.
  * 
@@ -41,11 +43,11 @@ public class Keno {
 		Collections.shuffle(allNumbers);
 		
 		luckyNumbers.clear();
-		hits = 0;
 
 		for (int i = 0; i < 20; i++) {
 			luckyNumbers.add(allNumbers.get(i));
 		}
+
 	}
 
 	/**
@@ -65,6 +67,8 @@ public class Keno {
 	 * @return number of hits
 	 */
 	public int numOfHits(HashSet<Integer> nums) {
+		hits = 0;
+		
 		for (Integer i : nums) {
 			if (hit(i)) {
 				hits++;
@@ -87,6 +91,8 @@ public class Keno {
 	 * @return the payout
 	 */
 	public int payout(HashSet<Integer> nums) {
+		// calculates number of hits
+		numOfHits(nums);
 
 		// the payout depends on how many numbers player picks
 		int numOfPicks = nums.size();
