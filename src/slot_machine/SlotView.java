@@ -55,7 +55,7 @@ public class SlotView extends JFrame {
 		timer = new Timer[3];
 		spinner = new Timer[3];
 		finalPayout = 0;
-		
+
 		display();
 	}
 
@@ -89,7 +89,7 @@ public class SlotView extends JFrame {
 	private void layOutComponents() {
 		setLayout(new BorderLayout());
 		addPanels();
-//		addButtons();
+		// addButtons();
 		addImage();
 	}
 
@@ -137,15 +137,15 @@ public class SlotView extends JFrame {
 		bottom.add(spin);
 		back = new JButton("Back");
 		bottom.add(back);
-		
+
 	}
 
 	/**
 	 * helper method to add buttons
 	 */
-//	private void addButtons() {
-//
-//	}
+	// private void addButtons() {
+	//
+	// }
 
 	/**
 	 * helper method to load image
@@ -219,9 +219,9 @@ public class SlotView extends JFrame {
 				setVisible(false);
 				new Lobby().setVisible(true);
 			}
-			
+
 		});
-		
+
 	}
 
 	/**
@@ -233,55 +233,59 @@ public class SlotView extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			slot.spin();
 			finalPayout = slot.getPayout(1);
+			int symbol0 = slot.getSymbols()[0].getOrder();
+			int symbol1 = slot.getSymbols()[1].getOrder();
+			int symbol2 = slot.getSymbols()[2].getOrder();
 
-			timer[0] = new Timer(1000, new TimerEvent(0));
+			timer[0] = new Timer((symbol0 + 8) * 100, new TimerEvent(0));
 			timer[0].start();
 
-			timer[1] = new Timer(2000, new TimerEvent(1));
+			timer[1] = new Timer((symbol1 + 8 + 7) * 120, new TimerEvent(1));
 			timer[1].start();
-			
-			timer[2] = new Timer(3000, new TimerEvent(2));
+
+			timer[2] = new Timer((symbol2 + 8 + 7 + 7) * 140, new TimerEvent(2));
 			timer[2].start();
-			
+
 			spinner[0] = new Timer(100, new SpinnerEvent(0));
 			spinner[0].start();
-			
-			spinner[1] = new Timer(100, new SpinnerEvent(1));
+
+			spinner[1] = new Timer(120, new SpinnerEvent(1));
 			spinner[1].start();
-			
-			spinner[2] = new Timer(100, new SpinnerEvent(2));
+
+			spinner[2] = new Timer(140, new SpinnerEvent(2));
 			spinner[2].start();
 		}
 
 	}
-	
+
 	/**
 	 * inner class to represent a timer event
 	 */
 	private class TimerEvent implements ActionListener {
-		
+
 		private int i;
-		
+
 		/**
 		 * constructor
+		 * 
 		 * @param i
 		 */
 		public TimerEvent(int i) {
 			this.i = i;
 		}
-		
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
-//			spinReelImage(i, slot.getSymbols()[i].getOrder());
+			// spinReelImage(i, slot.getSymbols()[i].getOrder());
 			spinner[i].stop();
 			timer[i].stop();
-			
+
 			if (i == 2) {
 				JOptionPane.showMessageDialog(getParent(), "You get $" + finalPayout + "\n");
 				clearReelImage();
 			}
 		}
-		
+
 	}
 
 	/**
@@ -294,29 +298,33 @@ public class SlotView extends JFrame {
 		// }
 		spinner[i] = new Timer(100, new SpinnerEvent(i));
 		spinner[i].start();
-//		reels[i].setIcon(images.get(order));
+		// reels[i].setIcon(images.get(order));
 	}
-	
+
 	/**
 	 * inner class to represent a spinner event
 	 */
 	private class SpinnerEvent implements ActionListener {
-		
+
 		private int i;
-		
+		private int counter;
+
 		/**
 		 * constructor
+		 * 
 		 * @param i
 		 */
 		public SpinnerEvent(int i) {
 			this.i = i;
+			counter = 0;
 		}
-		
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			reels[i].setIcon(images.get(new Random().nextInt(7)));		
+			reels[i].setIcon(images.get(counter % 7));
+			counter++;
 		}
-		
+
 	}
 
 	/**

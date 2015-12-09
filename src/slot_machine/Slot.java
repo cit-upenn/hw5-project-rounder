@@ -14,7 +14,8 @@ public class Slot {
 	// instance variable
 	private SlotReel[] reels;
 	private SlotSymbol[] symbols;
-	private final static int BASE_RATIO = 2;
+	private final static int DOUBLE_RATIO = 3;
+	private final static int TRIPLE_RATIO = 10;
 
 	/**
 	 * constructor to set up a slot machine with input number of reels and
@@ -65,8 +66,14 @@ public class Slot {
 				duplicates++;
 			}
 		}
+		if (duplicates == 1) {
+			payout = userBet * DOUBLE_RATIO;
+		} else if (duplicates == 2) {
+			payout = userBet * TRIPLE_RATIO;
+		} else {
+			payout = 0;
+		}
 
-		payout = userBet * duplicates * BASE_RATIO;
 		return payout;
 	}
 
