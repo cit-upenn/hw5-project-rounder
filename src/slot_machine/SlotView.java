@@ -9,18 +9,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-//import javax.swing.Timer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
-import lobby.Lobby;
+import lobby.*;
 
 /**
- * This class will show the gui view for the slot game
+ * This class will show the GUI view for the slot game
  * 
  * @author zhiyuanli
  *
@@ -34,6 +34,7 @@ public class SlotView extends JFrame {
 
 	// instance variables
 	private Slot slot;
+	private int finalPayout;
 
 	// GUI variables
 	private JPanel top, left, right, bottom, center;
@@ -41,6 +42,7 @@ public class SlotView extends JFrame {
 	private JButton spin, back;
 	private JLabel[] reels;
 	private ArrayList<ImageIcon> images;
+	private Timer[] timer;
 
 	/**
 	 * constructor
@@ -49,8 +51,10 @@ public class SlotView extends JFrame {
 		slot = new Slot(3);
 		images = new ArrayList<ImageIcon>();
 		reels = new JLabel[3];
+		timer = new Timer[3];
+		finalPayout = 0;
+		
 		display();
-
 	}
 
 	/**
@@ -226,58 +230,51 @@ public class SlotView extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			slot.spin();
-			int finalPayout = slot.getPayout(1);
+			finalPayout = slot.getPayout(1);
 
-			// try {
-			// Thread.sleep(2000); // 1000 milliseconds is one second.
-			// } catch (InterruptedException ex) {
-			// Thread.currentThread().interrupt();
-			// }
-			// new Timer(1000, new ActionListener() {
+			timer[0] = new Timer(1000, new TimerEvent(0));
+			timer[0].start();
 
-			// @Override
-			// public void actionPerformed(ActionEvent e) {
+			timer[1] = new Timer(2000, new TimerEvent(1));
+			timer[1].start();
+			
+			timer[2] = new Timer(3000, new TimerEvent(2));
+			timer[2].start();
 
-			// for (int i = 0; i < slot.getSymbols().length; i++) {
-			// try {
-			// Thread.sleep(2000); // 1000 milliseconds is one second.
-			// } catch (InterruptedException ex) {
-			// Thread.currentThread().interrupt();
-			// }
-			// spinReelImage(reels[0], slot.getSymbols()[0].getOrder());
-			// }
-
-			spinReelImage(reels[0], slot.getSymbols()[0].getOrder());
-			// new Timer(1000, new ActionListener() {
-			//
-			// @Override
-			// public void actionPerformed(ActionEvent e) {
-			spinReelImage(reels[1], slot.getSymbols()[1].getOrder());
-			// new Timer(1000, new ActionListener() {
-			//
-			// @Override
-			// public void actionPerformed(ActionEvent e) {
-			spinReelImage(reels[2], slot.getSymbols()[2].getOrder());
-
-			// }
-			//
-			// }).start();
-			// }
-			//
-			// }).start();
-			// }
-			//
-			// }).start();
-
-			JOptionPane.showMessageDialog(getParent(), "You get $" + finalPayout + "\n");
-
-			clearReelImage();
 		}
 
 	}
+	
+	/**
+	 * inner class to represent a timer event
+	 */
+	private class TimerEvent implements ActionListener {
+		
+		private int i;
+		
+		/**
+		 * constructor
+		 * @param i
+		 */
+		public TimerEvent(int i) {
+			this.i = i;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			spinReelImage(reels[i], slot.getSymbols()[i].getOrder());
+			timer[i].stop();
+			
+			if (i == 2) {
+				JOptionPane.showMessageDialog(getParent(), "You get $" + finalPayout + "\n");
+				clearReelImage();
+			}
+		}
+		
+	}
 
 	/**
-	 * helper method to change displayed image when roulette spins
+	 * helper method to change displayed image when reel spins
 	 */
 	private void spinReelImage(JLabel reel, int order) {
 		// for (int i = 0; i < SlotSymbol.values().length + order; i++) {
