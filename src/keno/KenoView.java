@@ -38,8 +38,10 @@ public class KenoView extends JFrame {
 	// GUI variables
 	private JPanel top, left, right, bottom, center;
 	private JButton[] buttons;
-	private JButton draw, back;
+	private JButton draw, back, empty;
 	private static final Border WHITE_BORDER = new LineBorder(Color.WHITE, 2);
+	private static final Color ROYAL_BLUE = new Color(65, 105, 225);
+	private static final Color SANDY_BROWN = new Color(244, 164, 96);
 
 	// store results
 	private HashSet<Integer> userBets;
@@ -53,7 +55,7 @@ public class KenoView extends JFrame {
 		userBets = new HashSet<Integer>();
 		finalPayout = 0;
 		picked = new boolean[80];
-		
+
 		for (int i = 0; i < picked.length; i++) {
 			picked[i] = false;
 		}
@@ -108,9 +110,12 @@ public class KenoView extends JFrame {
 
 		add(top, BorderLayout.NORTH);
 		add(left, BorderLayout.WEST);
+		left.setBackground(SANDY_BROWN);
 		add(center, BorderLayout.CENTER);
+		center.setBackground(SANDY_BROWN);
 		add(right, BorderLayout.EAST);
 		add(bottom, BorderLayout.SOUTH);
+		bottom.setBackground(SANDY_BROWN);
 
 	}
 
@@ -122,12 +127,31 @@ public class KenoView extends JFrame {
 		bottom.setLayout(new GridLayout(1, 3));
 
 		// add "Draw" button
-		bottom.add(new JLabel());
+		empty = new JButton("");
+		bottom.add(empty);
+		setButton(empty);
 		draw = new JButton("Draw");
+		setButton(draw);
 		bottom.add(draw);
 		back = new JButton("Back");
+		setButton(back);
 		bottom.add(back);
-		
+
+	}
+
+	/**
+	 * set button attributes
+	 * 
+	 * @param button
+	 */
+	private void setButton(JButton button) {
+		button.setForeground(Color.white);
+		button.setBackground(SANDY_BROWN);
+		button.setOpaque(true);
+		button.setBorderPainted(true);
+		button.setBorder(WHITE_BORDER);
+		button.setFont(new Font("Arial", Font.PLAIN, 25));
+
 	}
 
 	/**
@@ -145,7 +169,7 @@ public class KenoView extends JFrame {
 		for (int i = 0; i < buttons.length; i++) {
 			buttons[i] = new JButton("" + (i + 1));
 			buttons[i].setForeground(Color.white);
-			buttons[i].setBackground(Color.blue);
+			buttons[i].setBackground(ROYAL_BLUE);
 			buttons[i].setOpaque(true);
 			buttons[i].setBorderPainted(true);
 			buttons[i].setBorder(WHITE_BORDER);
@@ -154,7 +178,7 @@ public class KenoView extends JFrame {
 		}
 
 	}
-	
+
 	/**
 	 * helper method to add menu
 	 */
@@ -163,22 +187,22 @@ public class KenoView extends JFrame {
 		JLabel red = new JLabel("Picked");
 		JLabel magenta = new JLabel("Hit");
 		JLabel orange = new JLabel("Result");
-		
+
 		blue.setHorizontalAlignment(SwingConstants.CENTER);
 		red.setHorizontalAlignment(SwingConstants.CENTER);
 		magenta.setHorizontalAlignment(SwingConstants.CENTER);
 		orange.setHorizontalAlignment(SwingConstants.CENTER);
-		
-		blue.setForeground(Color.blue);
+
+		blue.setForeground(ROYAL_BLUE);
 		red.setForeground(Color.red);
 		magenta.setForeground(Color.magenta);
 		orange.setForeground(Color.orange);
-		
+
 		blue.setFont(new Font("Arial", Font.PLAIN, 20));
 		red.setFont(new Font("Arial", Font.PLAIN, 20));
 		magenta.setFont(new Font("Arial", Font.PLAIN, 20));
 		orange.setFont(new Font("Arial", Font.PLAIN, 20));
-		
+
 		left.setLayout(new GridLayout(10, 1));
 		left.add(blue);
 		left.add(red);
@@ -204,9 +228,9 @@ public class KenoView extends JFrame {
 				setVisible(false);
 				new Lobby().setVisible(true);
 			}
-			
+
 		});
-		
+
 	}
 
 	/**
@@ -229,19 +253,19 @@ public class KenoView extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-				picked[i] = !picked[i];
-	
-				// change color when click and unclick
-				if (picked[i]) {
-					// only allow up to 10 picks
-					if (userBets.size() < 10) {
-						buttons[i].setBackground(Color.red);
-						userBets.add(i + 1);
-					}
-				} else {
-					buttons[i].setBackground(Color.blue);
-					userBets.remove(i + 1);
+			picked[i] = !picked[i];
+
+			// change color when click and unclick
+			if (picked[i]) {
+				// only allow up to 10 picks
+				if (userBets.size() < 10) {
+					buttons[i].setBackground(Color.red);
+					userBets.add(i + 1);
 				}
+			} else {
+				buttons[i].setBackground(Color.blue);
+				userBets.remove(i + 1);
+			}
 
 		}
 
@@ -263,26 +287,26 @@ public class KenoView extends JFrame {
 		}
 
 	}
-	
+
 	/**
 	 * helper method to reveal all drawn lucky numbers
 	 */
 	private void showLuckyNumbers() {
-		
+
 		// set background color
 		for (Integer num : keno.getLuckyNumbers()) {
 			if (userBets.contains(num)) {
-				buttons[num - 1].setBackground(Color.magenta);	
+				buttons[num - 1].setBackground(Color.magenta);
 			} else {
-				buttons[num - 1].setBackground(Color.orange);				
+				buttons[num - 1].setBackground(Color.orange);
 			}
 		}
-		
+
 		// set every grid unpicked
 		for (int i = 0; i < picked.length; i++) {
 			picked[i] = false;
 		}
-		
+
 	}
 
 	/**

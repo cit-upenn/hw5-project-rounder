@@ -1,7 +1,9 @@
 package slot_machine;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -16,6 +18,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 
 import lobby.*;
 
@@ -36,10 +40,11 @@ public class SlotView extends JFrame {
 	// GUI variables
 	private JPanel top, left, right, bottom, center;
 	private JPanel subLeft, subCenter, subRight;
-	private JButton spin, back;
+	private JButton spin, back, empty;
 	private JLabel[] reels;
 	private ArrayList<ImageIcon> images;
 	private Timer[] timer, spinner;
+	private static final Border WHITE_BORDER = new LineBorder(Color.WHITE, 2);
 
 	/**
 	 * constructor
@@ -62,7 +67,7 @@ public class SlotView extends JFrame {
 		setTitle("Slot");
 		layOutComponents();
 		attachListenersToComponents();
-		setPreferredSize(new Dimension(1200, 400));
+		setPreferredSize(new Dimension(1000, 600));
 		setLocation();
 		pack();
 		setVisible(true);
@@ -100,9 +105,14 @@ public class SlotView extends JFrame {
 		bottom = new JPanel();
 
 		add(top, BorderLayout.NORTH);
+
+		ImageIcon imageIcon = new ImageIcon(getClass().getResource("slot-machine.jpg"));
+		Image imageImage = imageIcon.getImage().getScaledInstance(1000, 200, java.awt.Image.SCALE_SMOOTH);
+		ImageIcon image = new ImageIcon(imageImage);
+		top.add(new JLabel(image));
+
 		add(left, BorderLayout.WEST);
 		add(center, BorderLayout.CENTER);
-
 		add(right, BorderLayout.EAST);
 		add(bottom, BorderLayout.SOUTH);
 		addSubPanels();
@@ -116,9 +126,12 @@ public class SlotView extends JFrame {
 		center.setLayout(new GridLayout(1, 3));
 		subLeft = new JPanel();
 		subLeft.setPreferredSize(new Dimension(300, 300));
+		subLeft.setBackground(Color.BLACK);
 		subCenter = new JPanel();
 		subCenter.setPreferredSize(new Dimension(300, 300));
+		subCenter.setBackground(Color.BLACK);
 		subRight = new JPanel();
+		subRight.setBackground(Color.BLACK);
 		subRight.setPreferredSize(new Dimension(300, 300));
 
 		center.add(subLeft);
@@ -126,13 +139,33 @@ public class SlotView extends JFrame {
 		center.add(subRight);
 
 		bottom.setLayout(new GridLayout(1, 3));
+		bottom.setBackground(Color.BLACK);
 
 		// add "Spin" button
-		bottom.add(new JLabel());
+		empty = new JButton("");
+		bottom.add(empty);
+		setButton(empty);
 		spin = new JButton("Spin");
+		setButton(spin);
 		bottom.add(spin);
 		back = new JButton("Back");
+		setButton(back);
 		bottom.add(back);
+
+	}
+
+	/**
+	 * set button attributes
+	 * 
+	 * @param button
+	 */
+	private void setButton(JButton button) {
+		button.setForeground(Color.white);
+		button.setBackground(Color.BLACK);
+		button.setOpaque(true);
+		button.setBorderPainted(true);
+		button.setBorder(WHITE_BORDER);
+		button.setFont(new Font("Arial", Font.PLAIN, 25));
 
 	}
 
@@ -150,7 +183,7 @@ public class SlotView extends JFrame {
 
 		// adjust image size and add to view
 		ImageIcon imageIcon = new ImageIcon(getClass().getResource(imageName));
-		Image imageImage = imageIcon.getImage().getScaledInstance(250, 250, java.awt.Image.SCALE_SMOOTH);
+		Image imageImage = imageIcon.getImage().getScaledInstance(280, 280, java.awt.Image.SCALE_SMOOTH);
 		ImageIcon image = new ImageIcon(imageImage);
 		return image;
 	}

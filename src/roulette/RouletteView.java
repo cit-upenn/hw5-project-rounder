@@ -28,11 +28,12 @@ public class RouletteView extends JFrame {
 	private JPanel subTop, subLeft, subRight, subBottom, subCenter;
 	private JPanel subBottom1, subBottom2, subBottom3;
 	private JButton[] buttons;
-	private JButton spin, back;
+	private JButton spin, back, empty;
 	private JLabel rouletteImage;
 	private static final Border WHITE_BORDER = new LineBorder(Color.WHITE, 2);
 	private static final Color DARK_GREEN = new Color(0, 100, 0);
 	private static final Color FOREST_GREEN = new Color(34, 139, 34);
+	private static final Color ROYAL_BLUE = new Color(65, 105, 225);
 
 	// array to store results
 	private int[] userBets;
@@ -50,7 +51,7 @@ public class RouletteView extends JFrame {
 		for (int i = 0; i < userBets.length; i++) {
 			userBets[i] = 0;
 		}
-		
+
 		display();
 	}
 
@@ -133,13 +134,33 @@ public class RouletteView extends JFrame {
 		center.add(subBottom, BorderLayout.SOUTH);
 
 		bottom.setLayout(new GridLayout(1, 3));
+		bottom.setBackground(ROYAL_BLUE);
 
 		// add "Spin" button
-		bottom.add(new JLabel());
+		empty = new JButton("");
+		bottom.add(empty);
+		setButton(empty);
 		spin = new JButton("Spin");
+		setButton(spin);
 		bottom.add(spin);
 		back = new JButton("Back");
+		setButton(back);
 		bottom.add(back);
+	}
+
+	/**
+	 * set button attributes
+	 * 
+	 * @param button
+	 */
+	private void setButton(JButton button) {
+		button.setForeground(Color.white);
+		button.setBackground(ROYAL_BLUE);
+		button.setOpaque(true);
+		button.setBorderPainted(true);
+		button.setBorder(WHITE_BORDER);
+		button.setFont(new Font("Arial", Font.PLAIN, 25));
+
 	}
 
 	/**
@@ -386,9 +407,9 @@ public class RouletteView extends JFrame {
 				setVisible(false);
 				new Lobby().setVisible(true);
 			}
-			
+
 		});
-		
+
 	}
 
 	/**
