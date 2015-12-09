@@ -8,6 +8,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -42,7 +43,7 @@ public class SlotView extends JFrame {
 	private JButton spin, back;
 	private JLabel[] reels;
 	private ArrayList<ImageIcon> images;
-	private Timer[] timer;
+	private Timer[] timer, spinner;
 
 	/**
 	 * constructor
@@ -52,6 +53,7 @@ public class SlotView extends JFrame {
 		images = new ArrayList<ImageIcon>();
 		reels = new JLabel[3];
 		timer = new Timer[3];
+		spinner = new Timer[3];
 		finalPayout = 0;
 		
 		display();
@@ -240,7 +242,15 @@ public class SlotView extends JFrame {
 			
 			timer[2] = new Timer(3000, new TimerEvent(2));
 			timer[2].start();
-
+			
+			spinner[0] = new Timer(100, new SpinnerEvent(0));
+			spinner[0].start();
+			
+			spinner[1] = new Timer(100, new SpinnerEvent(1));
+			spinner[1].start();
+			
+			spinner[2] = new Timer(100, new SpinnerEvent(2));
+			spinner[2].start();
 		}
 
 	}
@@ -262,7 +272,8 @@ public class SlotView extends JFrame {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			spinReelImage(reels[i], slot.getSymbols()[i].getOrder());
+//			spinReelImage(i, slot.getSymbols()[i].getOrder());
+			spinner[i].stop();
 			timer[i].stop();
 			
 			if (i == 2) {
@@ -276,12 +287,36 @@ public class SlotView extends JFrame {
 	/**
 	 * helper method to change displayed image when reel spins
 	 */
-	private void spinReelImage(JLabel reel, int order) {
+	private void spinReelImage(int i, int order) {
 		// for (int i = 0; i < SlotSymbol.values().length + order; i++) {
 
 		// reel.setIcon(images.get(i%SlotSymbol.values().length));
 		// }
-		reel.setIcon(images.get(order));
+		spinner[i] = new Timer(100, new SpinnerEvent(i));
+		spinner[i].start();
+//		reels[i].setIcon(images.get(order));
+	}
+	
+	/**
+	 * inner class to represent a spinner event
+	 */
+	private class SpinnerEvent implements ActionListener {
+		
+		private int i;
+		
+		/**
+		 * constructor
+		 * @param i
+		 */
+		public SpinnerEvent(int i) {
+			this.i = i;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			reels[i].setIcon(images.get(new Random().nextInt(7)));		
+		}
+		
 	}
 
 	/**
