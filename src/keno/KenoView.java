@@ -19,6 +19,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
+import lobby.*;
+
 /**
  * This class represents a keno lottery ticket
  * 
@@ -35,7 +37,7 @@ public class KenoView extends JFrame {
 	// GUI variables
 	private JPanel top, left, right, bottom, center;
 	private JButton[] buttons;
-	private JButton draw;
+	private JButton draw, back;
 	private static final Border WHITE_BORDER = new LineBorder(Color.WHITE, 2);
 
 	// store results
@@ -117,8 +119,9 @@ public class KenoView extends JFrame {
 		bottom.add(new JLabel());
 		draw = new JButton("Draw");
 		bottom.add(draw);
-		bottom.add(new JLabel());
-
+		back = new JButton("Back");
+		bottom.add(back);
+		
 	}
 
 	/**
@@ -188,6 +191,16 @@ public class KenoView extends JFrame {
 		}
 
 		draw.addActionListener(new DrawEvent());
+		back.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				new Lobby().setVisible(true);
+			}
+			
+		});
+		
 	}
 
 	/**

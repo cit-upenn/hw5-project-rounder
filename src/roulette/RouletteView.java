@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import lobby.*;
+
 /**
  * This class will show a roulette table for the player to play
  * 
@@ -26,7 +28,7 @@ public class RouletteView extends JFrame {
 	private JPanel subTop, subLeft, subRight, subBottom, subCenter;
 	private JPanel subBottom1, subBottom2, subBottom3;
 	private JButton[] buttons;
-	private JButton spin;
+	private JButton spin, back;
 	private JLabel rouletteImage;
 	private static final Border WHITE_BORDER = new LineBorder(Color.WHITE, 2);
 	private static final Color DARK_GREEN = new Color(0, 100, 0);
@@ -136,7 +138,8 @@ public class RouletteView extends JFrame {
 		bottom.add(new JLabel());
 		spin = new JButton("Spin");
 		bottom.add(spin);
-		bottom.add(new JLabel());
+		back = new JButton("Back");
+		bottom.add(back);
 	}
 
 	/**
@@ -376,7 +379,16 @@ public class RouletteView extends JFrame {
 
 		// add listener to spin
 		spin.addActionListener(new SpinEvent());
+		back.addActionListener(new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				new Lobby().setVisible(true);
+			}
+			
+		});
+		
 	}
 
 	/**

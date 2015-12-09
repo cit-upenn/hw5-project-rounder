@@ -9,6 +9,6 @@ package slot_machine;
 public class SlotGame {
 
 	public static void main(String[] args) {
-		SlotView s = new SlotView();
+		SlotView sv = new SlotView();
 	}
 }

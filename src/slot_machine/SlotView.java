@@ -17,6 +17,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import lobby.Lobby;
+
 /**
  * This class will show the gui view for the slot game
  * 
@@ -36,7 +38,7 @@ public class SlotView extends JFrame {
 	// GUI variables
 	private JPanel top, left, right, bottom, center;
 	private JPanel subLeft, subCenter, subRight;
-	private JButton spin;
+	private JButton spin, back;
 	private JLabel[] reels;
 	private ArrayList<ImageIcon> images;
 
@@ -81,7 +83,7 @@ public class SlotView extends JFrame {
 	private void layOutComponents() {
 		setLayout(new BorderLayout());
 		addPanels();
-		addButtons();
+//		addButtons();
 		addImage();
 	}
 
@@ -127,15 +129,17 @@ public class SlotView extends JFrame {
 		bottom.add(new JLabel());
 		spin = new JButton("Spin");
 		bottom.add(spin);
-		bottom.add(new JLabel());
+		back = new JButton("Back");
+		bottom.add(back);
+		
 	}
 
 	/**
 	 * helper method to add buttons
 	 */
-	private void addButtons() {
-
-	}
+//	private void addButtons() {
+//
+//	}
 
 	/**
 	 * helper method to load image
@@ -202,7 +206,16 @@ public class SlotView extends JFrame {
 
 		// add listener to spin
 		spin.addActionListener(new SpinEvent());
+		back.addActionListener(new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				new Lobby().setVisible(true);
+			}
+			
+		});
+		
 	}
 
 	/**

@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 
 import keno.*;
 import roulette.*;
+import slot_machine.*;
 
 /**
  * This class represents the game lobby, which has 3 options: Roulette, Keno, Slot Machine.
@@ -136,7 +137,6 @@ public class Lobby extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 				new RouletteView().setVisible(true);
-				new KenoView().setVisible(false);
 			}
 			
 		});
@@ -146,8 +146,17 @@ public class Lobby extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				new RouletteView().setVisible(false);
 				new KenoView().setVisible(true);
+			}
+			
+		});
+		
+		slot.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				new SlotView().setVisible(true);
 			}
 			
 		});
