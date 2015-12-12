@@ -70,7 +70,6 @@ public class SlotView extends JFrame {
 		setPreferredSize(new Dimension(1000, 600));
 		setLocation();
 		pack();
-		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
@@ -246,7 +245,7 @@ public class SlotView extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				new Lobby().setVisible(true);
+				Game.lobby.setVisible(true);
 			}
 
 		});

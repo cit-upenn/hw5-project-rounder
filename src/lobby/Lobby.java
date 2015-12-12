@@ -138,20 +138,20 @@ public class Lobby extends JFrame {
 		bottom.add(slot);
 
 	}
-	
-	
+
 	/**
 	 * set button attributes
+	 * 
 	 * @param button
 	 */
-	private void setButton(JButton button){
+	private void setButton(JButton button) {
 		button.setForeground(Color.white);
 		button.setBackground(MEDIUM_ORCHID);
 		button.setOpaque(true);
 		button.setBorderPainted(true);
 		button.setBorder(WHITE_BORDER);
 		button.setFont(new Font("Arial", Font.PLAIN, 25));
-		
+
 	}
 
 	/**
@@ -165,7 +165,7 @@ public class Lobby extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				new RouletteView().setVisible(true);
+				Game.rouletteView.setVisible(true);
 			}
 
 		});
@@ -175,7 +175,7 @@ public class Lobby extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				new KenoView().setVisible(true);
+				Game.kenoView.setVisible(true);
 			}
 
 		});
@@ -185,18 +185,11 @@ public class Lobby extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				new SlotView().setVisible(true);
+				Game.slotView.setVisible(true);
 			}
 
 		});
 
-	}
-
-	/**
-	 * test the class
-	 */
-	public static void main(String[] args) {
-		Lobby lobby = new Lobby();
 	}
 
 }

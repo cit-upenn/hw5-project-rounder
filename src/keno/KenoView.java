@@ -73,7 +73,6 @@ public class KenoView extends JFrame {
 		setPreferredSize(new Dimension(1200, 400));
 		setLocation();
 		pack();
-		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
@@ -226,7 +225,7 @@ public class KenoView extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				new Lobby().setVisible(true);
+				Game.lobby.setVisible(true);
 			}
 
 		});
