@@ -28,7 +28,7 @@ public class RouletteView extends JFrame {
 	private JPanel subTop, subLeft, subRight, subBottom, subCenter;
 	private JPanel subBottom1, subBottom2, subBottom3;
 	private JButton[] buttons;
-	private JButton spin, back, empty;
+	private JButton spin, back, rule;
 	private JLabel rouletteImage;
 	private static final Border WHITE_BORDER = new LineBorder(Color.WHITE, 2);
 	private static final Color DARK_GREEN = new Color(0, 100, 0);
@@ -136,9 +136,9 @@ public class RouletteView extends JFrame {
 		bottom.setBackground(ROYAL_BLUE);
 
 		// add "Spin" button
-		empty = new JButton("");
-		bottom.add(empty);
-		setButton(empty);
+		rule = new JButton("Rule");
+		bottom.add(rule);
+		setButton(rule);
 		spin = new JButton("Spin");
 		setButton(spin);
 		bottom.add(spin);
@@ -409,6 +409,18 @@ public class RouletteView extends JFrame {
 
 		});
 
+		rule.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(getParent(), "Roulette Rules\n"
+						+ "1. You can bet any combinations\n"
+						+ "2. The wheel will then spin a lucky number\n"
+						+ "3. You will get paid according to your hits\n");
+			}
+
+		});
+		
 	}
 
 	/**

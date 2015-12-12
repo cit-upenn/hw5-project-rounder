@@ -38,7 +38,7 @@ public class KenoView extends JFrame {
 	// GUI variables
 	private JPanel top, left, right, bottom, center;
 	private JButton[] buttons;
-	private JButton draw, back, empty;
+	private JButton draw, back, rule;
 	private static final Border WHITE_BORDER = new LineBorder(Color.WHITE, 2);
 	private static final Color ROYAL_BLUE = new Color(65, 105, 225);
 	private static final Color DARK_GREY = new Color(169, 169, 169);
@@ -126,9 +126,9 @@ public class KenoView extends JFrame {
 		bottom.setLayout(new GridLayout(1, 3));
 
 		// add "Draw" button
-		empty = new JButton("");
-		bottom.add(empty);
-		setButton(empty);
+		rule = new JButton("Rule");
+		bottom.add(rule);
+		setButton(rule);
 		draw = new JButton("Draw");
 		setButton(draw);
 		bottom.add(draw);
@@ -226,6 +226,18 @@ public class KenoView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 				Game.lobby.setVisible(true);
+			}
+
+		});
+		
+		rule.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(getParent(), "Keno Rules\n"
+						+ "1. You can pick 1-10 numbers\n"
+						+ "2. 20 lucky numbers will be drawn\n"
+						+ "3. You will be paid according to numbers hit\n");
 			}
 
 		});
