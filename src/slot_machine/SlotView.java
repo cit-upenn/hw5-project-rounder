@@ -40,7 +40,7 @@ public class SlotView extends JFrame {
 	// GUI variables
 	private JPanel top, left, right, bottom, center;
 	private JPanel subLeft, subCenter, subRight;
-	private JButton spin, back, empty;
+	private JButton spin, back, rules;
 	private JLabel[] reels;
 	private ArrayList<ImageIcon> images;
 	private Timer[] timer, spinner;
@@ -141,9 +141,9 @@ public class SlotView extends JFrame {
 		bottom.setBackground(Color.BLACK);
 
 		// add "Spin" button
-		empty = new JButton("");
-		bottom.add(empty);
-		setButton(empty);
+		rules = new JButton("Rule");
+		bottom.add(rules);
+		setButton(rules);
 		spin = new JButton("Spin");
 		setButton(spin);
 		bottom.add(spin);
@@ -238,8 +238,19 @@ public class SlotView extends JFrame {
 	 */
 	private void attachListenersToComponents() {
 
-		// add listener to spin
+		// add listener to each button
+		rules.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				JOptionPane.showMessageDialog(getParent(),
+						"Slot Rules\n1. Press \"spin\" to play(as you insert $1 in this slot) \n2. 2 symbols in common, you get $3\n3. 3 symbols in common, you get $10\n Good luck! ");
+
+			}
+		});
 		spin.addActionListener(new SpinEvent());
+
 		back.addActionListener(new ActionListener() {
 
 			@Override
@@ -259,6 +270,7 @@ public class SlotView extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			spin.setEnabled(false);
 			slot.spin();
 			finalPayout = slot.getPayout(1);
 			int symbol0 = slot.getSymbols()[0].getOrder();
@@ -311,6 +323,7 @@ public class SlotView extends JFrame {
 			if (i == 2) {
 				JOptionPane.showMessageDialog(getParent(), "You get $" + finalPayout + "\n");
 				clearReelImage();
+				spin.setEnabled(true);
 			}
 		}
 
