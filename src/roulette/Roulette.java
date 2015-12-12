@@ -80,7 +80,7 @@ public class Roulette {
 	/**
 	 * gets the number for this round
 	 * 
-	 * @return the result
+	 * @return the result round number
 	 */
 	public RouletteNumber getRoundNumber() {
 		return roundNumber;
@@ -106,6 +106,7 @@ public class Roulette {
 	 */
 	public boolean hitGroup(RouletteBet b) {
 
+		// decide if this bet hits any combination
 		switch (b) {
 		case Black:
 			return roundNumber.isBlack();
@@ -141,16 +142,17 @@ public class Roulette {
 	 * Transfer button index to Bet
 	 * 
 	 * @param index
-	 * @return
+	 *            array index
+	 * @return corresponding bet
 	 */
 	private static RouletteBet buttonIndexToBet(int index) {
 		switch (index) {
 		case 37:
-			return RouletteBet.FirstColumn;// 1stRow(bottom 1st)
+			return RouletteBet.FirstColumn; // 1st Row (bottom 1st)
 		case 38:
-			return RouletteBet.SecondColumn;// 2ndRow
+			return RouletteBet.SecondColumn; // 2nd Row
 		case 39:
-			return RouletteBet.ThirdColumn;// 3rdRow
+			return RouletteBet.ThirdColumn; // 3rd Row
 		case 40:
 			return RouletteBet.FirstDozen;
 		case 41:

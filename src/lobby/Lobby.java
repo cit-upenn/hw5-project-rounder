@@ -18,15 +18,12 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
-import keno.*;
-import roulette.*;
-import slot_machine.*;
-
 /**
  * This class represents the game lobby, which has 3 options: Roulette, Keno,
  * Slot Machine.
  * 
- * @author SHANG
+ * @author Zhiyuan Li
+ * @author Yi Shang
  *
  */
 public class Lobby extends JFrame {
@@ -34,7 +31,6 @@ public class Lobby extends JFrame {
 	private static final long serialVersionUID = 5008340198532190080L;
 
 	// instance variables
-
 	// GUI variables
 	private JPanel top, left, right, bottom, center;
 	private JButton roulette, keno, slot;
@@ -109,6 +105,7 @@ public class Lobby extends JFrame {
 		right = new JPanel();
 		bottom = new JPanel();
 
+		// add them to the frame
 		add(top, BorderLayout.NORTH);
 		add(left, BorderLayout.WEST);
 		add(center, BorderLayout.CENTER);
@@ -122,6 +119,7 @@ public class Lobby extends JFrame {
 	 */
 	private void addSubPanels() {
 
+		// set buttom panel layout
 		bottom.setLayout(new GridLayout(1, 3));
 		bottom.setBackground(DARK_GREEN);
 
@@ -143,6 +141,7 @@ public class Lobby extends JFrame {
 	 * set button attributes
 	 * 
 	 * @param button
+	 *            the button to be set
 	 */
 	private void setButton(JButton button) {
 		button.setForeground(Color.white);
@@ -160,6 +159,7 @@ public class Lobby extends JFrame {
 	private void attachListenersToComponents() {
 
 		// add listeners to buttons
+		// add roulette
 		roulette.addActionListener(new ActionListener() {
 
 			@Override
@@ -170,6 +170,7 @@ public class Lobby extends JFrame {
 
 		});
 
+		// add keno
 		keno.addActionListener(new ActionListener() {
 
 			@Override
@@ -180,6 +181,7 @@ public class Lobby extends JFrame {
 
 		});
 
+		// add slot
 		slot.addActionListener(new ActionListener() {
 
 			@Override

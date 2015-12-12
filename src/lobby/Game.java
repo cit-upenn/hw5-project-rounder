@@ -7,10 +7,12 @@ import slot_machine.SlotView;
 /**
  * This class will initialize all views for casino games
  * 
- * @author zhiyuanli
+ * @author Zhiyuan Li
+ * @author Yi Shang
  *
  */
 public class Game {
+	
 	// instance variables
 	public static Lobby lobby;
 	public static RouletteView rouletteView;
@@ -22,19 +24,25 @@ public class Game {
 	 * actions
 	 */
 	public Game() {
-
 		lobby = new Lobby();
 		rouletteView = new RouletteView();
 		kenoView = new KenoView();
 		slotView = new SlotView();
-
+	}
+	
+	/**
+	 * prints welcome message to users
+	 */
+	public void start() {
+		System.out.println("Game Starts!");
 	}
 
-	/*
-	 * new game instance
+	/**
+	 * create new game instance
 	 */
 	public static void main(String[] args) {
 		Game game = new Game();
+		game.start();
 	}
 
 }

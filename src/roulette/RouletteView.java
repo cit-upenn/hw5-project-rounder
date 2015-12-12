@@ -99,6 +99,7 @@ public class RouletteView extends JFrame {
 		right = new JPanel();
 		bottom = new JPanel();
 
+		// add them to the frame
 		add(top, BorderLayout.NORTH);
 		add(left, BorderLayout.WEST);
 		add(center, BorderLayout.CENTER);
@@ -150,7 +151,7 @@ public class RouletteView extends JFrame {
 	/**
 	 * set button attributes
 	 * 
-	 * @param button
+	 * @param button the button to be set
 	 */
 	private void setButton(JButton button) {
 		button.setForeground(Color.white);
@@ -232,19 +233,19 @@ public class RouletteView extends JFrame {
 
 		}
 
-		// add 1st-3rd column buttons
+		// add 1st - 3rd column buttons
 		subRight.setLayout(new GridLayout(3, 1));
 		for (int i = 37; i <= 39; i++) {
 			buttons[i].setPreferredSize(new Dimension(80, 40));
 			buttons[i].setBackground(FOREST_GREEN);
 		}
 
-		// add 1st-3rd dozen buttons
+		// add 1st - 3rd dozen buttons
 		subBottom.setLayout(new GridLayout(2, 3));
 		subBottom.setPreferredSize(new Dimension(1200, 80));
 
 		// add sub-bottom buttons
-		// 1-18/19-36, RED/BLACK, ODD/EVEN
+		// 1 - 18 / 19 - 36, RED / BLACK, ODD / EVEN
 		subBottom1 = new JPanel();
 		subBottom2 = new JPanel();
 		subBottom3 = new JPanel();
@@ -353,17 +354,17 @@ public class RouletteView extends JFrame {
 	/**
 	 * Transfer button index to string
 	 * 
-	 * @param index
-	 * @return
+	 * @param index array index
+	 * @return corresponding bet
 	 */
 	private String buttonIndexToString(int index) {
 		switch (index) {
 		case 37:
-			return "2 to 1";// 1stRow(bottom 1st)
+			return "2 to 1"; // 1st Row (bottom 1st)
 		case 38:
-			return "2 to 1";// 2ndRow
+			return "2 to 1"; // 2nd Row
 		case 39:
-			return "2 to 1";// 3rdRow
+			return "2 to 1"; // 3rd Row
 		case 40:
 			return "1st 12";
 		case 41:
@@ -397,7 +398,7 @@ public class RouletteView extends JFrame {
 			buttons[i].addActionListener(new ButtonEvent(i));
 		}
 
-		// add listener to spin
+		// add listener to spin, back, rule
 		spin.addActionListener(new SpinEvent());
 		back.addActionListener(new ActionListener() {
 
@@ -522,6 +523,7 @@ public class RouletteView extends JFrame {
 	public int getTotalBets() {
 		int totalBets = 0;
 
+		// calculates total bets
 		for (int i = 0; i < userBets.length; i++) {
 			totalBets += userBets[i];
 		}
