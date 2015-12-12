@@ -24,9 +24,10 @@ import javax.swing.border.LineBorder;
 import lobby.*;
 
 /**
- * This class will show the GUI view for the slot game
+ * This class will show the GUI view for the slot game with animation
  * 
- * @author zhiyuanli
+ * @author Zhiyuan Li
+ * @author Yi Shang
  *
  */
 public class SlotView extends JFrame {
@@ -44,6 +45,8 @@ public class SlotView extends JFrame {
 	private JLabel[] reels;
 	private ArrayList<ImageIcon> images;
 	private Timer[] timer, spinner;
+
+	// constant
 	private static final Border WHITE_BORDER = new LineBorder(Color.WHITE, 2);
 
 	/**
@@ -89,7 +92,6 @@ public class SlotView extends JFrame {
 	private void layOutComponents() {
 		setLayout(new BorderLayout());
 		addPanels();
-		// addButtons();
 		addImage();
 	}
 
@@ -105,6 +107,7 @@ public class SlotView extends JFrame {
 
 		add(top, BorderLayout.NORTH);
 
+		// add an image to top
 		ImageIcon imageIcon = new ImageIcon(getClass().getResource("slot-machine.jpg"));
 		Image imageImage = imageIcon.getImage().getScaledInstance(1000, 200, java.awt.Image.SCALE_SMOOTH);
 		ImageIcon image = new ImageIcon(imageImage);
@@ -121,6 +124,7 @@ public class SlotView extends JFrame {
 	 * helper method to add 5 sub-panels within the center panel
 	 */
 	private void addSubPanels() {
+
 		// add 3 sub panels in center
 		center.setLayout(new GridLayout(1, 3));
 		subLeft = new JPanel();
@@ -140,7 +144,7 @@ public class SlotView extends JFrame {
 		bottom.setLayout(new GridLayout(1, 3));
 		bottom.setBackground(Color.BLACK);
 
-		// add "Spin" button
+		// add bottom buttons
 		rules = new JButton("Rule");
 		bottom.add(rules);
 		setButton(rules);
@@ -154,9 +158,10 @@ public class SlotView extends JFrame {
 	}
 
 	/**
-	 * set button attributes
+	 * helper method to set bottom buttons' attributes
 	 * 
 	 * @param button
+	 *            to be set
 	 */
 	private void setButton(JButton button) {
 		button.setForeground(Color.white);
@@ -167,13 +172,6 @@ public class SlotView extends JFrame {
 		button.setFont(new Font("Arial", Font.PLAIN, 25));
 
 	}
-
-	/**
-	 * helper method to add buttons
-	 */
-	// private void addButtons() {
-	//
-	// }
 
 	/**
 	 * helper method to load image
@@ -191,7 +189,8 @@ public class SlotView extends JFrame {
 	 * helper method to transfer symbol to image name
 	 * 
 	 * @param order
-	 * @return image name
+	 *            order of symbol
+	 * @return image name image name to be loaded
 	 */
 	private String orderToImageName(int order) {
 		switch (order) {
@@ -215,10 +214,11 @@ public class SlotView extends JFrame {
 	}
 
 	/**
-	 * helper method to add image to the view
+	 * helper method to add image
 	 */
 	private void addImage() {
 
+		// initialize center with 3 question marks(unkown.jpg0
 		reels[0] = new JLabel(loadImage("unkown.jpg"));
 		reels[1] = new JLabel(loadImage("unkown.jpg"));
 		reels[2] = new JLabel(loadImage("unkown.jpg"));
@@ -227,6 +227,7 @@ public class SlotView extends JFrame {
 		subCenter.add(reels[1]);
 		subRight.add(reels[2]);
 
+		// load 7 symbols' image to the arraylist
 		for (int i = 0; i < SlotSymbol.values().length; i++) {
 			images.add(loadImage(orderToImageName(SlotSymbol.values()[i].getOrder())));
 		}
@@ -249,6 +250,7 @@ public class SlotView extends JFrame {
 
 			}
 		});
+
 		spin.addActionListener(new SpinEvent());
 
 		back.addActionListener(new ActionListener() {
@@ -270,22 +272,30 @@ public class SlotView extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			// after clicking "spin", set it unclickable for a while
 			spin.setEnabled(false);
+
+			// generate 3 random symbols
 			slot.spin();
 			finalPayout = slot.getPayout(1);
+
+			// get each symbol order of the result
 			int symbol0 = slot.getSymbols()[0].getOrder();
 			int symbol1 = slot.getSymbols()[1].getOrder();
 			int symbol2 = slot.getSymbols()[2].getOrder();
 
-			timer[0] = new Timer((symbol0 + 8) * 100, new TimerEvent(0));
+			// set spining time for each reel based on the symbols
+			// reel1 stops first, then reel2, reel3 stops in the end
+			timer[0] = new Timer((symbol0 + 7) * 100, new TimerEvent(0));
 			timer[0].start();
 
-			timer[1] = new Timer((symbol1 + 8 + 7) * 120, new TimerEvent(1));
+			timer[1] = new Timer((symbol1 + 7 + 7) * 120, new TimerEvent(1));
 			timer[1].start();
 
-			timer[2] = new Timer((symbol2 + 8 + 7 + 7) * 140, new TimerEvent(2));
+			timer[2] = new Timer((symbol2 + 7 + 7 + 7) * 140, new TimerEvent(2));
 			timer[2].start();
 
+			// set image switching time for each reel
 			spinner[0] = new Timer(100, new SpinnerEvent(0));
 			spinner[0].start();
 
@@ -316,13 +326,16 @@ public class SlotView extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// spinReelImage(i, slot.getSymbols()[i].getOrder());
+
+			// stop sippner and timmer
 			spinner[i].stop();
 			timer[i].stop();
 
+			// show results
 			if (i == 2) {
-				JOptionPane.showMessageDialog(getParent(), "You get $" + finalPayout + "\n");
+				JOptionPane.showMessageDialog(getParent(), "You bet $1\nYou get $" + finalPayout + "\n");
 				clearReelImage();
+				// set spin button clickable again
 				spin.setEnabled(true);
 			}
 		}
@@ -350,6 +363,7 @@ public class SlotView extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
+			// change images
 			reels[i].setIcon(images.get(counter % 7));
 			counter++;
 

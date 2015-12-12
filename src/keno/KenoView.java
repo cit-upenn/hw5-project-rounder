@@ -24,7 +24,8 @@ import lobby.*;
 /**
  * This class represents a keno lottery ticket
  * 
- * @author SHANG
+ * @author Zhiyuan Li
+ * @author Yi Shang
  *
  */
 public class KenoView extends JFrame {
@@ -39,6 +40,8 @@ public class KenoView extends JFrame {
 	private JPanel top, left, right, bottom, center;
 	private JButton[] buttons;
 	private JButton draw, back, rule;
+
+	// some constants
 	private static final Border WHITE_BORDER = new LineBorder(Color.WHITE, 2);
 	private static final Color ROYAL_BLUE = new Color(65, 105, 225);
 	private static final Color DARK_GREY = new Color(169, 169, 169);
@@ -56,6 +59,7 @@ public class KenoView extends JFrame {
 		finalPayout = 0;
 		picked = new boolean[80];
 
+		// set each number as unpicked
 		for (int i = 0; i < picked.length; i++) {
 			picked[i] = false;
 		}
@@ -125,7 +129,7 @@ public class KenoView extends JFrame {
 
 		bottom.setLayout(new GridLayout(1, 3));
 
-		// add "Draw" button
+		// add bottom buttons
 		rule = new JButton("Rule");
 		bottom.add(rule);
 		setButton(rule);
@@ -139,9 +143,10 @@ public class KenoView extends JFrame {
 	}
 
 	/**
-	 * set button attributes
+	 * helper method to set bottom buttons' attributes
 	 * 
 	 * @param button
+	 *            to be set
 	 */
 	private void setButton(JButton button) {
 		button.setForeground(Color.white);
@@ -154,7 +159,7 @@ public class KenoView extends JFrame {
 	}
 
 	/**
-	 * helper method to add buttons
+	 * helper method to add buttons(number 1-80)
 	 */
 	private void addButtons() {
 
@@ -229,15 +234,13 @@ public class KenoView extends JFrame {
 			}
 
 		});
-		
+
 		rule.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(getParent(), "Keno Rules\n"
-						+ "1. You can pick 1-10 numbers\n"
-						+ "2. 20 lucky numbers will be drawn\n"
-						+ "3. You will be paid according to numbers hit\n");
+				JOptionPane.showMessageDialog(getParent(), "Keno Rules\n" + "1. You can pick 1-10 numbers\n"
+						+ "2. 20 lucky numbers will be drawn\n" + "3. You will be paid according to numbers hit\n");
 			}
 
 		});

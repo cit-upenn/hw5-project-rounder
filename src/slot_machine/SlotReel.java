@@ -6,7 +6,8 @@ import java.util.Random;
 /**
  * This class represents one reel in slot machine.
  * 
- * @author zhiyuanli
+ * @author Zhiyuan Li
+ * @author Yi Shang
  *
  */
 public class SlotReel {

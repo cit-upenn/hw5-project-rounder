@@ -1,9 +1,10 @@
 package slot_machine;
 
 /**
- * This enum class represents one symbol in slot machine.
+ * This enum class represents one symbol with its order in slot machine.
  * 
- * @author zhiyuanli
+ * @author Zhiyuan Li
+ * @author Yi Shang
  *
  */
 public enum SlotSymbol {

@@ -6,7 +6,8 @@ import java.util.Set;
 /**
  * This class represents a Slot Machine game
  * 
- * @author zhiyuanli
+ * @author Zhiyuan Li
+ * @author Yi Shang
  *
  */
 public class Slot {
@@ -14,12 +15,13 @@ public class Slot {
 	// instance variable
 	private SlotReel[] reels;
 	private SlotSymbol[] symbols;
+
+	// payout ratios
 	private final static int DOUBLE_RATIO = 3;
 	private final static int TRIPLE_RATIO = 10;
 
 	/**
-	 * constructor to set up a slot machine with input number of reels and
-	 * initial credits the player owns
+	 * constructor to set up a slot machine with input number of reels
 	 * 
 	 * @param numOfReels
 	 *            number of reels
@@ -66,9 +68,9 @@ public class Slot {
 				duplicates++;
 			}
 		}
-		if (duplicates == 1) {
+		if (duplicates == 1) {// 2 symbols in common
 			payout = userBet * DOUBLE_RATIO;
-		} else if (duplicates == 2) {
+		} else if (duplicates == 2) {// 3 symbols in common
 			payout = userBet * TRIPLE_RATIO;
 		} else {
 			payout = 0;
