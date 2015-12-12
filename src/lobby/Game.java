@@ -12,7 +12,7 @@ import slot_machine.SlotView;
  *
  */
 public class Game {
-	
+
 	// instance variables
 	public static Lobby lobby;
 	public static RouletteView rouletteView;
@@ -24,12 +24,14 @@ public class Game {
 	 * actions
 	 */
 	public Game() {
-		lobby = new Lobby();
+
 		rouletteView = new RouletteView();
 		kenoView = new KenoView();
 		slotView = new SlotView();
+		lobby = new Lobby();
+
 	}
-	
+
 	/**
 	 * prints welcome message to users
 	 */
