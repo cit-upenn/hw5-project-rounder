@@ -4,6 +4,14 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+/**
+ * This class do unit test for class RouletteTest
+ * 
+ * @author Zhiyuan Li
+ * @author Yi Shang
+ * 
+ */
+
 public class RouletteBetTest {
 
 	@Test

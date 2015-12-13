@@ -141,6 +141,7 @@ public class RouletteView extends JFrame {
 		bottom.add(rule);
 		setButton(rule);
 		spin = new JButton("Spin");
+		spin.setName("Spin");
 		setButton(spin);
 		bottom.add(spin);
 		back = new JButton("Back");

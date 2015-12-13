@@ -146,9 +146,11 @@ public class SlotView extends JFrame {
 
 		// add bottom buttons
 		rules = new JButton("Rule");
+		rules.setName("Rule");
 		bottom.add(rules);
 		setButton(rules);
 		spin = new JButton("Spin");
+		spin.setName("Spin");
 		setButton(spin);
 		bottom.add(spin);
 		back = new JButton("Back");

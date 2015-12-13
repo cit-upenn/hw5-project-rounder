@@ -4,6 +4,13 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+/**
+ * This class do unit test for class Lobby
+ * 
+ * @author Zhiyuan Li
+ * @author Yi Shang
+ * 
+ */
 public class LobbyTest {
 
 	@Test

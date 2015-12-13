@@ -4,6 +4,13 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+/**
+ * This class do unit test for class RouletteNUmber
+ * 
+ * @author Zhiyuan Li
+ * @author Yi Shang
+ * 
+ */
 public class RouletteNumberTest {
 
 	@Test
@@ -15,7 +22,7 @@ public class RouletteNumberTest {
 	public void testZero() {
 		assertTrue("0 should be 0", new RouletteNumber(0, RouletteColor.Green).isZero());
 	}
-	
+
 	@Test
 	public void testOdd() {
 		assertTrue("1 should be odd", new RouletteNumber(1, RouletteColor.Red).isOdd());
@@ -60,7 +67,7 @@ public class RouletteNumberTest {
 	public void testSecondDozen() {
 		assertTrue("16 should be 2nd dozen", new RouletteNumber(16, RouletteColor.Red).isSecondDozen());
 	}
-	
+
 	@Test
 	public void testThirdDozen() {
 		assertTrue("36 should be 3rd dozen", new RouletteNumber(36, RouletteColor.Red).isThirdDozen());
@@ -75,15 +82,15 @@ public class RouletteNumberTest {
 	public void testSecondColumn() {
 		assertTrue("2 should be 2nd column", new RouletteNumber(2, RouletteColor.Black).isSecondColumn());
 	}
-	
+
 	@Test
 	public void testThirdColumn() {
 		assertTrue("3 should be 3rd column", new RouletteNumber(3, RouletteColor.Red).isThirdColumn());
 	}
-	
+
 	@Test
 	public void testToString() {
 		assertNotNull("String should not be null", new RouletteNumber(1, RouletteColor.Red).toString());
 	}
-	
+
 }

@@ -1,27 +1,36 @@
 package roulette;
 
-import static org.junit.Assert.*;
-
+import org.fest.swing.fixture.FrameFixture;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * This class do unit test for class RouletteView
+ * 
+ * @author Zhiyuan Li
+ * @author Yi Shang
+ * 
+ */
 public class RouletteViewTest {
 
-	private RouletteView rv;
-	
+	private FrameFixture rv;
+
 	@Before
 	public void setUp() {
-		rv = new RouletteView();
+		rv = new FrameFixture(new RouletteView());
+		rv.show();
+	}
+
+	@After
+	public void tearDown() {
+		rv.cleanUp();
 	}
 
 	@Test
-	public void testRouletteViewNotNull() {
-		assertNotNull("KenoView cannot be null", rv);
-	}
-	
-	@Test
-	public void testTotalBets() {
-		assertEquals("Total bets should be 0", 0, rv.getTotalBets());
+	public void testDrawButton() {
+		rv.button("Spin").click();
+		rv.optionPane().requireInformationMessage();
 	}
 
 }

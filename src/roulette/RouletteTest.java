@@ -5,6 +5,13 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * This class do unit test for class Roulette
+ * 
+ * @author Zhiyuan Li
+ * @author Yi Shang
+ * 
+ */
 public class RouletteTest {
 	
 	private Roulette roulette;

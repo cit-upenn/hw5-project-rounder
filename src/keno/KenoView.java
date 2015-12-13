@@ -134,6 +134,7 @@ public class KenoView extends JFrame {
 		bottom.add(rule);
 		setButton(rule);
 		draw = new JButton("Draw");
+		draw.setName("Draw");
 		setButton(draw);
 		bottom.add(draw);
 		back = new JButton("Back");

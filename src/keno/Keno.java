@@ -9,7 +9,7 @@ import java.util.HashSet;
  * 
  * @author Zhiyuan Li
  * @author Yi Shang
- *
+ * 
  */
 public class Keno {
 

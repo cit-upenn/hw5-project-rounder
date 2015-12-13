@@ -7,13 +7,20 @@ import java.util.HashSet;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * This class do unit test for class Keno
+ * 
+ * @author Zhiyuan Li
+ * @author Yi Shang
+ *
+ */
 public class KenoTest {
-	
+
 	private Keno k;
-	
+
 	@Before
 	public void setUp() {
-		k = new Keno();	
+		k = new Keno();
 	}
 
 	@Test
@@ -25,13 +32,13 @@ public class KenoTest {
 	public void testHitNotZero() {
 		assertFalse("0 cannot hit", k.hit(0));
 	}
-	
+
 	@Test
 	public void testDrawLuckyNumbers() {
 		k.drawLuckyNumbers();
 		assertEquals("Should contain 20 numbers", 20, k.getLuckyNumbers().size());
 	}
-	
+
 	@Test
 	public void testNumOfHits() {
 		HashSet<Integer> nums = new HashSet<Integer>();
@@ -68,5 +75,5 @@ public class KenoTest {
 		nums.add(-9);
 		assertEquals("Pick 10, should pay 0", 0, k.payout(nums));
 	}
-	
+
 }
