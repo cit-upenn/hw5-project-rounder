@@ -1,0 +1,34 @@
+Game Play
+	All user have to do is run
+		Game.java
+	Then game will start and open a lobby to user.
+	The lobby shows 3 options:
+	1. Roulette   
+	2. Keno   
+	3. Slot Machine
+	User can click any game they'd like to play, then it will automatically switch window to that game.
+	Each game has button "Rule", which shows the brief game rules, and "Back", which goes back to the main game lobby.
+
+Roulette --- classic casino wheel game, spin a number between 0 - 36
+	1. User can place bets on the roulette table by clicking on the betting area.
+	2. One click equals one dollar bets, user can muti-click and muti-bet.
+	3. Different betting areas have different return ratio.
+	4. After placing bet, user can click "spin", then roulette will spin a number between 0 - 36.
+	5. A result message will pop up.
+	6. User will get paid according to if his bets hit or not.
+
+Keno --- extremely low odds lottery game, pay nothing most of time
+	1. User can choose 1 - 10 numbers from the Keno ticket.
+	2. After user make their decision, they can click "draw".
+	3. Then the Keno will generate 20 lucky numbers.
+	4. User will see how many numbers they hit and miss.
+	5. A result message will pop up.
+	6. User will get paid according to how many numbers they hit.
+
+Slot Machine --- funny animated game, 3 slot reels with 7 kinds of pictures each
+	1. User can simply click "spin" to start spinning 3 reels.
+	2. 3 reels will show results after different time intervals.
+	3. A result message will pop up.
+	4. User will get paid according to their spinning result.
+
+

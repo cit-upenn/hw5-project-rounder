@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class SlotTest {
+	
 	private Slot slot;
 
 	@Before
@@ -29,11 +30,13 @@ public class SlotTest {
 		int duplicates = 0;
 		slot.spin();
 		Set<SlotSymbol> symbolsWithoutDuplicates = new HashSet<SlotSymbol>();
+		
 		for (SlotSymbol s : slot.getSymbols()) {
 			if (symbolsWithoutDuplicates.add(s) == false) {
 				duplicates++;
 			}
 		}
+		
 		if (duplicates == 1) {// 2 symbols in common
 			assertEquals(3, slot.getPayout(1));
 		} else if (duplicates == 2) {// 3 symbols in common
@@ -41,6 +44,7 @@ public class SlotTest {
 		} else {
 			assertEquals(0, slot.getPayout(1));
 		}
+		
 	}
 
 }

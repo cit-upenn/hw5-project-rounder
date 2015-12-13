@@ -1,0 +1,3 @@
+The project represents a casino written in Java.
+It contains 3 classic casino games: Roulette, Keno, Slot Machine.
+Detailed info is written in user_manual.txt.
