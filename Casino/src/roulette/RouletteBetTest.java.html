@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>RouletteBetTest.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Casino (Dec 12, 2015 10:51:43 PM)</a> &gt; <a href="../../index.html" class="el_group">Casino</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">roulette</a> &gt; <span class="el_source">RouletteBetTest.java</span></div><h1>RouletteBetTest.java</h1><pre class="source lang-java linenums">package roulette;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+/**
+ * This class do unit test for class RouletteTest
+ * 
+ * @author Zhiyuan Li
+ * @author Yi Shang
+ * 
+ */
+
+<span class="fc" id="L15">public class RouletteBetTest {</span>
+
+	@Test
+	public void testRouletteBet() {
+<span class="fc" id="L19">		assertEquals(&quot;Red return 2&quot;, 2, RouletteBet.Red.getRatio());</span>
+<span class="fc" id="L20">		assertEquals(&quot;Black return 2&quot;, 2, RouletteBet.Black.getRatio());</span>
+<span class="fc" id="L21">		assertEquals(&quot;Odd return 2&quot;, 2, RouletteBet.Odd.getRatio());</span>
+<span class="fc" id="L22">		assertEquals(&quot;Even return 2&quot;, 2, RouletteBet.Even.getRatio());</span>
+<span class="fc" id="L23">		assertEquals(&quot;1st half return 2&quot;, 2, RouletteBet.FirstHalf.getRatio());</span>
+<span class="fc" id="L24">		assertEquals(&quot;2nd half return 2&quot;, 2, RouletteBet.SecondHalf.getRatio());</span>
+<span class="fc" id="L25">		assertEquals(&quot;1st dozen return 3&quot;, 3, RouletteBet.FirstDozen.getRatio());</span>
+<span class="fc" id="L26">		assertEquals(&quot;2nd dozen return 3&quot;, 3, RouletteBet.SecondDozen.getRatio());</span>
+<span class="fc" id="L27">		assertEquals(&quot;3rd dozen return 3&quot;, 3, RouletteBet.ThirdDozen.getRatio());</span>
+<span class="fc" id="L28">		assertEquals(&quot;1st column return 3&quot;, 3, RouletteBet.FirstColumn.getRatio());</span>
+<span class="fc" id="L29">		assertEquals(&quot;2nd column return 3&quot;, 3, RouletteBet.SecondColumn.getRatio());</span>
+<span class="fc" id="L30">		assertEquals(&quot;3rd column return 3&quot;, 3, RouletteBet.ThirdColumn.getRatio());</span>
+<span class="fc" id="L31">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span>Casino (Dec 12, 2015 10:51:43 PM)</div></body></html>

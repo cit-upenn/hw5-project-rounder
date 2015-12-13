@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>RouletteView.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Casino (Dec 12, 2015 10:51:43 PM)</a> &gt; <a href="../../index.html" class="el_group">Casino</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">roulette</a> &gt; <span class="el_source">RouletteView.java</span></div><h1>RouletteView.java</h1><pre class="source lang-java linenums"><span class="fc" id="L1">package roulette;</span>
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
+import javax.swing.border.*;
+
+import lobby.*;
+
+/**
+ * This class will show a roulette table for the player to play
+ * 
+ * @author Zhiyuan Li
+ * @author Yi Shang
+ *
+ */
+public class RouletteView extends JFrame {
+
+	private static final long serialVersionUID = 1227969985674089474L;
+
+	// instance variables
+	private Roulette roulette;
+
+	// GUI variables
+	private JPanel top, left, right, bottom, center;
+	private JPanel subTop, subLeft, subRight, subBottom, subCenter;
+	private JPanel subBottom1, subBottom2, subBottom3;
+	private JButton[] buttons;
+	private JButton spin, back, rule;
+	private JLabel rouletteImage;
+<span class="fc" id="L33">	private static final Border WHITE_BORDER = new LineBorder(Color.WHITE, 2);</span>
+<span class="fc" id="L34">	private static final Color DARK_GREEN = new Color(0, 100, 0);</span>
+<span class="fc" id="L35">	private static final Color FOREST_GREEN = new Color(34, 139, 34);</span>
+<span class="fc" id="L36">	private static final Color ROYAL_BLUE = new Color(65, 105, 225);</span>
+
+	// array to store results
+	private int[] userBets;
+	private int finalPayout;
+
+	/**
+	 * constructor
+	 */
+<span class="fc" id="L45">	public RouletteView() {</span>
+<span class="fc" id="L46">		roulette = new Roulette();</span>
+<span class="fc" id="L47">		finalPayout = 0;</span>
+
+		// initialize results, all equal to 0
+<span class="fc" id="L50">		userBets = new int[49];</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">		for (int i = 0; i &lt; userBets.length; i++) {</span>
+<span class="fc" id="L52">			userBets[i] = 0;</span>
+		}
+
+<span class="fc" id="L55">		display();</span>
+<span class="fc" id="L56">	}</span>
+
+	/**
+	 * helper method to construct the roulette table
+	 */
+	private void display() {
+<span class="fc" id="L62">		setTitle(&quot;Roulette&quot;);</span>
+<span class="fc" id="L63">		layOutComponents();</span>
+<span class="fc" id="L64">		attachListenersToComponents();</span>
+<span class="fc" id="L65">		setPreferredSize(new Dimension(1200, 400));</span>
+<span class="fc" id="L66">		setLocation();</span>
+<span class="fc" id="L67">		pack();</span>
+<span class="fc" id="L68">		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+<span class="fc" id="L69">	}</span>
+
+	/**
+	 * set the location of roulette window
+	 */
+	private void setLocation() {
+<span class="fc" id="L75">		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();</span>
+<span class="fc" id="L76">		int x = (int) ((dimension.getWidth() / 2 - this.getWidth()) / 2);</span>
+<span class="fc" id="L77">		int y = (int) ((dimension.getHeight() / 2 - this.getHeight()) / 2);</span>
+<span class="fc" id="L78">		setLocation(x, y);</span>
+<span class="fc" id="L79">	}</span>
+
+	/**
+	 * helper method to set the layout
+	 */
+	private void layOutComponents() {
+<span class="fc" id="L85">		setLayout(new BorderLayout());</span>
+<span class="fc" id="L86">		addPanels();</span>
+<span class="fc" id="L87">		addSubPanels();</span>
+<span class="fc" id="L88">		addButtons();</span>
+<span class="fc" id="L89">		addImage();</span>
+<span class="fc" id="L90">	}</span>
+
+	/**
+	 * helper method to add 5 panels
+	 */
+	private void addPanels() {
+<span class="fc" id="L96">		top = new JPanel();</span>
+<span class="fc" id="L97">		left = new JPanel();</span>
+<span class="fc" id="L98">		center = new JPanel();</span>
+<span class="fc" id="L99">		right = new JPanel();</span>
+<span class="fc" id="L100">		bottom = new JPanel();</span>
+
+		// add them to the frame
+<span class="fc" id="L103">		add(top, BorderLayout.NORTH);</span>
+<span class="fc" id="L104">		add(left, BorderLayout.WEST);</span>
+<span class="fc" id="L105">		add(center, BorderLayout.CENTER);</span>
+<span class="fc" id="L106">		add(right, BorderLayout.EAST);</span>
+<span class="fc" id="L107">		add(bottom, BorderLayout.SOUTH);</span>
+<span class="fc" id="L108">	}</span>
+
+	/**
+	 * helper method to add 5 sub-panels within the center panel
+	 */
+	private void addSubPanels() {
+<span class="fc" id="L114">		center.setLayout(new BorderLayout());</span>
+
+<span class="fc" id="L116">		subTop = new JPanel();</span>
+<span class="fc" id="L117">		subLeft = new JPanel();</span>
+<span class="fc" id="L118">		subCenter = new JPanel();</span>
+<span class="fc" id="L119">		subRight = new JPanel();</span>
+<span class="fc" id="L120">		subBottom = new JPanel();</span>
+
+		// set background color
+<span class="fc" id="L123">		subTop.setBackground(DARK_GREEN);</span>
+<span class="fc" id="L124">		subLeft.setBackground(DARK_GREEN);</span>
+<span class="fc" id="L125">		subCenter.setBackground(DARK_GREEN);</span>
+<span class="fc" id="L126">		subRight.setBackground(DARK_GREEN);</span>
+<span class="fc" id="L127">		subBottom.setBackground(DARK_GREEN);</span>
+
+		// add to center panel
+<span class="fc" id="L130">		center.add(subTop, BorderLayout.NORTH);</span>
+<span class="fc" id="L131">		center.add(subLeft, BorderLayout.WEST);</span>
+<span class="fc" id="L132">		center.add(subCenter, BorderLayout.CENTER);</span>
+<span class="fc" id="L133">		center.add(subRight, BorderLayout.EAST);</span>
+<span class="fc" id="L134">		center.add(subBottom, BorderLayout.SOUTH);</span>
+
+<span class="fc" id="L136">		bottom.setLayout(new GridLayout(1, 3));</span>
+<span class="fc" id="L137">		bottom.setBackground(ROYAL_BLUE);</span>
+
+		// add &quot;Spin&quot; button
+<span class="fc" id="L140">		rule = new JButton(&quot;Rule&quot;);</span>
+<span class="fc" id="L141">		bottom.add(rule);</span>
+<span class="fc" id="L142">		setButton(rule);</span>
+<span class="fc" id="L143">		spin = new JButton(&quot;Spin&quot;);</span>
+<span class="fc" id="L144">		spin.setName(&quot;Spin&quot;);</span>
+<span class="fc" id="L145">		setButton(spin);</span>
+<span class="fc" id="L146">		bottom.add(spin);</span>
+<span class="fc" id="L147">		back = new JButton(&quot;Back&quot;);</span>
+<span class="fc" id="L148">		setButton(back);</span>
+<span class="fc" id="L149">		bottom.add(back);</span>
+<span class="fc" id="L150">	}</span>
+
+	/**
+	 * set button attributes
+	 * 
+	 * @param button the button to be set
+	 */
+	private void setButton(JButton button) {
+<span class="fc" id="L158">		button.setForeground(Color.white);</span>
+<span class="fc" id="L159">		button.setBackground(ROYAL_BLUE);</span>
+<span class="fc" id="L160">		button.setOpaque(true);</span>
+<span class="fc" id="L161">		button.setBorderPainted(true);</span>
+<span class="fc" id="L162">		button.setBorder(WHITE_BORDER);</span>
+<span class="fc" id="L163">		button.setFont(new Font(&quot;Arial&quot;, Font.PLAIN, 25));</span>
+
+<span class="fc" id="L165">	}</span>
+
+	/**
+	 * helper method to add buttons
+	 */
+	private void addButtons() {
+
+		// initializing
+<span class="fc" id="L173">		buttons = new JButton[49];</span>
+
+		// set up every button color and font
+<span class="fc bfc" id="L176" title="All 2 branches covered.">		for (int i = 0; i &lt; buttons.length; i++) {</span>
+<span class="fc" id="L177">			buttons[i] = new JButton(buttonIndexToString(i));</span>
+<span class="fc" id="L178">			buttons[i].setForeground(Color.white);</span>
+<span class="fc" id="L179">			buttons[i].setOpaque(true);</span>
+<span class="fc" id="L180">			buttons[i].setBorderPainted(true);</span>
+<span class="fc" id="L181">			buttons[i].setBorder(WHITE_BORDER);</span>
+<span class="fc" id="L182">			buttons[i].setFont(new Font(&quot;Arial&quot;, Font.PLAIN, 25));</span>
+		}
+
+		// set button &quot;0&quot;
+<span class="fc" id="L186">		subLeft.setLayout(new GridLayout(1, 1));</span>
+<span class="fc" id="L187">		buttons[0].setPreferredSize(new Dimension(70, 30));</span>
+<span class="fc" id="L188">		buttons[0].setBackground(FOREST_GREEN);</span>
+
+		// set layout for button &quot;1&quot; to &quot;36&quot;
+<span class="fc" id="L191">		subCenter.setLayout(new GridLayout(3, 12));</span>
+
+		// set button 1 to 10
+<span class="fc bfc" id="L194" title="All 2 branches covered.">		for (int i = 1; i &lt;= 10; i++) {</span>
+
+<span class="fc bfc" id="L196" title="All 2 branches covered.">			if (i % 2 == 1) {</span>
+<span class="fc" id="L197">				buttons[i].setBackground(Color.red);</span>
+<span class="fc" id="L198">			} else {</span>
+<span class="fc" id="L199">				buttons[i].setBackground(Color.black);</span>
+			}
+
+		}
+
+		// set button 11 to 18
+<span class="fc bfc" id="L205" title="All 2 branches covered.">		for (int i = 11; i &lt;= 18; i++) {</span>
+
+<span class="fc bfc" id="L207" title="All 2 branches covered.">			if (i % 2 == 0) {</span>
+<span class="fc" id="L208">				buttons[i].setBackground(Color.red);</span>
+<span class="fc" id="L209">			} else {</span>
+<span class="fc" id="L210">				buttons[i].setBackground(Color.black);</span>
+			}
+
+		}
+
+		// set button 19 to 28
+<span class="fc bfc" id="L216" title="All 2 branches covered.">		for (int i = 19; i &lt;= 28; i++) {</span>
+
+<span class="fc bfc" id="L218" title="All 2 branches covered.">			if (i % 2 == 1) {</span>
+<span class="fc" id="L219">				buttons[i].setBackground(Color.red);</span>
+<span class="fc" id="L220">			} else {</span>
+<span class="fc" id="L221">				buttons[i].setBackground(Color.black);</span>
+			}
+
+		}
+
+		// set button 29 to 36
+<span class="fc bfc" id="L227" title="All 2 branches covered.">		for (int i = 29; i &lt;= 36; i++) {</span>
+
+<span class="fc bfc" id="L229" title="All 2 branches covered.">			if (i % 2 == 0) {</span>
+<span class="fc" id="L230">				buttons[i].setBackground(Color.red);</span>
+<span class="fc" id="L231">			} else {</span>
+<span class="fc" id="L232">				buttons[i].setBackground(Color.black);</span>
+			}
+
+		}
+
+		// add 1st - 3rd column buttons
+<span class="fc" id="L238">		subRight.setLayout(new GridLayout(3, 1));</span>
+<span class="fc bfc" id="L239" title="All 2 branches covered.">		for (int i = 37; i &lt;= 39; i++) {</span>
+<span class="fc" id="L240">			buttons[i].setPreferredSize(new Dimension(80, 40));</span>
+<span class="fc" id="L241">			buttons[i].setBackground(FOREST_GREEN);</span>
+		}
+
+		// add 1st - 3rd dozen buttons
+<span class="fc" id="L245">		subBottom.setLayout(new GridLayout(2, 3));</span>
+<span class="fc" id="L246">		subBottom.setPreferredSize(new Dimension(1200, 80));</span>
+
+		// add sub-bottom buttons
+		// 1 - 18 / 19 - 36, RED / BLACK, ODD / EVEN
+<span class="fc" id="L250">		subBottom1 = new JPanel();</span>
+<span class="fc" id="L251">		subBottom2 = new JPanel();</span>
+<span class="fc" id="L252">		subBottom3 = new JPanel();</span>
+
+<span class="fc" id="L254">		subBottom1.setBackground(DARK_GREEN);</span>
+<span class="fc" id="L255">		subBottom2.setBackground(DARK_GREEN);</span>
+<span class="fc" id="L256">		subBottom3.setBackground(DARK_GREEN);</span>
+
+<span class="fc" id="L258">		subBottom1.setLayout(new GridLayout(1, 2));</span>
+<span class="fc" id="L259">		subBottom2.setLayout(new GridLayout(1, 2));</span>
+<span class="fc" id="L260">		subBottom3.setLayout(new GridLayout(1, 2));</span>
+
+		// set background color for bottom sections
+<span class="fc bfc" id="L263" title="All 2 branches covered.">		for (int i = 40; i &lt;= 48; i++) {</span>
+<span class="fc bfc" id="L264" title="All 4 branches covered.">			if (i != 45 &amp;&amp; i != 46) {</span>
+<span class="fc" id="L265">				buttons[i].setBackground(FOREST_GREEN);</span>
+			}
+		}
+
+		// set background color for RED and BLACK
+<span class="fc" id="L270">		buttons[45].setBackground(Color.red);</span>
+<span class="fc" id="L271">		buttons[46].setBackground(Color.black);</span>
+
+<span class="fc" id="L273">		addButtonToPanel();</span>
+<span class="fc" id="L274">	}</span>
+
+	/**
+	 * helper method to add all buttons to panels
+	 */
+	private void addButtonToPanel() {
+
+		// add buttons in certain order
+<span class="fc" id="L282">		subLeft.add(buttons[0]);</span>
+
+<span class="fc" id="L284">		subCenter.add(buttons[3]);</span>
+<span class="fc" id="L285">		subCenter.add(buttons[6]);</span>
+<span class="fc" id="L286">		subCenter.add(buttons[9]);</span>
+<span class="fc" id="L287">		subCenter.add(buttons[12]);</span>
+<span class="fc" id="L288">		subCenter.add(buttons[15]);</span>
+<span class="fc" id="L289">		subCenter.add(buttons[18]);</span>
+<span class="fc" id="L290">		subCenter.add(buttons[21]);</span>
+<span class="fc" id="L291">		subCenter.add(buttons[24]);</span>
+<span class="fc" id="L292">		subCenter.add(buttons[27]);</span>
+<span class="fc" id="L293">		subCenter.add(buttons[30]);</span>
+<span class="fc" id="L294">		subCenter.add(buttons[33]);</span>
+<span class="fc" id="L295">		subCenter.add(buttons[36]);</span>
+<span class="fc" id="L296">		subCenter.add(buttons[2]);</span>
+<span class="fc" id="L297">		subCenter.add(buttons[5]);</span>
+<span class="fc" id="L298">		subCenter.add(buttons[8]);</span>
+<span class="fc" id="L299">		subCenter.add(buttons[11]);</span>
+<span class="fc" id="L300">		subCenter.add(buttons[14]);</span>
+<span class="fc" id="L301">		subCenter.add(buttons[17]);</span>
+<span class="fc" id="L302">		subCenter.add(buttons[20]);</span>
+<span class="fc" id="L303">		subCenter.add(buttons[23]);</span>
+<span class="fc" id="L304">		subCenter.add(buttons[26]);</span>
+<span class="fc" id="L305">		subCenter.add(buttons[29]);</span>
+<span class="fc" id="L306">		subCenter.add(buttons[32]);</span>
+<span class="fc" id="L307">		subCenter.add(buttons[35]);</span>
+<span class="fc" id="L308">		subCenter.add(buttons[1]);</span>
+<span class="fc" id="L309">		subCenter.add(buttons[4]);</span>
+<span class="fc" id="L310">		subCenter.add(buttons[7]);</span>
+<span class="fc" id="L311">		subCenter.add(buttons[10]);</span>
+<span class="fc" id="L312">		subCenter.add(buttons[13]);</span>
+<span class="fc" id="L313">		subCenter.add(buttons[16]);</span>
+<span class="fc" id="L314">		subCenter.add(buttons[19]);</span>
+<span class="fc" id="L315">		subCenter.add(buttons[22]);</span>
+<span class="fc" id="L316">		subCenter.add(buttons[25]);</span>
+<span class="fc" id="L317">		subCenter.add(buttons[28]);</span>
+<span class="fc" id="L318">		subCenter.add(buttons[31]);</span>
+<span class="fc" id="L319">		subCenter.add(buttons[34]);</span>
+
+<span class="fc bfc" id="L321" title="All 2 branches covered.">		for (int i = 39; i &gt;= 37; i--) {</span>
+<span class="fc" id="L322">			subRight.add(buttons[i]);</span>
+		}
+
+<span class="fc bfc" id="L325" title="All 2 branches covered.">		for (int i = 40; i &lt;= 42; i++) {</span>
+<span class="fc" id="L326">			subBottom.add(buttons[i]);</span>
+		}
+
+<span class="fc" id="L329">		subBottom.add(subBottom1);</span>
+<span class="fc" id="L330">		subBottom.add(subBottom2);</span>
+<span class="fc" id="L331">		subBottom.add(subBottom3);</span>
+
+<span class="fc" id="L333">		subBottom1.add(buttons[43]);</span>
+<span class="fc" id="L334">		subBottom1.add(buttons[44]);</span>
+<span class="fc" id="L335">		subBottom2.add(buttons[45]);</span>
+<span class="fc" id="L336">		subBottom2.add(buttons[46]);</span>
+<span class="fc" id="L337">		subBottom3.add(buttons[47]);</span>
+<span class="fc" id="L338">		subBottom3.add(buttons[48]);</span>
+<span class="fc" id="L339">	}</span>
+
+	/**
+	 * helper method to add image to the view
+	 */
+	private void addImage() {
+
+		// adjust image size and add to view
+<span class="fc" id="L347">		ImageIcon image = new ImageIcon(getClass().getResource(&quot;static-wheel.jpg&quot;));</span>
+<span class="fc" id="L348">		Image img = image.getImage();</span>
+<span class="fc" id="L349">		Image newImg = img.getScaledInstance(360, 360, java.awt.Image.SCALE_SMOOTH);</span>
+<span class="fc" id="L350">		ImageIcon newImage = new ImageIcon(newImg);</span>
+<span class="fc" id="L351">		rouletteImage = new JLabel(newImage);</span>
+<span class="fc" id="L352">		left.add(rouletteImage);</span>
+<span class="fc" id="L353">	}</span>
+
+	/**
+	 * Transfer button index to string
+	 * 
+	 * @param index array index
+	 * @return corresponding bet
+	 */
+	private String buttonIndexToString(int index) {
+<span class="fc bfc" id="L362" title="All 13 branches covered.">		switch (index) {</span>
+		case 37:
+<span class="fc" id="L364">			return &quot;2 to 1&quot;; // 1st Row (bottom 1st)</span>
+		case 38:
+<span class="fc" id="L366">			return &quot;2 to 1&quot;; // 2nd Row</span>
+		case 39:
+<span class="fc" id="L368">			return &quot;2 to 1&quot;; // 3rd Row</span>
+		case 40:
+<span class="fc" id="L370">			return &quot;1st 12&quot;;</span>
+		case 41:
+<span class="fc" id="L372">			return &quot;2nd 12&quot;;</span>
+		case 42:
+<span class="fc" id="L374">			return &quot;3rd 12&quot;;</span>
+		case 43:
+<span class="fc" id="L376">			return &quot;1 - 18&quot;;</span>
+		case 44:
+<span class="fc" id="L378">			return &quot;EVEN&quot;;</span>
+		case 45:
+<span class="fc" id="L380">			return &quot;RED&quot;;</span>
+		case 46:
+<span class="fc" id="L382">			return &quot;BLACK&quot;;</span>
+		case 47:
+<span class="fc" id="L384">			return &quot;ODD&quot;;</span>
+		case 48:
+<span class="fc" id="L386">			return &quot;19 - 36&quot;;</span>
+		default:
+<span class="fc" id="L388">			return &quot;&quot; + index;</span>
+		}
+	}
+
+	/**
+	 * attach action listeners to buttons
+	 */
+	private void attachListenersToComponents() {
+
+		// add listeners for each button
+<span class="fc bfc" id="L398" title="All 2 branches covered.">		for (int i = 0; i &lt; buttons.length; i++) {</span>
+<span class="fc" id="L399">			buttons[i].addActionListener(new ButtonEvent(i));</span>
+		}
+
+		// add listener to spin, back, rule
+<span class="fc" id="L403">		spin.addActionListener(new SpinEvent());</span>
+<span class="fc" id="L404">		back.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L408">				setVisible(false);</span>
+<span class="nc" id="L409">				Game.lobby.setVisible(true);</span>
+<span class="nc" id="L410">			}</span>
+
+		});
+
+<span class="fc" id="L414">		rule.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L418">				JOptionPane.showMessageDialog(getParent(), &quot;Roulette Rules\n&quot;</span>
+						+ &quot;1. You can bet any combinations\n&quot;
+						+ &quot;2. The wheel will then spin a lucky number\n&quot;
+						+ &quot;3. You will get paid according to your hits\n&quot;);
+<span class="nc" id="L422">			}</span>
+
+		});
+		
+<span class="fc" id="L426">	}</span>
+
+	/**
+	 * inner class for button click event
+	 */
+	private class ButtonEvent implements ActionListener {
+
+		// instance variables
+		private int i;
+
+		/**
+		 * constructor
+		 * 
+		 * @param i
+		 *            button number
+		 */
+<span class="fc" id="L442">		public ButtonEvent(int i) {</span>
+<span class="fc" id="L443">			this.i = i;</span>
+<span class="fc" id="L444">		}</span>
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L448">			String text = &quot;&quot;;</span>
+<span class="nc" id="L449">			userBets[i]++;</span>
+
+<span class="nc bnc" id="L451" title="All 2 branches missed.">			if (i &lt; 37) {</span>
+<span class="nc" id="L452">				text += i + &quot;\n&quot; + &quot;[$&quot; + userBets[i] + &quot;]&quot;;</span>
+<span class="nc" id="L453">			} else {</span>
+<span class="nc" id="L454">				text += buttonIndexToString(i) + &quot; [$&quot; + userBets[i] + &quot;]&quot;;</span>
+			}
+
+<span class="nc" id="L457">			buttons[i].setText(&quot;&lt;html&gt;&quot; + text.replaceAll(&quot;\\n&quot;, &quot;&lt;br&gt;&quot;) + &quot;&lt;/html&gt;&quot;);</span>
+<span class="nc" id="L458">		}</span>
+
+	}
+
+	/**
+	 * inner class for spinning the roulette
+	 */
+<span class="fc" id="L465">	private class SpinEvent implements ActionListener {</span>
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+<span class="fc" id="L469">			changeImage();</span>
+<span class="fc" id="L470">			roulette.spin();</span>
+<span class="fc" id="L471">			finalPayout = roulette.getPayout(userBets);</span>
+<span class="fc" id="L472">			JOptionPane.showMessageDialog(getParent(),</span>
+<span class="fc" id="L473">					&quot;The number is &quot; + roulette.getRoundNumber().getNum() + &quot;\n&quot; + &quot;You bet $&quot; + getTotalBets() + &quot;\n&quot;</span>
+<span class="fc" id="L474">							+ &quot;You get $&quot; + finalPayout + &quot;\n&quot; + &quot;You earn $&quot; + (finalPayout - getTotalBets()));</span>
+<span class="fc" id="L475">			clearUserBets();</span>
+<span class="fc" id="L476">			restoreImage();</span>
+<span class="fc" id="L477">		}</span>
+
+	}
+
+	/**
+	 * helper method to change displayed image when roulette spins
+	 */
+	private void changeImage() {
+
+		// adjust image size and add to view
+<span class="fc" id="L487">		ImageIcon image = new ImageIcon(getClass().getResource(&quot;spin-wheel.jpg&quot;));</span>
+<span class="fc" id="L488">		Image img = image.getImage();</span>
+<span class="fc" id="L489">		Image newImg = img.getScaledInstance(360, 360, java.awt.Image.SCALE_SMOOTH);</span>
+<span class="fc" id="L490">		ImageIcon newImage = new ImageIcon(newImg);</span>
+<span class="fc" id="L491">		rouletteImage.setIcon(newImage);</span>
+<span class="fc" id="L492">	}</span>
+
+	/**
+	 * helper method to change displayed image when roulette stops spinning
+	 */
+	private void restoreImage() {
+
+		// adjust image size and add to view
+<span class="fc" id="L500">		ImageIcon image = new ImageIcon(getClass().getResource(&quot;static-wheel.jpg&quot;));</span>
+<span class="fc" id="L501">		Image img = image.getImage();</span>
+<span class="fc" id="L502">		Image newImg = img.getScaledInstance(360, 360, java.awt.Image.SCALE_SMOOTH);</span>
+<span class="fc" id="L503">		ImageIcon newImage = new ImageIcon(newImg);</span>
+<span class="fc" id="L504">		rouletteImage.setIcon(newImage);</span>
+<span class="fc" id="L505">	}</span>
+
+	/**
+	 * helper method to clear all previous user bets
+	 */
+	private void clearUserBets() {
+
+		// clear userBets array and roulette table
+<span class="fc bfc" id="L513" title="All 2 branches covered.">		for (int i = 0; i &lt; userBets.length; i++) {</span>
+<span class="fc" id="L514">			userBets[i] = 0;</span>
+<span class="fc" id="L515">			buttons[i].setText(buttonIndexToString(i));</span>
+		}
+<span class="fc" id="L517">	}</span>
+
+	/**
+	 * return total bets from the user
+	 * 
+	 * @return total bets
+	 */
+	public int getTotalBets() {
+<span class="fc" id="L525">		int totalBets = 0;</span>
+
+		// calculates total bets
+<span class="fc bfc" id="L528" title="All 2 branches covered.">		for (int i = 0; i &lt; userBets.length; i++) {</span>
+<span class="fc" id="L529">			totalBets += userBets[i];</span>
+		}
+
+<span class="fc" id="L532">		return totalBets;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span>Casino (Dec 12, 2015 10:51:43 PM)</div></body></html>

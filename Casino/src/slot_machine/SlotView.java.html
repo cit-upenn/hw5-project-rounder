@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>SlotView.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Casino (Dec 12, 2015 10:51:43 PM)</a> &gt; <a href="../../index.html" class="el_group">Casino</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">slot_machine</a> &gt; <span class="el_source">SlotView.java</span></div><h1>SlotView.java</h1><pre class="source lang-java linenums"><span class="fc" id="L1">package slot_machine;</span>
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.Timer;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+
+import lobby.*;
+
+/**
+ * This class will show the GUI view for the slot game with animation
+ * 
+ * @author Zhiyuan Li
+ * @author Yi Shang
+ *
+ */
+public class SlotView extends JFrame {
+
+	private static final long serialVersionUID = 3448807048334175081L;
+
+	// instance variables
+	private Slot slot;
+	private int finalPayout;
+
+	// GUI variables
+	private JPanel top, left, right, bottom, center;
+	private JPanel subLeft, subCenter, subRight;
+	private JButton spin, back, rules;
+	private JLabel[] reels;
+	private ArrayList&lt;ImageIcon&gt; images;
+	private Timer[] timer, spinner;
+
+	// constant
+<span class="fc" id="L50">	private static final Border WHITE_BORDER = new LineBorder(Color.WHITE, 2);</span>
+
+	/**
+	 * constructor
+	 */
+<span class="fc" id="L55">	public SlotView() {</span>
+<span class="fc" id="L56">		slot = new Slot(3);</span>
+<span class="fc" id="L57">		images = new ArrayList&lt;ImageIcon&gt;();</span>
+<span class="fc" id="L58">		reels = new JLabel[3];</span>
+<span class="fc" id="L59">		timer = new Timer[3];</span>
+<span class="fc" id="L60">		spinner = new Timer[3];</span>
+<span class="fc" id="L61">		finalPayout = 0;</span>
+
+<span class="fc" id="L63">		display();</span>
+<span class="fc" id="L64">	}</span>
+
+	/**
+	 * helper method to construct the slot view
+	 */
+	private void display() {
+<span class="fc" id="L70">		setTitle(&quot;Slot&quot;);</span>
+<span class="fc" id="L71">		layOutComponents();</span>
+<span class="fc" id="L72">		attachListenersToComponents();</span>
+<span class="fc" id="L73">		setPreferredSize(new Dimension(1000, 600));</span>
+<span class="fc" id="L74">		setLocation();</span>
+<span class="fc" id="L75">		pack();</span>
+<span class="fc" id="L76">		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+<span class="fc" id="L77">	}</span>
+
+	/**
+	 * set the location of window
+	 */
+	private void setLocation() {
+<span class="fc" id="L83">		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();</span>
+<span class="fc" id="L84">		int x = (int) ((dimension.getWidth() / 2 - this.getWidth()) / 2);</span>
+<span class="fc" id="L85">		int y = (int) ((dimension.getHeight() / 2 - this.getHeight()) / 2);</span>
+<span class="fc" id="L86">		setLocation(x, y);</span>
+<span class="fc" id="L87">	}</span>
+
+	/**
+	 * helper method to set the layout
+	 */
+	private void layOutComponents() {
+<span class="fc" id="L93">		setLayout(new BorderLayout());</span>
+<span class="fc" id="L94">		addPanels();</span>
+<span class="fc" id="L95">		addImage();</span>
+<span class="fc" id="L96">	}</span>
+
+	/**
+	 * helper method to add 5 panels
+	 */
+	private void addPanels() {
+<span class="fc" id="L102">		top = new JPanel();</span>
+<span class="fc" id="L103">		left = new JPanel();</span>
+<span class="fc" id="L104">		center = new JPanel();</span>
+<span class="fc" id="L105">		right = new JPanel();</span>
+<span class="fc" id="L106">		bottom = new JPanel();</span>
+
+<span class="fc" id="L108">		add(top, BorderLayout.NORTH);</span>
+
+		// add an image to top
+<span class="fc" id="L111">		ImageIcon imageIcon = new ImageIcon(getClass().getResource(&quot;slot-machine.jpg&quot;));</span>
+<span class="fc" id="L112">		Image imageImage = imageIcon.getImage().getScaledInstance(1000, 200, java.awt.Image.SCALE_SMOOTH);</span>
+<span class="fc" id="L113">		ImageIcon image = new ImageIcon(imageImage);</span>
+<span class="fc" id="L114">		top.add(new JLabel(image));</span>
+
+<span class="fc" id="L116">		add(left, BorderLayout.WEST);</span>
+<span class="fc" id="L117">		add(center, BorderLayout.CENTER);</span>
+<span class="fc" id="L118">		add(right, BorderLayout.EAST);</span>
+<span class="fc" id="L119">		add(bottom, BorderLayout.SOUTH);</span>
+<span class="fc" id="L120">		addSubPanels();</span>
+<span class="fc" id="L121">	}</span>
+
+	/**
+	 * helper method to add 5 sub-panels within the center panel
+	 */
+	private void addSubPanels() {
+
+		// add 3 sub panels in center
+<span class="fc" id="L129">		center.setLayout(new GridLayout(1, 3));</span>
+<span class="fc" id="L130">		subLeft = new JPanel();</span>
+<span class="fc" id="L131">		subLeft.setPreferredSize(new Dimension(300, 300));</span>
+<span class="fc" id="L132">		subLeft.setBackground(Color.BLACK);</span>
+<span class="fc" id="L133">		subCenter = new JPanel();</span>
+<span class="fc" id="L134">		subCenter.setPreferredSize(new Dimension(300, 300));</span>
+<span class="fc" id="L135">		subCenter.setBackground(Color.BLACK);</span>
+<span class="fc" id="L136">		subRight = new JPanel();</span>
+<span class="fc" id="L137">		subRight.setBackground(Color.BLACK);</span>
+<span class="fc" id="L138">		subRight.setPreferredSize(new Dimension(300, 300));</span>
+
+<span class="fc" id="L140">		center.add(subLeft);</span>
+<span class="fc" id="L141">		center.add(subCenter);</span>
+<span class="fc" id="L142">		center.add(subRight);</span>
+
+<span class="fc" id="L144">		bottom.setLayout(new GridLayout(1, 3));</span>
+<span class="fc" id="L145">		bottom.setBackground(Color.BLACK);</span>
+
+		// add bottom buttons
+<span class="fc" id="L148">		rules = new JButton(&quot;Rule&quot;);</span>
+<span class="fc" id="L149">		rules.setName(&quot;Rule&quot;);</span>
+<span class="fc" id="L150">		bottom.add(rules);</span>
+<span class="fc" id="L151">		setButton(rules);</span>
+<span class="fc" id="L152">		spin = new JButton(&quot;Spin&quot;);</span>
+<span class="fc" id="L153">		spin.setName(&quot;Spin&quot;);</span>
+<span class="fc" id="L154">		setButton(spin);</span>
+<span class="fc" id="L155">		bottom.add(spin);</span>
+<span class="fc" id="L156">		back = new JButton(&quot;Back&quot;);</span>
+<span class="fc" id="L157">		setButton(back);</span>
+<span class="fc" id="L158">		bottom.add(back);</span>
+
+<span class="fc" id="L160">	}</span>
+
+	/**
+	 * helper method to set bottom buttons' attributes
+	 * 
+	 * @param button
+	 *            to be set
+	 */
+	private void setButton(JButton button) {
+<span class="fc" id="L169">		button.setForeground(Color.white);</span>
+<span class="fc" id="L170">		button.setBackground(Color.BLACK);</span>
+<span class="fc" id="L171">		button.setOpaque(true);</span>
+<span class="fc" id="L172">		button.setBorderPainted(true);</span>
+<span class="fc" id="L173">		button.setBorder(WHITE_BORDER);</span>
+<span class="fc" id="L174">		button.setFont(new Font(&quot;Arial&quot;, Font.PLAIN, 25));</span>
+
+<span class="fc" id="L176">	}</span>
+
+	/**
+	 * helper method to load image
+	 */
+	private ImageIcon loadImage(String imageName) {
+
+		// adjust image size and add to view
+<span class="fc" id="L184">		ImageIcon imageIcon = new ImageIcon(getClass().getResource(imageName));</span>
+<span class="fc" id="L185">		Image imageImage = imageIcon.getImage().getScaledInstance(280, 280, java.awt.Image.SCALE_SMOOTH);</span>
+<span class="fc" id="L186">		ImageIcon image = new ImageIcon(imageImage);</span>
+<span class="fc" id="L187">		return image;</span>
+	}
+
+	/**
+	 * helper method to transfer symbol to image name
+	 * 
+	 * @param order
+	 *            order of symbol
+	 * @return image name image name to be loaded
+	 */
+	private String orderToImageName(int order) {
+<span class="pc bpc" id="L198" title="1 of 8 branches missed.">		switch (order) {</span>
+		case 0:
+<span class="fc" id="L200">			return &quot;bar.jpg&quot;;</span>
+		case 1:
+<span class="fc" id="L202">			return &quot;bell.jpg&quot;;</span>
+		case 2:
+<span class="fc" id="L204">			return &quot;cherry.jpg&quot;;</span>
+		case 3:
+<span class="fc" id="L206">			return &quot;grape.jpg&quot;;</span>
+		case 4:
+<span class="fc" id="L208">			return &quot;lemon.jpg&quot;;</span>
+		case 5:
+<span class="fc" id="L210">			return &quot;seven.jpg&quot;;</span>
+		case 6:
+<span class="fc" id="L212">			return &quot;watermelon.jpg&quot;;</span>
+		default:
+<span class="nc" id="L214">			return &quot;&quot; + order;</span>
+		}
+	}
+
+	/**
+	 * helper method to add image
+	 */
+	private void addImage() {
+
+		// initialize center with 3 question marks(unkown.jpg0
+<span class="fc" id="L224">		reels[0] = new JLabel(loadImage(&quot;unkown.jpg&quot;));</span>
+<span class="fc" id="L225">		reels[1] = new JLabel(loadImage(&quot;unkown.jpg&quot;));</span>
+<span class="fc" id="L226">		reels[2] = new JLabel(loadImage(&quot;unkown.jpg&quot;));</span>
+
+<span class="fc" id="L228">		subLeft.add(reels[0]);</span>
+<span class="fc" id="L229">		subCenter.add(reels[1]);</span>
+<span class="fc" id="L230">		subRight.add(reels[2]);</span>
+
+		// load 7 symbols' image to the arraylist
+<span class="fc bfc" id="L233" title="All 2 branches covered.">		for (int i = 0; i &lt; SlotSymbol.values().length; i++) {</span>
+<span class="fc" id="L234">			images.add(loadImage(orderToImageName(SlotSymbol.values()[i].getOrder())));</span>
+		}
+
+<span class="fc" id="L237">	}</span>
+
+	/**
+	 * attach action listeners to buttons
+	 */
+	private void attachListenersToComponents() {
+
+		// add listener to each button
+<span class="fc" id="L245">		rules.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+<span class="nc" id="L250">				JOptionPane.showMessageDialog(getParent(),</span>
+<span class="nc" id="L251">						&quot;Slot Rules\n1. Press \&quot;spin\&quot; to play(as you insert $1 in this slot) \n2. 2 symbols in common, you get $3\n3. 3 symbols in common, you get $10\n Good luck! &quot;);</span>
+
+<span class="nc" id="L253">			}</span>
+		});
+
+<span class="fc" id="L256">		spin.addActionListener(new SpinEvent());</span>
+
+<span class="fc" id="L258">		back.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L262">				setVisible(false);</span>
+<span class="nc" id="L263">				Game.lobby.setVisible(true);</span>
+<span class="nc" id="L264">			}</span>
+
+		});
+
+<span class="fc" id="L268">	}</span>
+
+	/**
+	 * inner class for spinning
+	 */
+<span class="fc" id="L273">	private class SpinEvent implements ActionListener {</span>
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// after clicking &quot;spin&quot;, set it unclickable for a while
+<span class="fc" id="L278">			spin.setEnabled(false);</span>
+
+			// generate 3 random symbols
+<span class="fc" id="L281">			slot.spin();</span>
+<span class="fc" id="L282">			finalPayout = slot.getPayout(1);</span>
+
+			// get each symbol order of the result
+<span class="fc" id="L285">			int symbol0 = slot.getSymbols()[0].getOrder();</span>
+<span class="fc" id="L286">			int symbol1 = slot.getSymbols()[1].getOrder();</span>
+<span class="fc" id="L287">			int symbol2 = slot.getSymbols()[2].getOrder();</span>
+
+			// set spining time for each reel based on the symbols
+			// reel1 stops first, then reel2, reel3 stops in the end
+<span class="fc" id="L291">			timer[0] = new Timer((symbol0 + 7) * 100, new TimerEvent(0));</span>
+<span class="fc" id="L292">			timer[0].start();</span>
+
+<span class="fc" id="L294">			timer[1] = new Timer((symbol1 + 7 + 7) * 120, new TimerEvent(1));</span>
+<span class="fc" id="L295">			timer[1].start();</span>
+
+<span class="fc" id="L297">			timer[2] = new Timer((symbol2 + 7 + 7 + 7) * 140, new TimerEvent(2));</span>
+<span class="fc" id="L298">			timer[2].start();</span>
+
+			// set image switching time for each reel
+<span class="fc" id="L301">			spinner[0] = new Timer(100, new SpinnerEvent(0));</span>
+<span class="fc" id="L302">			spinner[0].start();</span>
+
+<span class="fc" id="L304">			spinner[1] = new Timer(120, new SpinnerEvent(1));</span>
+<span class="fc" id="L305">			spinner[1].start();</span>
+
+<span class="fc" id="L307">			spinner[2] = new Timer(140, new SpinnerEvent(2));</span>
+<span class="fc" id="L308">			spinner[2].start();</span>
+<span class="fc" id="L309">		}</span>
+
+	}
+
+	/**
+	 * inner class to represent a timer event
+	 */
+	private class TimerEvent implements ActionListener {
+
+		private int i;
+
+		/**
+		 * constructor
+		 * 
+		 * @param i
+		 */
+<span class="fc" id="L325">		public TimerEvent(int i) {</span>
+<span class="fc" id="L326">			this.i = i;</span>
+<span class="fc" id="L327">		}</span>
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			// stop sippner and timmer
+<span class="fc" id="L333">			spinner[i].stop();</span>
+<span class="fc" id="L334">			timer[i].stop();</span>
+
+			// show results
+<span class="pc bpc" id="L337" title="1 of 2 branches missed.">			if (i == 2) {</span>
+<span class="nc" id="L338">				JOptionPane.showMessageDialog(getParent(), &quot;You bet $1\nYou get $&quot; + finalPayout + &quot;\n&quot;);</span>
+<span class="nc" id="L339">				clearReelImage();</span>
+				// set spin button clickable again
+<span class="nc" id="L341">				spin.setEnabled(true);</span>
+			}
+<span class="fc" id="L343">		}</span>
+
+	}
+
+	/**
+	 * inner class to represent a spinner event
+	 */
+	private class SpinnerEvent implements ActionListener {
+
+		private int i;
+		private int counter;
+
+		/**
+		 * constructor
+		 * 
+		 * @param i
+		 */
+<span class="fc" id="L360">		public SpinnerEvent(int i) {</span>
+<span class="fc" id="L361">			this.i = i;</span>
+<span class="fc" id="L362">			counter = 0;</span>
+<span class="fc" id="L363">		}</span>
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			// change images
+<span class="fc" id="L369">			reels[i].setIcon(images.get(counter % 7));</span>
+<span class="fc" id="L370">			counter++;</span>
+
+<span class="fc" id="L372">		}</span>
+
+	}
+
+	/**
+	 * helper method to reset images
+	 */
+	private void clearReelImage() {
+<span class="nc" id="L380">		reels[0].setIcon(loadImage(&quot;unkown.jpg&quot;));</span>
+<span class="nc" id="L381">		reels[1].setIcon(loadImage(&quot;unkown.jpg&quot;));</span>
+<span class="nc" id="L382">		reels[2].setIcon(loadImage(&quot;unkown.jpg&quot;));</span>
+<span class="nc" id="L383">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span>Casino (Dec 12, 2015 10:51:43 PM)</div></body></html>

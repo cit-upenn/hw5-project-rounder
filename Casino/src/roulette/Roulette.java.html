@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>Roulette.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Casino (Dec 12, 2015 10:51:43 PM)</a> &gt; <a href="../../index.html" class="el_group">Casino</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">roulette</a> &gt; <span class="el_source">Roulette.java</span></div><h1>Roulette.java</h1><pre class="source lang-java linenums">package roulette;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+/**
+ * This class represents a roulette
+ * 
+ * @author Zhiyuan Li
+ * @author Yi Shang
+ *
+ */
+public class Roulette {
+
+	// instance variables
+	private ArrayList&lt;RouletteNumber&gt; roulette;
+	private Random rand;
+	private RouletteNumber roundNumber;
+
+	/**
+	 * constructor
+	 */
+<span class="fc" id="L23">	public Roulette() {</span>
+<span class="fc" id="L24">		roulette = new ArrayList&lt;RouletteNumber&gt;();</span>
+<span class="fc" id="L25">		rand = new Random();</span>
+<span class="fc" id="L26">		setUp();</span>
+<span class="fc" id="L27">	}</span>
+
+	/**
+	 * adds 0 - 36 numbers into the roulette
+	 */
+	private void setUp() {
+<span class="fc" id="L33">		roulette.add(new RouletteNumber(0, RouletteColor.Green));</span>
+
+		// add 1 - 10
+<span class="fc bfc" id="L36" title="All 2 branches covered.">		for (int i = 1; i &lt;= 10; i++) {</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">			if (i % 2 == 1) {</span>
+<span class="fc" id="L38">				roulette.add(new RouletteNumber(i, RouletteColor.Red));</span>
+<span class="fc" id="L39">			} else {</span>
+<span class="fc" id="L40">				roulette.add(new RouletteNumber(i, RouletteColor.Black));</span>
+			}
+		}
+
+		// add 11 - 18
+<span class="fc bfc" id="L45" title="All 2 branches covered.">		for (int i = 11; i &lt;= 18; i++) {</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">			if (i % 2 == 0) {</span>
+<span class="fc" id="L47">				roulette.add(new RouletteNumber(i, RouletteColor.Red));</span>
+<span class="fc" id="L48">			} else {</span>
+<span class="fc" id="L49">				roulette.add(new RouletteNumber(i, RouletteColor.Black));</span>
+			}
+		}
+
+		// add 19 - 28
+<span class="fc bfc" id="L54" title="All 2 branches covered.">		for (int i = 19; i &lt;= 28; i++) {</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">			if (i % 2 == 1) {</span>
+<span class="fc" id="L56">				roulette.add(new RouletteNumber(i, RouletteColor.Red));</span>
+<span class="fc" id="L57">			} else {</span>
+<span class="fc" id="L58">				roulette.add(new RouletteNumber(i, RouletteColor.Black));</span>
+			}
+		}
+
+		// add 29 - 36
+<span class="fc bfc" id="L63" title="All 2 branches covered.">		for (int i = 29; i &lt;= 36; i++) {</span>
+<span class="fc bfc" id="L64" title="All 2 branches covered.">			if (i % 2 == 0) {</span>
+<span class="fc" id="L65">				roulette.add(new RouletteNumber(i, RouletteColor.Red));</span>
+<span class="fc" id="L66">			} else {</span>
+<span class="fc" id="L67">				roulette.add(new RouletteNumber(i, RouletteColor.Black));</span>
+			}
+		}
+
+<span class="fc" id="L71">	}</span>
+
+	/**
+	 * spins the roulette and outputs the number
+	 */
+	public void spin() {
+<span class="fc" id="L77">		roundNumber = roulette.get(rand.nextInt(37));</span>
+<span class="fc" id="L78">	}</span>
+
+	/**
+	 * gets the number for this round
+	 * 
+	 * @return the result round number
+	 */
+	public RouletteNumber getRoundNumber() {
+<span class="fc" id="L86">		return roundNumber;</span>
+	}
+
+	/**
+	 * checks if this bet hits
+	 * 
+	 * @param n
+	 *            player's single bet number
+	 * @return true if hit
+	 */
+	public boolean hitSingle(RouletteNumber n) {
+<span class="fc bfc" id="L97" title="All 2 branches covered.">		return roundNumber.getNum() == n.getNum();</span>
+	}
+
+	/**
+	 * checks if this bet hits
+	 * 
+	 * @param b
+	 *            player's group bet
+	 * @return true if hit
+	 */
+	public boolean hitGroup(RouletteBet b) {
+
+		// decide if this bet hits any combination
+<span class="pc bpc" id="L110" title="1 of 13 branches missed.">		switch (b) {</span>
+		case Black:
+<span class="fc" id="L112">			return roundNumber.isBlack();</span>
+		case Red:
+<span class="fc" id="L114">			return roundNumber.isRed();</span>
+		case Even:
+<span class="fc" id="L116">			return roundNumber.isEven();</span>
+		case Odd:
+<span class="fc" id="L118">			return roundNumber.isOdd();</span>
+		case FirstHalf:
+<span class="fc" id="L120">			return roundNumber.isFirstHalf();</span>
+		case SecondHalf:
+<span class="fc" id="L122">			return roundNumber.isSecondHalf();</span>
+		case FirstDozen:
+<span class="fc" id="L124">			return roundNumber.isFirstDozen();</span>
+		case SecondDozen:
+<span class="fc" id="L126">			return roundNumber.isSecondDozen();</span>
+		case ThirdDozen:
+<span class="fc" id="L128">			return roundNumber.isThirdDozen();</span>
+		case FirstColumn:
+<span class="fc" id="L130">			return roundNumber.isFirstColumn();</span>
+		case SecondColumn:
+<span class="fc" id="L132">			return roundNumber.isSecondColumn();</span>
+		case ThirdColumn:
+<span class="fc" id="L134">			return roundNumber.isThirdColumn();</span>
+		default:
+<span class="nc" id="L136">			return false;</span>
+		}
+
+	}
+
+	/**
+	 * Transfer button index to Bet
+	 * 
+	 * @param index
+	 *            array index
+	 * @return corresponding bet
+	 */
+	private static RouletteBet buttonIndexToBet(int index) {
+<span class="pc bpc" id="L149" title="1 of 13 branches missed.">		switch (index) {</span>
+		case 37:
+<span class="fc" id="L151">			return RouletteBet.FirstColumn; // 1st Row (bottom 1st)</span>
+		case 38:
+<span class="fc" id="L153">			return RouletteBet.SecondColumn; // 2nd Row</span>
+		case 39:
+<span class="fc" id="L155">			return RouletteBet.ThirdColumn; // 3rd Row</span>
+		case 40:
+<span class="fc" id="L157">			return RouletteBet.FirstDozen;</span>
+		case 41:
+<span class="fc" id="L159">			return RouletteBet.SecondDozen;</span>
+		case 42:
+<span class="fc" id="L161">			return RouletteBet.ThirdDozen;</span>
+		case 43:
+<span class="fc" id="L163">			return RouletteBet.FirstHalf;</span>
+		case 44:
+<span class="fc" id="L165">			return RouletteBet.Even;</span>
+		case 45:
+<span class="fc" id="L167">			return RouletteBet.Red;</span>
+		case 46:
+<span class="fc" id="L169">			return RouletteBet.Black;</span>
+		case 47:
+<span class="fc" id="L171">			return RouletteBet.Odd;</span>
+		case 48:
+<span class="fc" id="L173">			return RouletteBet.SecondHalf;</span>
+		default:
+<span class="nc" id="L175">			return null;</span>
+		}
+	}
+
+	/**
+	 * Get payout based on input array
+	 * 
+	 * @return the payout
+	 */
+	public int getPayout(int[] userBets) {
+<span class="fc" id="L185">		int payout = 0;</span>
+		
+		// calculate all single number payout
+<span class="fc bfc" id="L188" title="All 2 branches covered.">		for (int i = 0; i &lt; 37; i++) {</span>
+<span class="fc bfc" id="L189" title="All 2 branches covered.">			if (hitSingle(roulette.get(i))) {</span>
+<span class="fc" id="L190">				payout += userBets[i] * 36;</span>
+			}
+		}
+
+		// calculate all bets payout
+<span class="fc bfc" id="L195" title="All 2 branches covered.">		for (int i = 37; i &lt; 49; i++) {</span>
+<span class="fc bfc" id="L196" title="All 2 branches covered.">			if (hitGroup(buttonIndexToBet(i))) {</span>
+<span class="fc" id="L197">				payout += userBets[i] * (buttonIndexToBet(i).getRatio());</span>
+			}
+		}
+
+<span class="fc" id="L201">		return payout;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span>Casino (Dec 12, 2015 10:51:43 PM)</div></body></html>

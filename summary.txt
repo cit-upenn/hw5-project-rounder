@@ -1,3 +1,8 @@
 The project represents a casino written in Java.
 It contains 3 classic casino games: Roulette, Keno, Slot Machine.
 Detailed info is written in user_manual.txt.
+
+Extra Credit: see initial report of coverage in index.html
+
+FYI: In this project, we use FEST (Fixtures for Easy Software Testing) to create and maintain robust functional GUI tests.
+more information: https://code.google.com/p/fest/

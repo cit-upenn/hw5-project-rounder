@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>Lobby.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Casino (Dec 12, 2015 10:51:43 PM)</a> &gt; <a href="../../index.html" class="el_group">Casino</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">lobby</a> &gt; <span class="el_source">Lobby.java</span></div><h1>Lobby.java</h1><pre class="source lang-java linenums"><span class="fc" id="L1">package lobby;</span>
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+
+/**
+ * This class represents the game lobby, which has 3 options: Roulette, Keno,
+ * Slot Machine.
+ * 
+ * @author Zhiyuan Li
+ * @author Yi Shang
+ *
+ */
+public class Lobby extends JFrame {
+
+	private static final long serialVersionUID = 5008340198532190080L;
+
+	// instance variables
+	// GUI variables
+	private JPanel top, left, right, bottom, center;
+	private JButton roulette, keno, slot;
+	private JLabel lobbyView;
+
+<span class="fc" id="L39">	private static final Border WHITE_BORDER = new LineBorder(Color.WHITE, 2);</span>
+<span class="fc" id="L40">	private static final Color DARK_GREEN = new Color(0, 100, 0);</span>
+<span class="fc" id="L41">	private static final Color MEDIUM_ORCHID = new Color(186, 85, 211);</span>
+
+	/**
+	 * constructor
+	 */
+<span class="fc" id="L46">	public Lobby() {</span>
+<span class="fc" id="L47">		display();</span>
+<span class="fc" id="L48">	}</span>
+
+	/**
+	 * helper method to construct the lobby
+	 */
+	private void display() {
+<span class="fc" id="L54">		setTitle(&quot;Lobby&quot;);</span>
+<span class="fc" id="L55">		layOutComponents();</span>
+<span class="fc" id="L56">		attachListenersToComponents();</span>
+<span class="fc" id="L57">		setPreferredSize(new Dimension(600, 400));</span>
+<span class="fc" id="L58">		setLocation();</span>
+<span class="fc" id="L59">		pack();</span>
+<span class="fc" id="L60">		setVisible(true);</span>
+<span class="fc" id="L61">		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+<span class="fc" id="L62">	}</span>
+
+	/**
+	 * set the location of lobby window
+	 */
+	private void setLocation() {
+<span class="fc" id="L68">		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();</span>
+<span class="fc" id="L69">		int x = (int) ((dimension.getWidth() / 2 - this.getWidth()) / 2);</span>
+<span class="fc" id="L70">		int y = (int) ((dimension.getHeight() / 2 - this.getHeight()) / 2);</span>
+<span class="fc" id="L71">		setLocation(x, y);</span>
+<span class="fc" id="L72">	}</span>
+
+	/**
+	 * helper method to add image to the view
+	 */
+	private void addImage() {
+
+		// adjust image size and add to view
+<span class="fc" id="L80">		ImageIcon image = new ImageIcon(getClass().getResource(&quot;lobby.jpg&quot;));</span>
+<span class="fc" id="L81">		Image img = image.getImage();</span>
+<span class="fc" id="L82">		Image newImg = img.getScaledInstance(600, 360, java.awt.Image.SCALE_SMOOTH);</span>
+<span class="fc" id="L83">		ImageIcon newImage = new ImageIcon(newImg);</span>
+<span class="fc" id="L84">		lobbyView = new JLabel(newImage);</span>
+<span class="fc" id="L85">		center.add(lobbyView);</span>
+<span class="fc" id="L86">	}</span>
+
+	/**
+	 * helper method to set the layout
+	 */
+	private void layOutComponents() {
+<span class="fc" id="L92">		setLayout(new BorderLayout());</span>
+<span class="fc" id="L93">		addPanels();</span>
+<span class="fc" id="L94">		addSubPanels();</span>
+<span class="fc" id="L95">		addImage();</span>
+<span class="fc" id="L96">	}</span>
+
+	/**
+	 * helper method to add 5 panels
+	 */
+	private void addPanels() {
+<span class="fc" id="L102">		top = new JPanel();</span>
+<span class="fc" id="L103">		left = new JPanel();</span>
+<span class="fc" id="L104">		center = new JPanel();</span>
+<span class="fc" id="L105">		right = new JPanel();</span>
+<span class="fc" id="L106">		bottom = new JPanel();</span>
+
+		// add them to the frame
+<span class="fc" id="L109">		add(top, BorderLayout.NORTH);</span>
+<span class="fc" id="L110">		add(left, BorderLayout.WEST);</span>
+<span class="fc" id="L111">		add(center, BorderLayout.CENTER);</span>
+<span class="fc" id="L112">		add(right, BorderLayout.EAST);</span>
+<span class="fc" id="L113">		add(bottom, BorderLayout.SOUTH);</span>
+
+<span class="fc" id="L115">	}</span>
+
+	/**
+	 * helper method to add sub-panels within the bottom panel
+	 */
+	private void addSubPanels() {
+
+		// set buttom panel layout
+<span class="fc" id="L123">		bottom.setLayout(new GridLayout(1, 3));</span>
+<span class="fc" id="L124">		bottom.setBackground(DARK_GREEN);</span>
+
+		// add 3 option buttons
+<span class="fc" id="L127">		roulette = new JButton(&quot;Roulette&quot;);</span>
+<span class="fc" id="L128">		setButton(roulette);</span>
+<span class="fc" id="L129">		bottom.add(roulette);</span>
+<span class="fc" id="L130">		keno = new JButton(&quot;Keno&quot;);</span>
+<span class="fc" id="L131">		keno.setForeground(Color.white);</span>
+<span class="fc" id="L132">		setButton(keno);</span>
+<span class="fc" id="L133">		bottom.add(keno);</span>
+<span class="fc" id="L134">		slot = new JButton(&quot;Slot Machine&quot;);</span>
+<span class="fc" id="L135">		setButton(slot);</span>
+<span class="fc" id="L136">		bottom.add(slot);</span>
+
+<span class="fc" id="L138">	}</span>
+
+	/**
+	 * set button attributes
+	 * 
+	 * @param button
+	 *            the button to be set
+	 */
+	private void setButton(JButton button) {
+<span class="fc" id="L147">		button.setForeground(Color.white);</span>
+<span class="fc" id="L148">		button.setBackground(MEDIUM_ORCHID);</span>
+<span class="fc" id="L149">		button.setOpaque(true);</span>
+<span class="fc" id="L150">		button.setBorderPainted(true);</span>
+<span class="fc" id="L151">		button.setBorder(WHITE_BORDER);</span>
+<span class="fc" id="L152">		button.setFont(new Font(&quot;Arial&quot;, Font.PLAIN, 25));</span>
+
+<span class="fc" id="L154">	}</span>
+
+	/**
+	 * attach action listeners to buttons
+	 */
+	private void attachListenersToComponents() {
+
+		// add listeners to buttons
+		// add roulette
+<span class="fc" id="L163">		roulette.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L167">				setVisible(false);</span>
+<span class="nc" id="L168">				Game.rouletteView.setVisible(true);</span>
+<span class="nc" id="L169">			}</span>
+
+		});
+
+		// add keno
+<span class="fc" id="L174">		keno.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L178">				setVisible(false);</span>
+<span class="nc" id="L179">				Game.kenoView.setVisible(true);</span>
+<span class="nc" id="L180">			}</span>
+
+		});
+
+		// add slot
+<span class="fc" id="L185">		slot.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L189">				setVisible(false);</span>
+<span class="nc" id="L190">				Game.slotView.setVisible(true);</span>
+<span class="nc" id="L191">			}</span>
+
+		});
+
+<span class="fc" id="L195">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span>Casino (Dec 12, 2015 10:51:43 PM)</div></body></html>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>SlotTest.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Casino (Dec 12, 2015 10:51:43 PM)</a> &gt; <a href="../../index.html" class="el_group">Casino</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">slot_machine</a> &gt; <span class="el_source">SlotTest.java</span></div><h1>SlotTest.java</h1><pre class="source lang-java linenums">package slot_machine;
+
+import static org.junit.Assert.*;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import org.junit.Before;
+import org.junit.Test;
+
+<span class="fc" id="L11">public class SlotTest {</span>
+	
+	private Slot slot;
+
+	@Before
+	public void setUp() {
+<span class="fc" id="L17">		slot = new Slot(3);</span>
+<span class="fc" id="L18">	}</span>
+
+	@Test
+	public void testSpinResult() {
+<span class="fc" id="L22">		slot.spin();</span>
+<span class="fc bfc" id="L23" title="All 2 branches covered.">		for (int i = 0; i &lt; slot.getSymbols().length; i++) {</span>
+<span class="fc" id="L24">			assertNotNull(&quot;Symbols should not be null&quot;, slot.getSymbols()[i]);</span>
+		}
+<span class="fc" id="L26">	}</span>
+
+	@Test
+	public void testPayout() {
+<span class="fc" id="L30">		int duplicates = 0;</span>
+<span class="fc" id="L31">		slot.spin();</span>
+<span class="fc" id="L32">		Set&lt;SlotSymbol&gt; symbolsWithoutDuplicates = new HashSet&lt;SlotSymbol&gt;();</span>
+		
+<span class="fc bfc" id="L34" title="All 2 branches covered.">		for (SlotSymbol s : slot.getSymbols()) {</span>
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">			if (symbolsWithoutDuplicates.add(s) == false) {</span>
+<span class="nc" id="L36">				duplicates++;</span>
+			}
+		}
+		
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">		if (duplicates == 1) {// 2 symbols in common</span>
+<span class="nc" id="L41">			assertEquals(3, slot.getPayout(1));</span>
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">		} else if (duplicates == 2) {// 3 symbols in common</span>
+<span class="nc" id="L43">			assertEquals(10, slot.getPayout(1));</span>
+<span class="nc" id="L44">		} else {</span>
+<span class="fc" id="L45">			assertEquals(0, slot.getPayout(1));</span>
+		}
+		
+<span class="fc" id="L48">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span>Casino (Dec 12, 2015 10:51:43 PM)</div></body></html>

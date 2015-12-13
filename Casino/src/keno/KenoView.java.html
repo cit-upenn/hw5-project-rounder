@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>KenoView.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Casino (Dec 12, 2015 10:51:43 PM)</a> &gt; <a href="../../index.html" class="el_group">Casino</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">keno</a> &gt; <span class="el_source">KenoView.java</span></div><h1>KenoView.java</h1><pre class="source lang-java linenums"><span class="fc" id="L1">package keno;</span>
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashSet;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+
+import lobby.*;
+
+/**
+ * This class represents a keno lottery ticket
+ * 
+ * @author Zhiyuan Li
+ * @author Yi Shang
+ *
+ */
+public class KenoView extends JFrame {
+
+	private static final long serialVersionUID = 7261847457620625993L;
+
+	// instance variables
+	private Keno keno;
+	private boolean[] picked;
+
+	// GUI variables
+	private JPanel top, left, right, bottom, center;
+	private JButton[] buttons;
+	private JButton draw, back, rule;
+
+	// some constants
+<span class="fc" id="L45">	private static final Border WHITE_BORDER = new LineBorder(Color.WHITE, 2);</span>
+<span class="fc" id="L46">	private static final Color ROYAL_BLUE = new Color(65, 105, 225);</span>
+<span class="fc" id="L47">	private static final Color DARK_GREY = new Color(169, 169, 169);</span>
+
+	// store results
+	private HashSet&lt;Integer&gt; userBets;
+	private int finalPayout;
+
+	/**
+	 * constructor
+	 */
+<span class="fc" id="L56">	public KenoView() {</span>
+<span class="fc" id="L57">		keno = new Keno();</span>
+<span class="fc" id="L58">		userBets = new HashSet&lt;Integer&gt;();</span>
+<span class="fc" id="L59">		finalPayout = 0;</span>
+<span class="fc" id="L60">		picked = new boolean[80];</span>
+
+		// set each number as unpicked
+<span class="fc bfc" id="L63" title="All 2 branches covered.">		for (int i = 0; i &lt; picked.length; i++) {</span>
+<span class="fc" id="L64">			picked[i] = false;</span>
+		}
+
+<span class="fc" id="L67">		display();</span>
+<span class="fc" id="L68">	}</span>
+
+	/**
+	 * helper method to construct the keno ticket
+	 */
+	private void display() {
+<span class="fc" id="L74">		setTitle(&quot;Keno&quot;);</span>
+<span class="fc" id="L75">		layOutComponents();</span>
+<span class="fc" id="L76">		attachListenersToComponents();</span>
+<span class="fc" id="L77">		setPreferredSize(new Dimension(1200, 400));</span>
+<span class="fc" id="L78">		setLocation();</span>
+<span class="fc" id="L79">		pack();</span>
+<span class="fc" id="L80">		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+<span class="fc" id="L81">	}</span>
+
+	/**
+	 * set the location of keno window
+	 */
+	private void setLocation() {
+<span class="fc" id="L87">		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();</span>
+<span class="fc" id="L88">		int x = (int) ((dimension.getWidth() / 2 - this.getWidth()) / 2);</span>
+<span class="fc" id="L89">		int y = (int) ((dimension.getHeight() / 2 - this.getHeight()) / 2);</span>
+<span class="fc" id="L90">		setLocation(x, y);</span>
+<span class="fc" id="L91">	}</span>
+
+	/**
+	 * helper method to set the layout
+	 */
+	private void layOutComponents() {
+<span class="fc" id="L97">		setLayout(new BorderLayout());</span>
+<span class="fc" id="L98">		addPanels();</span>
+<span class="fc" id="L99">		addSubPanels();</span>
+<span class="fc" id="L100">		addButtons();</span>
+<span class="fc" id="L101">		addMenu();</span>
+<span class="fc" id="L102">	}</span>
+
+	/**
+	 * helper method to add 5 panels
+	 */
+	private void addPanels() {
+<span class="fc" id="L108">		top = new JPanel();</span>
+<span class="fc" id="L109">		left = new JPanel();</span>
+<span class="fc" id="L110">		center = new JPanel();</span>
+<span class="fc" id="L111">		right = new JPanel();</span>
+<span class="fc" id="L112">		bottom = new JPanel();</span>
+
+<span class="fc" id="L114">		add(top, BorderLayout.NORTH);</span>
+<span class="fc" id="L115">		add(left, BorderLayout.WEST);</span>
+<span class="fc" id="L116">		left.setBackground(DARK_GREY);</span>
+<span class="fc" id="L117">		add(center, BorderLayout.CENTER);</span>
+<span class="fc" id="L118">		center.setBackground(DARK_GREY);</span>
+<span class="fc" id="L119">		add(right, BorderLayout.EAST);</span>
+<span class="fc" id="L120">		add(bottom, BorderLayout.SOUTH);</span>
+<span class="fc" id="L121">		bottom.setBackground(DARK_GREY);</span>
+
+<span class="fc" id="L123">	}</span>
+
+	/**
+	 * helper method to add sub-panels within the bottom panel
+	 */
+	private void addSubPanels() {
+
+<span class="fc" id="L130">		bottom.setLayout(new GridLayout(1, 3));</span>
+
+		// add bottom buttons
+<span class="fc" id="L133">		rule = new JButton(&quot;Rule&quot;);</span>
+<span class="fc" id="L134">		bottom.add(rule);</span>
+<span class="fc" id="L135">		setButton(rule);</span>
+<span class="fc" id="L136">		draw = new JButton(&quot;Draw&quot;);</span>
+<span class="fc" id="L137">		draw.setName(&quot;Draw&quot;);</span>
+<span class="fc" id="L138">		setButton(draw);</span>
+<span class="fc" id="L139">		bottom.add(draw);</span>
+<span class="fc" id="L140">		back = new JButton(&quot;Back&quot;);</span>
+<span class="fc" id="L141">		setButton(back);</span>
+<span class="fc" id="L142">		bottom.add(back);</span>
+
+<span class="fc" id="L144">	}</span>
+
+	/**
+	 * helper method to set bottom buttons' attributes
+	 * 
+	 * @param button
+	 *            to be set
+	 */
+	private void setButton(JButton button) {
+<span class="fc" id="L153">		button.setForeground(Color.white);</span>
+<span class="fc" id="L154">		button.setBackground(DARK_GREY);</span>
+<span class="fc" id="L155">		button.setOpaque(true);</span>
+<span class="fc" id="L156">		button.setBorderPainted(true);</span>
+<span class="fc" id="L157">		button.setBorder(WHITE_BORDER);</span>
+<span class="fc" id="L158">		button.setFont(new Font(&quot;Arial&quot;, Font.PLAIN, 25));</span>
+
+<span class="fc" id="L160">	}</span>
+
+	/**
+	 * helper method to add buttons(number 1-80)
+	 */
+	private void addButtons() {
+
+		// initializing
+<span class="fc" id="L168">		buttons = new JButton[80];</span>
+
+		// set layout for button &quot;1&quot; to &quot;80&quot;
+<span class="fc" id="L171">		center.setLayout(new GridLayout(8, 10));</span>
+
+		// set up every button color and font
+<span class="fc bfc" id="L174" title="All 2 branches covered.">		for (int i = 0; i &lt; buttons.length; i++) {</span>
+<span class="fc" id="L175">			buttons[i] = new JButton(&quot;&quot; + (i + 1));</span>
+<span class="fc" id="L176">			buttons[i].setForeground(Color.white);</span>
+<span class="fc" id="L177">			buttons[i].setBackground(ROYAL_BLUE);</span>
+<span class="fc" id="L178">			buttons[i].setOpaque(true);</span>
+<span class="fc" id="L179">			buttons[i].setBorderPainted(true);</span>
+<span class="fc" id="L180">			buttons[i].setBorder(WHITE_BORDER);</span>
+<span class="fc" id="L181">			buttons[i].setFont(new Font(&quot;Arial&quot;, Font.PLAIN, 25));</span>
+<span class="fc" id="L182">			center.add(buttons[i]);</span>
+		}
+
+<span class="fc" id="L185">	}</span>
+
+	/**
+	 * helper method to add menu
+	 */
+	private void addMenu() {
+<span class="fc" id="L191">		JLabel blue = new JLabel(&quot;Unpicked&quot;);</span>
+<span class="fc" id="L192">		JLabel red = new JLabel(&quot;Picked&quot;);</span>
+<span class="fc" id="L193">		JLabel magenta = new JLabel(&quot;Hit&quot;);</span>
+<span class="fc" id="L194">		JLabel orange = new JLabel(&quot;Result&quot;);</span>
+
+<span class="fc" id="L196">		blue.setHorizontalAlignment(SwingConstants.CENTER);</span>
+<span class="fc" id="L197">		red.setHorizontalAlignment(SwingConstants.CENTER);</span>
+<span class="fc" id="L198">		magenta.setHorizontalAlignment(SwingConstants.CENTER);</span>
+<span class="fc" id="L199">		orange.setHorizontalAlignment(SwingConstants.CENTER);</span>
+
+<span class="fc" id="L201">		blue.setForeground(ROYAL_BLUE);</span>
+<span class="fc" id="L202">		red.setForeground(Color.red);</span>
+<span class="fc" id="L203">		magenta.setForeground(Color.magenta);</span>
+<span class="fc" id="L204">		orange.setForeground(Color.orange);</span>
+
+<span class="fc" id="L206">		blue.setFont(new Font(&quot;Arial&quot;, Font.PLAIN, 20));</span>
+<span class="fc" id="L207">		red.setFont(new Font(&quot;Arial&quot;, Font.PLAIN, 20));</span>
+<span class="fc" id="L208">		magenta.setFont(new Font(&quot;Arial&quot;, Font.PLAIN, 20));</span>
+<span class="fc" id="L209">		orange.setFont(new Font(&quot;Arial&quot;, Font.PLAIN, 20));</span>
+
+<span class="fc" id="L211">		left.setLayout(new GridLayout(10, 1));</span>
+<span class="fc" id="L212">		left.add(blue);</span>
+<span class="fc" id="L213">		left.add(red);</span>
+<span class="fc" id="L214">		left.add(magenta);</span>
+<span class="fc" id="L215">		left.add(orange);</span>
+<span class="fc" id="L216">	}</span>
+
+	/**
+	 * attach action listeners to buttons
+	 */
+	private void attachListenersToComponents() {
+
+		// add listeners for each button
+<span class="fc bfc" id="L224" title="All 2 branches covered.">		for (int i = 0; i &lt; buttons.length; i++) {</span>
+<span class="fc" id="L225">			buttons[i].addActionListener(new ButtonEvent(i));</span>
+		}
+
+<span class="fc" id="L228">		draw.addActionListener(new DrawEvent());</span>
+<span class="fc" id="L229">		back.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L233">				setVisible(false);</span>
+<span class="nc" id="L234">				Game.lobby.setVisible(true);</span>
+<span class="nc" id="L235">			}</span>
+
+		});
+
+<span class="fc" id="L239">		rule.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L243">				JOptionPane.showMessageDialog(getParent(), &quot;Keno Rules\n&quot; + &quot;1. You can pick 1-10 numbers\n&quot;</span>
+						+ &quot;2. 20 lucky numbers will be drawn\n&quot; + &quot;3. You will be paid according to numbers hit\n&quot;);
+<span class="nc" id="L245">			}</span>
+
+		});
+
+<span class="fc" id="L249">	}</span>
+
+	/**
+	 * inner class for button click event
+	 */
+	private class ButtonEvent implements ActionListener {
+
+		// instance variables
+		private int i;
+
+		/**
+		 * constructor
+		 * 
+		 * @param i
+		 *            button number
+		 */
+<span class="fc" id="L265">		public ButtonEvent(int i) {</span>
+<span class="fc" id="L266">			this.i = i;</span>
+<span class="fc" id="L267">		}</span>
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+<span class="nc bnc" id="L271" title="All 2 branches missed.">			picked[i] = !picked[i];</span>
+
+			// change color when click and unclick
+<span class="nc bnc" id="L274" title="All 2 branches missed.">			if (picked[i]) {</span>
+				// only allow up to 10 picks
+<span class="nc bnc" id="L276" title="All 2 branches missed.">				if (userBets.size() &lt; 10) {</span>
+<span class="nc" id="L277">					buttons[i].setBackground(Color.red);</span>
+<span class="nc" id="L278">					userBets.add(i + 1);</span>
+				}
+<span class="nc" id="L280">			} else {</span>
+<span class="nc" id="L281">				buttons[i].setBackground(ROYAL_BLUE);</span>
+<span class="nc" id="L282">				userBets.remove(i + 1);</span>
+			}
+
+<span class="nc" id="L285">		}</span>
+
+	}
+
+	/**
+	 * inner class for drawing lucky numbers
+	 */
+<span class="fc" id="L292">	private class DrawEvent implements ActionListener {</span>
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+<span class="fc" id="L296">			keno.drawLuckyNumbers();</span>
+<span class="fc" id="L297">			finalPayout = keno.payout(userBets);</span>
+<span class="fc" id="L298">			showLuckyNumbers();</span>
+<span class="fc" id="L299">			JOptionPane.showMessageDialog(getParent(), &quot;You hit &quot; + keno.numOfHits(userBets) + &quot; out of &quot;</span>
+<span class="fc" id="L300">					+ userBets.size() + &quot;\n&quot; + &quot;You get $&quot; + finalPayout);</span>
+<span class="fc" id="L301">			clearUserPicks();</span>
+<span class="fc" id="L302">		}</span>
+
+	}
+
+	/**
+	 * helper method to reveal all drawn lucky numbers
+	 */
+	private void showLuckyNumbers() {
+
+		// set background color
+<span class="fc bfc" id="L312" title="All 2 branches covered.">		for (Integer num : keno.getLuckyNumbers()) {</span>
+<span class="pc bpc" id="L313" title="1 of 2 branches missed.">			if (userBets.contains(num)) {</span>
+<span class="nc" id="L314">				buttons[num - 1].setBackground(Color.magenta);</span>
+<span class="nc" id="L315">			} else {</span>
+<span class="fc" id="L316">				buttons[num - 1].setBackground(Color.orange);</span>
+			}
+		}
+
+		// set every grid unpicked
+<span class="fc bfc" id="L321" title="All 2 branches covered.">		for (int i = 0; i &lt; picked.length; i++) {</span>
+<span class="fc" id="L322">			picked[i] = false;</span>
+		}
+
+<span class="fc" id="L325">	}</span>
+
+	/**
+	 * helper method to clear all previous user picks
+	 */
+	private void clearUserPicks() {
+
+		// clear user picks
+<span class="fc" id="L333">		userBets.clear();</span>
+<span class="fc bfc" id="L334" title="All 2 branches covered.">		for (int i = 0; i &lt; buttons.length; i++) {</span>
+<span class="fc" id="L335">			buttons[i].setBackground(ROYAL_BLUE);</span>
+		}
+
+<span class="fc" id="L338">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span>Casino (Dec 12, 2015 10:51:43 PM)</div></body></html>
