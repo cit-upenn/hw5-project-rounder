@@ -159,7 +159,7 @@ public class RouletteNumber {
 	 * @return true if so
 	 */
 	public boolean isSecondColumn() {
-		return num% 3 == 2;
+		return num % 3 == 2;
 	}
 
 	/**
