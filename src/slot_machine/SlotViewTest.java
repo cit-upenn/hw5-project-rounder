@@ -6,7 +6,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class SlotViewTest {
-
+	
+	/**
+	 * instance variable
+	 */
 	private FrameFixture slot;
 
 	@Before

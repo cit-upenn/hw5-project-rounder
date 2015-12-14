@@ -14,6 +14,9 @@ import org.junit.Test;
  */
 public class GameTest {
 	
+	/**
+	 * instance variable
+	 */
 	Game game;
 	
 	@Before

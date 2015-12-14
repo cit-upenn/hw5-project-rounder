@@ -14,6 +14,9 @@ import org.junit.Test;
  */
 public class KenoViewTest {
 
+	/**
+	 * instance variable
+	 */
 	private FrameFixture kv;
 
 	@Before

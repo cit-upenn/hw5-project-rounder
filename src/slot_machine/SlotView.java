@@ -32,13 +32,22 @@ import lobby.*;
  */
 public class SlotView extends JFrame {
 
+	/**
+	 * serial ID
+	 */
 	private static final long serialVersionUID = 3448807048334175081L;
 
-	// instance variables
+	/**
+	 * instance variables
+	 * slot: a slot
+	 * finalPayout: final payout
+	 */
 	private Slot slot;
 	private int finalPayout;
 
-	// GUI variables
+	/**
+	 *  GUI variables
+	 */
 	private JPanel top, left, right, bottom, center;
 	private JPanel subLeft, subCenter, subRight;
 	private JButton spin, back, rules;
@@ -46,7 +55,9 @@ public class SlotView extends JFrame {
 	private ArrayList<ImageIcon> images;
 	private Timer[] timer, spinner;
 
-	// constant
+	/** 
+	 * GUI constants
+	 */
 	private static final Border WHITE_BORDER = new LineBorder(Color.WHITE, 2);
 
 	/**

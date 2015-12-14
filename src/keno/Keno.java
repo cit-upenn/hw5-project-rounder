@@ -13,7 +13,12 @@ import java.util.HashSet;
  */
 public class Keno {
 
-	// instance variables
+	/**
+	 * instance variables
+	 * allNumbers: store all possible Keno numbers 
+	 * luckyNumbers: 20 lucky numbers drawn
+	 * hits: numbers player hits
+	 */
 	private ArrayList<Integer> allNumbers;
 	private HashSet<Integer> luckyNumbers;
 	private int hits;

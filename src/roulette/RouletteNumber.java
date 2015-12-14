@@ -14,7 +14,11 @@ package roulette;
  */
 public class RouletteNumber {
 
-	// instance variables
+	/**
+	 * instance variables
+	 * num: number value
+	 * color: color value
+	 */
 	private final int num;
 	private final RouletteColor color;
 

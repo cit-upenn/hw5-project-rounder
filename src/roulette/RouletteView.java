@@ -18,12 +18,19 @@ import lobby.*;
  */
 public class RouletteView extends JFrame {
 
+	/**
+	 * serial ID
+	 */
 	private static final long serialVersionUID = 1227969985674089474L;
 
-	// instance variables
+	/**
+	 * roulette: represents a roulette game
+	 */
 	private Roulette roulette;
 
-	// GUI variables
+	/** 
+	 * GUI variables
+	 */
 	private JPanel top, left, right, bottom, center;
 	private JPanel subTop, subLeft, subRight, subBottom, subCenter;
 	private JPanel subBottom1, subBottom2, subBottom3;
@@ -35,7 +42,9 @@ public class RouletteView extends JFrame {
 	private static final Color FOREST_GREEN = new Color(34, 139, 34);
 	private static final Color ROYAL_BLUE = new Color(65, 105, 225);
 
-	// array to store results
+	/**
+	 * store results
+	 */
 	private int[] userBets;
 	private int finalPayout;
 

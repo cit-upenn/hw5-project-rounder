@@ -28,14 +28,21 @@ import javax.swing.border.LineBorder;
  */
 public class Lobby extends JFrame {
 
+	/**
+	 * serial ID
+	 */
 	private static final long serialVersionUID = 5008340198532190080L;
 
-	// instance variables
-	// GUI variables
+	/**
+	 * GUI variables
+	 */
 	private JPanel top, left, right, bottom, center;
 	private JButton roulette, keno, slot;
 	private JLabel lobbyView;
 
+	/**
+	 * GUI constants
+	 */
 	private static final Border WHITE_BORDER = new LineBorder(Color.WHITE, 2);
 	private static final Color DARK_GREEN = new Color(0, 100, 0);
 	private static final Color MEDIUM_ORCHID = new Color(186, 85, 211);

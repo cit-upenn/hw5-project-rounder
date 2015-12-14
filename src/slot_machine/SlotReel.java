@@ -12,7 +12,11 @@ import java.util.Random;
  */
 public class SlotReel {
 
-	// instance variable
+	/**
+	 * instance variable
+	 * reel: slot reel
+	 * rand: random number generator
+	 */
 	private ArrayList<SlotSymbol> reel;
 	private Random rand;
 

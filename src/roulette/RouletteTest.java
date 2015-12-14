@@ -14,6 +14,9 @@ import org.junit.Test;
  */
 public class RouletteTest {
 	
+	/**
+	 * instance variable
+	 */
 	private Roulette roulette;
 
 	@Before

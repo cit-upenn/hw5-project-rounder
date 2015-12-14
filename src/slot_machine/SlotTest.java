@@ -10,6 +10,9 @@ import org.junit.Test;
 
 public class SlotTest {
 	
+	/**
+	 * instance variable
+	 */
 	private Slot slot;
 
 	@Before

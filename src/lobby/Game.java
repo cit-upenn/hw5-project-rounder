@@ -13,7 +13,13 @@ import slot_machine.SlotView;
  */
 public class Game {
 
-	// instance variables
+	/**
+	 * instance variables
+	 * lobby: represents a lobby
+	 * rouletteView: roulette window
+	 * kenoView: keno window
+	 * slotView: slot window
+	 */
 	public static Lobby lobby;
 	public static RouletteView rouletteView;
 	public static KenoView kenoView;

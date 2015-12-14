@@ -10,7 +10,9 @@ package slot_machine;
 public enum SlotSymbol {
 	Bar(0), Bell(1), Cherry(2), Grape(3), Lemon(4), Seven(5), Watermelon(6);
 
-	// instance variables
+	/**
+	 * instance variable
+	 */
 	private final int order;
 
 	/**

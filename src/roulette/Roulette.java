@@ -12,7 +12,12 @@ import java.util.Random;
  */
 public class Roulette {
 
-	// instance variables
+	/**
+	 * instance variables
+	 * roulette: represents a roulette
+	 * rand: random number generator
+	 * roundNumber: outcome number for this round
+	 */
 	private ArrayList<RouletteNumber> roulette;
 	private Random rand;
 	private RouletteNumber roundNumber;

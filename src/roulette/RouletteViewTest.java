@@ -14,6 +14,9 @@ import org.junit.Test;
  */
 public class RouletteViewTest {
 
+	/**
+	 * instance variable
+	 */
 	private FrameFixture rv;
 
 	@Before

@@ -29,19 +29,30 @@ import lobby.*;
  *
  */
 public class KenoView extends JFrame {
-
+	
+	/**
+	 * serial ID
+	 */
 	private static final long serialVersionUID = 7261847457620625993L;
 
-	// instance variables
+	/**
+	 * instance variables
+	 * keno: represents a keno game
+	 * picked: keep track of if a number is picked
+	 */
 	private Keno keno;
 	private boolean[] picked;
 
-	// GUI variables
+	/**
+	 * GUI variables
+	 */
 	private JPanel top, left, right, bottom, center;
 	private JButton[] buttons;
 	private JButton draw, back, rule;
 
-	// some constants
+	/**
+	 * GUI constants
+	 */
 	private static final Border WHITE_BORDER = new LineBorder(Color.WHITE, 2);
 	private static final Color ROYAL_BLUE = new Color(65, 105, 225);
 	private static final Color DARK_GREY = new Color(169, 169, 169);

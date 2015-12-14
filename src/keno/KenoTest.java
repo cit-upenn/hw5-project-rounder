@@ -16,6 +16,9 @@ import org.junit.Test;
  */
 public class KenoTest {
 
+	/**
+	 * instance variable
+	 */
 	private Keno k;
 
 	@Before

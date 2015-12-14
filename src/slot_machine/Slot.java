@@ -12,11 +12,17 @@ import java.util.Set;
  */
 public class Slot {
 
-	// instance variable
+	/**
+	 * instance variables
+	 * reels: a slot reel
+	 * symbol: one singl slot symbol
+	 */
 	private SlotReel[] reels;
 	private SlotSymbol[] symbols;
 
-	// payout ratios
+	/**
+	 * payout ratio
+	 */
 	private final static int DOUBLE_RATIO = 3;
 	private final static int TRIPLE_RATIO = 10;
 
